@@ -1,16 +1,28 @@
 import axios from "axios";
 
-const simpleForm = async (SignUpConfig) => {
-  let receivedResponse = "";
+const signUserUp = async (SignUpConfig) => {
   await axios(SignUpConfig)
     .then(function (response) {
-      receivedResponse = JSON.stringify(response.data.message);
+      console.log(JSON.stringify(response.data.message));
     })
-    .catch(function (error) {
-      console.log(error);
+    .catch((error) => {
+      // Error
+      if (error.response) {
+        // The request was made and the server responded with a status code
+        // that falls out of the range of 2xx
+        console.log(error.response.data);
+        console.log(error.response.status);
+      } else if (error.request) {
+        // The request was made but no response was received
+        // `error.request` is an instance of XMLHttpRequest in the
+        // browser and an instance of
+        // http.ClientRequest in node.js
+        console.log(error.request);
+      } else {
+        // Something happened in setting up the request that triggered an Error
+        console.log("Error", error.message);
+      }
     });
-
-  return receivedResponse;
 };
 
-export { simpleForm };
+export { signUserUp };

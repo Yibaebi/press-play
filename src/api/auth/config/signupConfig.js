@@ -1,13 +1,10 @@
 // import SignUpData from "../../../pages/signup";
 // The sigup data will be gotten from the sign up page
-
-const userEmail = "Elliotyy@genesystechhub.com";
+const userEmail = "Yummy1@yahoo.com";
 const userPassword = "Elliot@123!";
-const userName = "elliotyyibaebi";
 
 const userData = {
-  firstname: "Chidi",
-  lastname: userName,
+  firstname: "Chid",
   gender: "Male",
   email: userEmail,
   password: userPassword,
