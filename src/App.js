@@ -1,11 +1,11 @@
 import React from "react";
 import "./App.css";
-import { simpleForm } from "./api";
+import { response } from "./api";
 
 function App() {
   return (
     <div className="App">
-      {console.log("Simple Form", simpleForm())}
+      {console.log("Simple Form", response)}
       <header className="App-header">
         <p>
           Edit <code>src/App.js</code> and save to reload.
