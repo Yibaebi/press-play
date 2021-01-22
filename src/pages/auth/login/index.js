@@ -1,6 +1,8 @@
 import React from "react";
 import { primaryLogo } from "../../../assets";
 import { Button } from "../../../components/button";
+import { LogUserIn } from "../../../api";
+import { Input } from "../../../components";
 import "./login.css";
 
 const userDetails = {
@@ -11,27 +13,60 @@ const userDetails = {
 
 class LogInPage extends React.Component {
   state = {
-    userEmail: "",
-    userPassword: "",
+    account: { userEmail: "", userPassword: "" },
     checked: false,
+    errors: {
+      userEmail: "",
+      userPassword: "",
+    },
+    iconChange: "far fa-eye",
+    passwordType: "password",
+  };
+
+  validateLoginDetails = () => {
+    const errors = {};
+
+    const { userEmail, userPassword } = { ...this.state.account };
+
+    if (userEmail.trim() === "") {
+      errors.userEmail = "Invalid email";
+    }
+
+    if (userPassword.trim() === "") {
+      errors.userPassword = "Password is required!";
+    }
+
+    return Object.keys(errors).length === 0 ? null : errors;
+  };
+
+  validatLoginProperties = ({ name, value }) => {
+    if (name === "userEmail") {
+      if (value.trim() === "") {
+        return "Invalid email";
+      }
+    }
+
+    if (name === "userPassword") {
+      if (value.trim() === "") {
+        return "Password is required!";
+      }
+    }
   };
 
   handleLoginSubmit = (e) => {
     e.preventDefault();
-    console.log(this.state.userEmail, this.state.userPassword);
 
-    if (this.state.userEmail && this.state.userPassword) {
+    const account = { ...this.state.account };
+
+    if (account.userEmail && account.userPassword) {
       captureUserLoginDetails(
-        this.state.userEmail,
-        this.state.userPassword,
-        this.state.checked
+        account.userEmail.toLocaleLowerCase(),
+        account.userPassword
       );
 
-      console.log("Updated user details", userDetails);
+      console.log(LogUserIn(userDetails));
     } else {
-      alert("Please complete all login fields.");
       revertUserDetails();
-      console.log("Updated user details", userDetails);
     }
   };
 
@@ -42,7 +77,36 @@ class LogInPage extends React.Component {
     });
   };
 
+  handleHidePassword = () => {
+    const iconChange =
+      this.state.iconChange === "far fa-eye"
+        ? "far fa-eye-slash"
+        : "far fa-eye";
+
+    const passwordType =
+      this.state.passwordType === "password" ? "text" : "password";
+
+    this.setState({
+      iconChange: iconChange,
+      passwordType: passwordType,
+    });
+  };
+
+  handleInputChange = ({ currentTarget: input }) => {
+    const errors = { ...this.state.errors };
+    const errorMessage = this.validatLoginProperties(input);
+
+    if (errorMessage) errors[input.name] = errorMessage;
+    else delete errors[input.name];
+
+    const account = { ...this.state.account };
+    account[input.name] = input.value;
+    this.setState({ account, errors });
+  };
+
   render() {
+    const errors = { ...this.state.errors };
+
     return (
       <main className="login-page-main">
         <section className="login-page-header">
@@ -67,30 +131,30 @@ class LogInPage extends React.Component {
             <p>Let's continue where you left off</p>
             <div>
               <form className="login-form">
-                <label className="login-form-label " htmlFor="userEmail">
-                  Email address
-                </label>
-                <input
+                <Input
+                  onChange={this.handleInputChange}
+                  value={this.state.account.userEmail}
+                  labelClassName="login-form-label"
                   type="email"
+                  label="Email address"
                   name="userEmail"
-                  id="userEmail"
-                  placeholder="name@domain.com"
-                  onChange={(e) => this.setState({ userEmail: e.target.value })}
-                  value={this.state.userEmail}
+                  placeHolder="email@domain.com"
+                  error={errors.userEmail}
                 />
-                <label className="login-form-label" htmlFor="userPassword">
-                  Password
-                </label>
-                <input
-                  type="password"
+
+                <Input
+                  onChange={this.handleInputChange}
+                  value={this.state.account.userPassword}
+                  labelClassName="login-form-label label-password"
+                  type={this.state.passwordType}
+                  label="Password"
                   name="userPassword"
-                  id="userPassword"
-                  placeholder="Type your password"
-                  onChange={(e) =>
-                    this.setState({ userPassword: e.target.value })
-                  }
-                  value={this.state.userPassword}
+                  placeHolder="Type your password"
+                  error={errors.userPassword}
+                  iconClass={this.state.iconChange}
+                  iconChange={this.handleHidePassword}
                 />
+
                 <div className="login-form-remember">
                   <label className="label-container" htmlFor="rememberMe">
                     <input
@@ -115,10 +179,9 @@ class LogInPage extends React.Component {
   }
 }
 
-const captureUserLoginDetails = (email, password, rememberMe) => {
+const captureUserLoginDetails = (email, password) => {
   userDetails.email = email;
   userDetails.password = password;
-  userDetails.rememberLogin = rememberMe;
 };
 
 const revertUserDetails = () => {
