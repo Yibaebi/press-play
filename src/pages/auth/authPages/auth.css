@@ -1,10 +1,11 @@
-.login-page-main {
+.auth-page-main {
   background: linear-gradient(to left, #e2514c 50%, #ffffff 50%);
   height: 100vh;
   position: relative;
 }
 
-.login-page-header {
+.auth-page-header {
+  z-index: 3;
   height: 18vh;
   width: 80%;
   position: fixed;
@@ -33,7 +34,8 @@
   align-items: center;
 }
 
-.header-container a {
+.header-container a,
+.auth-page-body a {
   min-width: 140px;
   text-align: center;
   font-weight: 500;
@@ -44,24 +46,20 @@
   margin-right: 20px;
 }
 
+.auth-page-body a {
+  margin-right: 0px;
+}
+
+.auth-page-body a {
+  color: #273f48;
+  text-decoration: underline;
+}
+
 .header-container a:hover {
   text-decoration: underline;
 }
 
-.auth-signup-button {
-  min-width: 100px;
-  color: #4b4747;
-  border: 2px solid #e2514c;
-}
-
-.auth-signup-button:hover {
-  color: white;
-  background: #e2514c;
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.075);
-  border-radius: 32px;
-}
-
-.login-page-body {
+.auth-page-body {
   height: 100vh;
   margin: 0 auto;
   display: grid;
@@ -69,41 +67,83 @@
   margin-left: 10%;
 }
 
-.login-page-body p {
+.auth-page-body p {
   margin-bottom: 20px;
 }
 
-.login-page-body aside:last-of-type {
-  background: url("../../../assets//images/login-image.png");
+.auth-page-body aside:last-of-type {
+  background: url("../../../assets//images/signin-image.png");
   background-size: cover;
+  position: relative;
 }
 
-.login-page-body aside:first-of-type {
+.auth-page-body aside:last-of-type > section:first-child {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(
+      180deg,
+      rgba(231, 22, 22, 0.3) -10.37%,
+      rgba(235, 17, 17, 0) 65.09%
+    ),
+    rgba(226, 81, 76, 0.9);
+  mix-blend-mode: multiply;
+  color: #ffffff;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.auth-page-body aside:last-of-type > section:first-child h1 {
+  font-size: 54px;
+  line-height: 66px;
+  align-items: center;
+  letter-spacing: 0.15px;
+}
+.auth-page-body aside:last-of-type > section:first-child p {
+  color: white;
+  font-weight: 450;
+  font-size: 24px;
+  line-height: 30px;
+  letter-spacing: 0.15px;
+  width: 416px;
+}
+
+.signup-intro {
+  position: absolute;
+  top: 0;
+}
+
+.auth-page-body aside:first-of-type {
   margin-top: 4em;
+  height: 446px;
   display: flex;
   flex-direction: column;
   align-content: center;
   justify-content: center;
   align-self: center;
   min-width: 400px;
+  position: relative;
 }
 
-.login-page-body aside:first-of-type h1 {
+.auth-page-body aside:first-of-type h1 {
+  justify-self: center;
   justify-self: flex-start;
-  align-self: start;
   color: #e2514c;
   font-size: 30px;
   line-height: 45px;
 }
 
-.login-page-body .login-form {
+.auth-page-body .signup-form {
   display: flex;
   flex-direction: column;
 }
 
-.login-page-body .login-form input[type="password"],
-.login-page-body .login-form input[type="email"],
-.login-page-body .login-form input[type="text"] {
+.auth-page-body .signup-form input[type="password"],
+.auth-page-body .signup-form input[type="email"],
+.auth-page-body .signup-form input[type="text"] {
   width: 350px;
   height: 36px;
   border: none;
@@ -112,37 +152,41 @@
   outline: none;
 }
 
-.label-password,
-.login-form-label {
-  position: relative;
-  height: 90px;
+.auth-page-body .signup-form input[type="password"] {
+  padding-right: 40px;
 }
 
-.label-password .far.fa-eye,
-.label-password .far.fa-eye-slash {
+.label-password,
+.signup-form-label {
+  position: relative;
+}
+
+.label-password .far {
   color: #273f48;
   position: absolute;
-  bottom: 42px;
+  bottom: 24px;
   right: 15px;
   font-size: 1.2rem;
   transition: all 0.5s ease-in;
   z-index: 2;
 }
 
-.login-page-body .login-form input:focus {
+.auth-page-body .signup-form input:focus {
   border-bottom: 1px solid #e2514c;
 }
 
-.login-form-label {
+.signup-form-label {
   position: relative;
   width: 350px;
-  margin-bottom: 5px;
+  margin-top: 8px;
   font-size: 0.9rem;
   display: flex;
   flex-direction: column;
 }
 
-.login-button {
+.signup-button {
+  position: absolute;
+  bottom: 15px;
   color: white;
   outline: none;
   margin-top: 2em;
@@ -152,34 +196,38 @@
   border: none;
 }
 
-.login-button:hover {
-  background: rgb(226, 70, 70);
-}
-
-.login-button:disabled,
-.login-button:disabled:hover {
+.signup-button:disabled,
+.signup-button:disabled:hover {
   cursor: unset;
   background-color: rgba(39, 63, 72, 0.2);
   color: rgba(0, 0, 0, 0.6);
   box-shadow: 0px 8px 16px rgba(216, 155, 153, 0.15);
 }
 
-.login-page-body p {
+.signup-button:hover {
+  background: rgb(226, 70, 70);
+}
+
+.auth-page-body p,
+.auth-page-body a {
   font-size: 0.8rem;
   color: #273f48;
   font-weight: 600;
 }
+.auth-page-body a:hover {
+  color: #e2514c;
+}
 
-.login-form-remember {
+.signup-form-remember {
   font-size: 0.85rem;
-  margin-top: 12px;
+  margin-top: 8px;
   position: relative;
   padding-left: 25px;
   color: #273f48;
   font-weight: 600;
 }
 
-.login-form-remember input {
+.signup-form-remember input {
   position: absolute;
   opacity: 1;
   cursor: pointer;
@@ -232,14 +280,12 @@ p.error {
   margin-top: 7px;
   margin-bottom: 8px;
   color: rgba(226, 81, 76, 0.9);
-  position: absolute;
-  bottom: 0;
   font-size: 0.7rem;
   font-weight: 500;
 }
 
 @media screen and (max-width: 500px) {
-  .login-page-main {
+  .auth-page-main {
     background: #ffffff;
     height: 100vh;
     position: relative;
@@ -256,16 +302,16 @@ p.error {
     color: #273f48;
   }
 
-  .login-page-body aside:last-of-type {
+  .auth-page-body aside:last-of-type {
     display: none;
   }
 
-  .login-page-body {
+  .auth-page-body {
     height: 100vh;
     margin: 0 auto;
   }
 
-  .login-page-body aside:first-of-type {
+  .auth-page-body aside:first-of-type {
     background-color: #ffffff;
     min-width: 400px;
   }

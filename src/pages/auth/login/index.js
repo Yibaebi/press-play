@@ -4,6 +4,11 @@ import { Button } from "../../../components/button";
 import { LogUserIn } from "../../../api";
 import { Input } from "../../../components";
 import "./login.css";
+import {
+  AuthenticationPage,
+  captureUserDetails,
+  revertUserDetails,
+} from "../authPages";
 
 const userDetails = {
   email: "",
@@ -11,19 +16,16 @@ const userDetails = {
   rememberLogin: false,
 };
 
-class LogInPage extends React.Component {
+class LogInPage extends AuthenticationPage {
   state = {
     account: { userEmail: "", userPassword: "" },
     checked: false,
-    errors: {
-      userEmail: "",
-      userPassword: "",
-    },
+    errors: {},
     iconChange: "far fa-eye",
     passwordType: "password",
   };
 
-  validateLoginDetails = () => {
+  validateDetails = () => {
     const errors = {};
 
     const { userEmail, userPassword } = { ...this.state.account };
@@ -39,27 +41,13 @@ class LogInPage extends React.Component {
     return Object.keys(errors).length === 0 ? null : errors;
   };
 
-  validatLoginProperties = ({ name, value }) => {
-    if (name === "userEmail") {
-      if (value.trim() === "") {
-        return "Invalid email";
-      }
-    }
-
-    if (name === "userPassword") {
-      if (value.trim() === "") {
-        return "Password is required!";
-      }
-    }
-  };
-
   handleLoginSubmit = (e) => {
     e.preventDefault();
 
     const account = { ...this.state.account };
 
     if (account.userEmail && account.userPassword) {
-      captureUserLoginDetails(
+      captureUserDetails(
         account.userEmail.toLocaleLowerCase(),
         account.userPassword
       );
@@ -77,33 +65,6 @@ class LogInPage extends React.Component {
     });
   };
 
-  handleHidePassword = () => {
-    const iconChange =
-      this.state.iconChange === "far fa-eye"
-        ? "far fa-eye-slash"
-        : "far fa-eye";
-
-    const passwordType =
-      this.state.passwordType === "password" ? "text" : "password";
-
-    this.setState({
-      iconChange: iconChange,
-      passwordType: passwordType,
-    });
-  };
-
-  handleInputChange = ({ currentTarget: input }) => {
-    const errors = { ...this.state.errors };
-    const errorMessage = this.validatLoginProperties(input);
-
-    if (errorMessage) errors[input.name] = errorMessage;
-    else delete errors[input.name];
-
-    const account = { ...this.state.account };
-    account[input.name] = input.value;
-    this.setState({ account, errors });
-  };
-
   render() {
     const errors = { ...this.state.errors };
 
@@ -117,20 +78,20 @@ class LogInPage extends React.Component {
               <Button
                 label="Sign Up"
                 colorClass="white"
-                className="login-signup-button"
+                className="auth-signup-button"
               />
             </div>
           </div>
         </section>
-        <section
-          className="login-page-body"
-          onSubmit={(e) => this.handleLoginSubmit(e)}
-        >
+        <section className="login-page-body">
           <aside>
             <h1>Welcome Back!</h1>
             <p>Let's continue where you left off</p>
             <div>
-              <form className="login-form">
+              <form
+                className="login-form"
+                onSubmit={(e) => this.handleLoginSubmit(e)}
+              >
                 <Input
                   onChange={this.handleInputChange}
                   value={this.state.account.userEmail}
@@ -168,7 +129,11 @@ class LogInPage extends React.Component {
                   </label>
                 </div>
 
-                <Button label="Log In" className="login-button" />
+                <Button
+                  disabled={this.validateDetails()}
+                  label="Log In"
+                  className="login-button"
+                />
               </form>
             </div>
           </aside>
@@ -178,16 +143,5 @@ class LogInPage extends React.Component {
     );
   }
 }
-
-const captureUserLoginDetails = (email, password) => {
-  userDetails.email = email;
-  userDetails.password = password;
-};
-
-const revertUserDetails = () => {
-  userDetails.email = "";
-  userDetails.password = "";
-  userDetails.rememberLogin = false;
-};
 
 export { LogInPage, userDetails };
