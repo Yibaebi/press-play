@@ -1,17 +1,7 @@
-import { SignUserUp } from "../../../api";
+import { register } from "../../../api";
 import { primaryLogo } from "../../../assets";
 import { Button, Input } from "../../../components";
-import {
-  AuthenticationPage,
-  revertUserDetails,
-  captureUserDetails,
-} from "../authPages";
-
-const userDetails = {
-  username: "",
-  email: "",
-  password: "",
-};
+import { AuthenticationPage, captureUserDetails } from "../authPages";
 
 class SignUpPage extends AuthenticationPage {
   state = {
@@ -22,7 +12,7 @@ class SignUpPage extends AuthenticationPage {
     passwordType: "password",
   };
 
-  handleSignUpSubmit = (e) => {
+  handleSignUpSubmit = async (e) => {
     e.preventDefault();
 
     const errors = this.validateDetails();
@@ -35,15 +25,24 @@ class SignUpPage extends AuthenticationPage {
     const account = { ...this.state.account };
 
     if (account.userEmail && account.userPassword && account.userName) {
-      captureUserDetails(
+      const userDetails = captureUserDetails(
         account.userEmail.toLocaleLowerCase(),
         account.userPassword,
         account.userName
       );
-
-      console.log(SignUserUp(userDetails));
+      console.log("UserDetails", userDetails);
+      try {
+        const response = await register(userDetails);
+        console.log("Register", response.data.message);
+      } catch (ex) {
+        if (ex.response && ex.response.status === 409) {
+          const errors = { ...this.state.errors };
+          errors.userEmail = ex.response.data.message;
+          this.setState({ errors: errors });
+        }
+      }
     } else {
-      revertUserDetails();
+      // revertUserDetails();
     }
   };
 
@@ -128,4 +127,4 @@ class SignUpPage extends AuthenticationPage {
   }
 }
 
-export { SignUpPage, userDetails };
+export { SignUpPage };

@@ -1,12 +1,6 @@
 import React from "react";
-import { SignUserUp } from "../../../api";
+// import { SignUserUp } from "../../../api";
 import "./auth.css";
-
-const userDetails = {
-  username: "",
-  email: "",
-  password: "",
-};
 
 class AuthenticationPage extends React.Component {
   validateDetails = () => {
@@ -49,31 +43,6 @@ class AuthenticationPage extends React.Component {
     }
   };
 
-  handleSignUpSubmit = (e) => {
-    e.preventDefault();
-
-    const errors = this.validateSignUpDetails();
-    this.setState({
-      errors,
-    });
-
-    console.log(this.state.errors);
-
-    const account = { ...this.state.account };
-
-    if (account.userEmail && account.userPassword && account.userName) {
-      captureUserDetails(
-        account.userEmail.toLocaleLowerCase(),
-        account.userPassword,
-        account.userName
-      );
-
-      console.log(SignUserUp(userDetails));
-    } else {
-      revertUserDetails();
-    }
-  };
-
   handleRemeberMe = () => {
     let checked = !this.state.checked;
     this.setState({
@@ -109,22 +78,12 @@ class AuthenticationPage extends React.Component {
   };
 }
 
-const captureUserDetails = (email, password, username) => {
-  userDetails.email = email;
-  userDetails.password = password;
-  userDetails.username = username;
+const captureUserDetails = (userEmail, userPassword, userName) => {
+  return {
+    userEmail: userEmail,
+    userPassword: userPassword,
+    userName: userName,
+  };
 };
 
-const revertUserDetails = () => {
-  userDetails.email = "";
-  userDetails.password = "";
-  userDetails.username = "";
-  userDetails.rememberSignUp = false;
-};
-
-export {
-  AuthenticationPage,
-  userDetails,
-  captureUserDetails,
-  revertUserDetails,
-};
+export { AuthenticationPage, captureUserDetails };
