@@ -1,3 +1,3 @@
 {
-  "apiUrl": "https://mama-sauce-api.herokuapp.com/user"
+  "apiUrl": "http://press-play-api.herokuapp.com/user/"
 }

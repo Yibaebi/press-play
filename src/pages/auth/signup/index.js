@@ -1,7 +1,8 @@
 import { register } from "../../../api";
-import { primaryLogo } from "../../../assets";
 import { Button, Input } from "../../../components";
 import { AuthenticationPage, captureUserDetails } from "../authPages";
+import { AuthNavBar } from "../../../widgets";
+import "./signup.css";
 
 class SignUpPage extends AuthenticationPage {
   state = {
@@ -35,14 +36,12 @@ class SignUpPage extends AuthenticationPage {
         const response = await register(userDetails);
         console.log("Register", response.data.message);
       } catch (ex) {
-        if (ex.response && ex.response.status === 409) {
+        if (ex.response && ex.response.status === 400) {
           const errors = { ...this.state.errors };
-          errors.userEmail = ex.response.data.message;
+          errors.userEmail = ex.response.data.error;
           this.setState({ errors: errors });
         }
       }
-    } else {
-      // revertUserDetails();
     }
   };
 
@@ -53,16 +52,14 @@ class SignUpPage extends AuthenticationPage {
     return (
       <main className="auth-page-main">
         <section className="auth-page-header">
-          <div className="header-container">
-            <img src={primaryLogo} alt="pressplay logo" />
-          </div>
+          <AuthNavBar />
         </section>
         <section className="auth-page-body">
           <aside>
             <div className="signup-intro">
               <h1>Sign me up!</h1>
               <p>
-                If you have an account <a href="#browsepodcasts">Login</a> here
+                If you have an account <a href="/login">Login</a> here
               </p>
             </div>
             <div>
