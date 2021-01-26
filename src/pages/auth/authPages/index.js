@@ -41,6 +41,11 @@ class AuthenticationPage extends React.Component {
         return "Password is required!";
       }
     }
+    if (name === "resetEmail") {
+      if (value.trim() === "") {
+        return "Email can not be empty.";
+      }
+    }
   };
 
   handleRemeberMe = () => {

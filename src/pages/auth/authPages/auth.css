@@ -34,8 +34,7 @@
   align-items: center;
 }
 
-.header-container a,
-.auth-page-body a {
+.links a {
   min-width: 140px;
   text-align: center;
   font-weight: 500;
@@ -46,13 +45,22 @@
   margin-right: 20px;
 }
 
-.auth-page-body a {
-  margin-right: 0px;
+.links button a {
+  padding: 10px 16px;
+  color: #273f48;
+  font-weight: 500;
+  font-size: 1rem;
+  text-decoration: none;
+  margin-right: 0;
+}
+
+.links button:hover a {
+  color: #ffffff;
+  text-decoration: none;
 }
 
 .auth-page-body a {
-  color: #273f48;
-  text-decoration: underline;
+  margin-right: 0px;
 }
 
 .header-container a:hover {
@@ -194,21 +202,40 @@
 .signup-button:disabled:hover {
   cursor: unset;
   background-color: rgba(39, 63, 72, 0.2);
-  color: rgba(0, 0, 0, 0.6);
+  color: rgba(39, 63, 72, 0.6);
   box-shadow: 0px 8px 16px rgba(216, 155, 153, 0.15);
 }
 
-.signup-button:hover {
-  background: rgb(226, 70, 70);
+.signup-button:disabled a,
+.signup-button:disabled:hover a {
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.signup-button:hover a {
+  color: white;
+  text-decoration: none;
 }
 
 .auth-page-body p,
-.auth-page-body a {
+.signup-intro a,
+.forgot-password-link {
   font-size: 0.8rem;
   color: #273f48;
   font-weight: 600;
 }
-.auth-page-body a:hover {
+.forgot-password-link {
+  text-align: center;
+  margin-top: 20px;
+  width: 350px;
+}
+.forgot-password-link a {
+  font-size: 0.9rem;
+
+  text-align: center;
+  color: #d23e39;
+  text-decoration: none;
+}
+.signup-intro a:hover {
   color: #e2514c;
 }
 

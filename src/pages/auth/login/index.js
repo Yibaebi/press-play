@@ -1,20 +1,12 @@
 import React from "react";
-import { primaryLogo } from "../../../assets";
+import { Link } from "react-router-dom";
 import { Button } from "../../../components/button";
-import { LogUserIn } from "../../../api";
+import { login } from "../../../api";
 import { Input } from "../../../components";
-import "./login.css";
-import {
-  AuthenticationPage,
-  captureUserDetails,
-  revertUserDetails,
-} from "../authPages";
+import { AuthenticationPage } from "../authPages";
+import { AuthNavBar } from "../../../widgets";
 
-const userDetails = {
-  email: "",
-  password: "",
-  rememberLogin: false,
-};
+import "./login.css";
 
 class LogInPage extends AuthenticationPage {
   state = {
@@ -41,20 +33,26 @@ class LogInPage extends AuthenticationPage {
     return Object.keys(errors).length === 0 ? null : errors;
   };
 
-  handleLoginSubmit = (e) => {
+  handleLoginSubmit = async (e) => {
     e.preventDefault();
 
     const account = { ...this.state.account };
 
     if (account.userEmail && account.userPassword) {
-      captureUserDetails(
-        account.userEmail.toLocaleLowerCase(),
-        account.userPassword
-      );
-
-      console.log(LogUserIn(userDetails));
-    } else {
-      revertUserDetails();
+      try {
+        const { data } = await login(account.userEmail, account.userPassword);
+        const jwt = data.token;
+        localStorage.setItem("token", jwt);
+        window.location = "/";
+      } catch (error) {
+        if (error.response && error.response.status === 401) {
+          const errors = { ...this.state.errors };
+          errors.userEmail = "Invalid email or password. Try again";
+          this.setState({
+            errors,
+          });
+        }
+      }
     }
   };
 
@@ -71,17 +69,7 @@ class LogInPage extends AuthenticationPage {
     return (
       <main className="login-page-main">
         <section className="login-page-header">
-          <div className="header-container">
-            <img src={primaryLogo} alt="pressplay logo" />
-            <div className="links">
-              <a href="#browsepodcasts">Browse Podcasts</a>
-              <Button
-                label="Sign Up"
-                colorClass="white"
-                className="auth-signup-button"
-              />
-            </div>
-          </div>
+          <AuthNavBar buttonLabel="Sign up" link="/signup" />
         </section>
         <section className="login-page-body">
           <aside>
@@ -136,6 +124,10 @@ class LogInPage extends AuthenticationPage {
                 />
               </form>
             </div>
+            <div className="forgot-password-link">
+              Forgot your password?
+              <Link to="/resetPassword"> Click here.</Link>
+            </div>
           </aside>
           <aside></aside>
         </section>
@@ -144,4 +136,4 @@ class LogInPage extends AuthenticationPage {
   }
 }
 
-export { LogInPage, userDetails };
+export { LogInPage };

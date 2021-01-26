@@ -3,6 +3,7 @@ import { Button, Input } from "../../../components";
 import { AuthenticationPage, captureUserDetails } from "../authPages";
 import { AuthNavBar } from "../../../widgets";
 import "./signup.css";
+import { Link } from "react-router-dom";
 
 class SignUpPage extends AuthenticationPage {
   state = {
@@ -33,8 +34,8 @@ class SignUpPage extends AuthenticationPage {
       );
       console.log("UserDetails", userDetails);
       try {
-        const response = await register(userDetails);
-        console.log("Register", response.data.message);
+        await register(userDetails);
+        this.props.history.push("/login");
       } catch (ex) {
         if (ex.response && ex.response.status === 400) {
           const errors = { ...this.state.errors };
@@ -59,7 +60,7 @@ class SignUpPage extends AuthenticationPage {
             <div className="signup-intro">
               <h1>Sign me up!</h1>
               <p>
-                If you have an account <a href="/login">Login</a> here
+                If you have an account <Link to="/login">Login</Link> here
               </p>
             </div>
             <div>
