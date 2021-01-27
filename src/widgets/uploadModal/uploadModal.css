@@ -2,7 +2,7 @@
   width: 80%;
   background: #ffffff;
   box-shadow: 0px 4px 40px 5px rgba(0, 0, 0, 0.05);
-  border-radius: 12px;
+  border-radius: 70px;
   top: 20px;
   margin: 0px auto;
   height: 90vh;
@@ -23,7 +23,6 @@
 }
 
 .progress {
-  margin: 10px;
   height: 10px;
 }
 .progress-bar {
@@ -71,7 +70,8 @@
   letter-spacing: 0.15px;
   color: #e2514c;
   border-radius: 32px;
-  width: 100px;
+  width: 130px;
+  font-weight: 600;
 }
 
 .modal-footer .btn-primary:hover {
@@ -103,6 +103,7 @@ Album Art
   width: 100%;
   display: flex;
   align-items: center;
+  justify-content: center;
   flex-direction: column;
 }
 
@@ -157,19 +158,65 @@ Album Art
   justify-content: center;
   background-color: rgba(101, 101, 101, 0.2);
   color: #656565;
-  width: 50%;
+  width: 100%;
+  border-radius: 32px;
 }
 
 .upload-input-container .content-wrapper p:first-of-type {
   color: #273f48;
   font-weight: 500;
+  text-align: center;
 }
 
 .upload-input-container .content-wrapper label svg {
   margin-right: 10px;
-  fill: #ffffff;
 }
 
 /* 
 Podcast description
 */
+.description-input-wrapper {
+  margin-top: 3em;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.description-content-container {
+  width: 80%;
+  position: relative;
+  margin-top: 30px;
+}
+
+.description-content-container p {
+  position: absolute;
+  top: -12px;
+  /* left: 19px; */
+  background-color: #fff;
+  z-index: 2;
+  font-weight: 500;
+  font-size: 1rem;
+  line-height: 24px;
+  color: #273f48;
+}
+.description-content-container input,
+.description-content-container textarea {
+  outline: none;
+  padding-left: 19px;
+  width: 100%;
+  height: 65px;
+  border: 1px solid #ccced0;
+  box-sizing: border-box;
+  border-radius: 12px;
+}
+
+.description-input-wrapper .desc textarea {
+  height: 104px;
+  padding-top: 20px;
+}
+
+.description-input-wrapper input:focus,
+.description-input-wrapper textarea:focus {
+  border: 1px solid #e2514c;
+}

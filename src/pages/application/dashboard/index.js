@@ -17,13 +17,14 @@ import {
 } from "../../../assets";
 
 import "./dashboard.css";
-import { DashboardNavBar } from "../../../widgets";
+import { DashboardNavBar, UploadModal } from "../../../widgets";
 
 class Dashboard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       showModal: false,
+      showUploadModal: false,
       iconColor: "#656565",
       iconFocusColor: "#e2514c",
       isInView: "",
@@ -41,6 +42,18 @@ class Dashboard extends React.Component {
   handleModalOpen = () => {
     this.setState({
       showModal: true,
+    });
+  };
+
+  handleUploadModalOpen = () => {
+    this.setState({
+      showUploadModal: true,
+    });
+  };
+
+  hideUploadModal = () => {
+    this.setState({
+      showUploadModal: false,
     });
   };
 
@@ -95,7 +108,10 @@ class Dashboard extends React.Component {
               <section className="upload-box">
                 <h4>Start uploading here!</h4>
                 <div className="upload-content">
-                  <button className="upload">
+                  <button
+                    className="upload"
+                    onClick={this.handleUploadModalOpen}
+                  >
                     {uploadIcon()}Upload podcast
                   </button>
                   <button className="draft">{draftIcon()}Draft</button>
@@ -105,6 +121,10 @@ class Dashboard extends React.Component {
             {/* <button className="upload update-profile">Update profile</button> */}
           </div>
         </main>
+        <UploadModal
+          showModal={this.state.showUploadModal}
+          closeModal={this.hideUploadModal}
+        />
         <ReactModal
           isOpen={this.state.showModal}
           className="sidebar-modal"
