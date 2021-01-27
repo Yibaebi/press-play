@@ -39,8 +39,6 @@ class PasswordResetPage extends AuthenticationPage {
 
     const { resetEmail } = { ...this.state.account };
 
-    console.log(this.validateDetails());
-
     if (resetEmail) {
       try {
         const { data } = await resetPassword(resetEmail);
@@ -123,6 +121,7 @@ class PasswordResetPage extends AuthenticationPage {
           isOpen={this.state.showModal}
           className="Modal"
           overlayClassName="Overlay"
+          shouldCloseOnOverlayClick={true}
         >
           <h1>Success!</h1>
           <p>A reset link has been sent to your email address</p>
