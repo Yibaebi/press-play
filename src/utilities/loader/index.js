@@ -1,5 +1,6 @@
 import React from "react";
 import gsap from "gsap";
+import "./loader.css";
 
 const { useRef, useEffect } = React;
 
@@ -19,7 +20,7 @@ const IconLoader = () => {
   }, []);
 
   return (
-    <React.Fragment>
+    <div className="loader-container">
       <svg
         width="120px"
         height="120px"
@@ -65,7 +66,7 @@ const IconLoader = () => {
           style={{ fill: "#e2514c", fillRule: "nonzero", opacity: "0" }}
         />
       </svg>
-    </React.Fragment>
+    </div>
   );
 };
 

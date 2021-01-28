@@ -4,6 +4,7 @@ import { AuthenticationPage, captureUserDetails } from "../authPages";
 import { AuthNavBar } from "../../../widgets";
 import "./signup.css";
 import { Link } from "react-router-dom";
+import { IconLoader } from "../../../utilities/loader";
 
 class SignUpPage extends AuthenticationPage {
   state = {
@@ -12,6 +13,7 @@ class SignUpPage extends AuthenticationPage {
     errors: {},
     iconChange: "far fa-eye",
     passwordType: "password",
+    loading: null,
   };
 
   handleSignUpSubmit = async (e) => {
@@ -35,6 +37,9 @@ class SignUpPage extends AuthenticationPage {
       console.log("UserDetails", userDetails);
       try {
         await register(userDetails);
+        this.setState({
+          loading: <IconLoader />,
+        });
         this.props.history.push("/login");
       } catch (ex) {
         if (ex.response && ex.response.status === 400) {
@@ -120,6 +125,7 @@ class SignUpPage extends AuthenticationPage {
             </section>
           </aside>
         </section>
+        {this.state.loading !== null ? <IconLoader /> : null}
       </main>
     );
   }

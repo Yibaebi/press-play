@@ -1,3 +1,6 @@
+label {
+  display: inline;
+}
 .login-page-main {
   background: linear-gradient(to left, #e2514c 50%, #ffffff 50%);
   height: 100vh;

@@ -4,7 +4,9 @@
   box-sizing: border-box;
   font-family: "Poppins", sans-serif;
 }
-
+body {
+  position: relative;
+}
 h1,
 h2,
 h3,
@@ -14,7 +16,7 @@ h6 {
   font-family: "Montserrat", sans-serif;
 }
 
-.btn {
+.pressplay-btn {
   cursor: pointer;
   padding: 10px 16px;
   font-weight: 450;

@@ -15,7 +15,7 @@ const Button = ({
     <button
       disabled={disabled}
       type={type}
-      className={`btn ${colorClass} ${className}`}
+      className={`pressplay-btn ${colorClass} ${className}`}
       onClick={onClick}
     >
       {link ? <Link to={link}>{label}</Link> : label}

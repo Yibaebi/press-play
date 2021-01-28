@@ -9,7 +9,7 @@ import profileImage from "../../assets/images/05D10002-48EC-4D1E-BA3F-8957EC3D26
 import { Link } from "react-router-dom";
 import "./dashboardNavbar.css";
 
-function DashboardNavBar({ handleModalOpen }) {
+function DashboardNavBar({ handleModalOpen, user }) {
   return (
     <React.Fragment>
       <div className="logo-container">
@@ -31,7 +31,7 @@ function DashboardNavBar({ handleModalOpen }) {
         </div>
 
         <div className="dashboard-profile">
-          <p>Stephanie</p>
+          <p>{user}</p>
           <div className="profile-avatar">
             <img src={profileImage} alt="profile" />
           </div>

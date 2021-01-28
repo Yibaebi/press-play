@@ -72,7 +72,10 @@ class Dashboard extends React.Component {
     return (
       <div id="sidebar-wrapper">
         <div id="sidebar-nav-wrapper">
-          <DashboardNavBar handleModalOpen={this.handleModalOpen} />
+          <DashboardNavBar
+            handleModalOpen={this.handleModalOpen}
+            user={this.props.user}
+          />
         </div>
         <main className="dashboard-main-container">
           <div className="content-wrapper">

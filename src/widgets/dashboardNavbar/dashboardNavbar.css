@@ -15,3 +15,7 @@
   backdrop-filter: blur(80px);
   background-color: crimson;
 }
+
+.dashboard-profile p {
+  margin-bottom: 0px;
+}
