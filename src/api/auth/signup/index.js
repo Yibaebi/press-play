@@ -6,8 +6,8 @@ const SignUserUp = async () => {
   const userDetails = {
     email: "user1@yahoo.com",
     password: "@User1@User1",
-    firstname: "user1",
-    lastname: "user1",
+    firstName: "user1",
+    lastName: "user1",
     gender: "Male",
   };
 

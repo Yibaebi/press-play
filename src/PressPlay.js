@@ -15,7 +15,7 @@ import { LandingPage } from "./pages/application/landingPage";
 import { LandingNavbar } from "./widgets";
 
 class PressPlay extends React.Component {
-  state = {};
+  state = { user };
 
   componentDidMount() {
     try {
@@ -29,6 +29,7 @@ class PressPlay extends React.Component {
   render() {
     return (
       <div className="press-play-main-container">
+        {this.state.user ? }
         <Switch>
           <Route path="/signup" component={SignUpPage} />
           <Route path="/login" component={LogInPage} />
