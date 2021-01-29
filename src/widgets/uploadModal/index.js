@@ -6,6 +6,7 @@ import "./uploadModal.css";
 import { Button } from "../../components";
 import { inputFileIcon, headphoneIcon } from "../../assets";
 import { AuthenticationPage } from "../../pages/auth/authPages";
+import { capturePodcastDetails, uploadPodcastDetails } from "../../api/auth";
 
 class UploadModal extends AuthenticationPage {
   constructor(props) {
@@ -15,21 +16,29 @@ class UploadModal extends AuthenticationPage {
         cover: "Choose your cover image",
       },
       disabled: true,
-      progressBar: 33,
-      Label: "Next",
+      disabledUpload: true,
       backLabel: "Close",
       show: true,
+      progressBar: 33,
       coverName: "choose cover",
       audioName: "choose audio",
       podcastDescription: {
         podcastTitle: "",
         podcastDescription: "",
       },
+
+      coverImage: "",
+      coverFile: "",
     };
   }
 
   handleDialogReturn = () => {
-    const progressBar = this.state.progressBar;
+    const {
+      progressBar,
+      podcastDescription,
+      coverName,
+      backLabel,
+    } = this.state;
     if (progressBar === 100)
       this.setState({
         progressBar: 66,
@@ -38,9 +47,19 @@ class UploadModal extends AuthenticationPage {
       this.setState({
         progressBar: 33,
       });
-    if (this.state.progressBar === 33 && this.state.backLabel === "Close") {
+    if (progressBar === 33 && backLabel === "Close") {
       this.handleModalClose();
       this.props.closeModal();
+    }
+    if (coverName) {
+      this.setState({
+        disabled: false,
+      });
+    }
+    if (podcastDescription.podcastTitle && podcastDescription.podcastTitle) {
+      this.setState({
+        disabled: false,
+      });
     }
   };
 
@@ -50,16 +69,9 @@ class UploadModal extends AuthenticationPage {
     });
   };
 
-  handleFileUpload = (e, input) => {
-    if (input === "cover") {
-      this.setState({ coverName: e.target.files[0].name, disabled: false });
-    }
-    if (input === "audio") {
-      this.setState({ audioName: e.target.files[0].name });
-    }
-  };
+  handleFileUpload = (e, input) => {};
 
-  handleUploadSubmit = () => {
+  handleUploadSubmit = async () => {
     this.setState({ disabled: true });
     const progressBar = this.state.progressBar;
     if (progressBar === 33)
@@ -70,6 +82,36 @@ class UploadModal extends AuthenticationPage {
       this.setState({
         progressBar: 100,
       });
+      this.setState({
+        disabled: false,
+      });
+    }
+    if (this.state.podcastTitle && this.state.podcastTitle) {
+      this.setState({
+        disabled: false,
+      });
+    }
+    if (this.state.progressBar === 100) {
+      alert("Yes!");
+      this.setState({
+        disabled: false,
+      });
+
+      const podcastDetails = capturePodcastDetails(
+        this.state.coverFile,
+        this.state.podcastDescription.podcastTitle,
+        this.state.podcastDescription.podcastDescription,
+        "600e07f179177500043836ec"
+      );
+
+      console.log("The received ", podcastDetails);
+
+      try {
+        const response = await uploadPodcastDetails(podcastDetails);
+        console.log("Response", response);
+      } catch (error) {
+        console.log("Error", error);
+      }
     }
   };
 
@@ -103,27 +145,55 @@ class UploadModal extends AuthenticationPage {
     }
   };
 
+  onImageChange = (e, input) => {
+    if (e.target.files && e.target.files[0]) {
+      let reader = new FileReader();
+      reader.onload = (e) => {
+        this.setState({ coverImage: e.target.result });
+      };
+      reader.readAsDataURL(e.target.files[0]);
+    }
+    if (input === "cover") {
+      this.setState({
+        coverName: e.target.files[0].name,
+        disabled: false,
+        disabledUpload: true,
+      });
+    }
+
+    console.log(e.target.files[0]);
+    this.setState({
+      coverFile: e.target.files[0],
+    });
+  };
+
   coverContent = () => {
     return (
-      <section className="cover-content">
+      <section className="cover-content" id="cover-content">
         <div className="upload-input-container">
           <div className="content-wrapper">
-            <p>Drag and drop image file here</p>
-            <p>or</p>
-            <input
-              type="file"
-              name="coverImage"
-              id="coverImage"
-              hidden
-              onChange={(e) => this.handleFileUpload(e, "cover")}
-            />
-            <label for="coverImage">
-              {inputFileIcon()}
-              {this.state.coverName}
-            </label>
+            <React.Fragment>
+              <p>Drag and drop image file here</p>
+              <p>or</p>
+              <input
+                type="file"
+                name="coverImage"
+                id="coverImage"
+                hidden
+                onChange={(e) => this.onImageChange(e, "cover")}
+              />
+              <label for="coverImage">
+                {inputFileIcon()}
+                {this.state.coverName}
+              </label>
+            </React.Fragment>
           </div>
         </div>
-        <Button label="Upload cover" className="login-button cover" />
+        {this.state.coverImage ? (
+          <img id="target" src={this.state.coverImage} alt="" />
+        ) : (
+          " "
+        )}
       </section>
     );
   };
@@ -148,7 +218,6 @@ class UploadModal extends AuthenticationPage {
             </label>
           </div>
         </div>
-        <Button label="Upload audio" className="login-button cover" />
       </section>
     );
   };
@@ -191,9 +260,10 @@ class UploadModal extends AuthenticationPage {
   };
 
   render() {
+    // this.props.showModal
     return (
       <React.Fragment>
-        <Modal show={this.props.showModal}>
+        <Modal show={this.state.show}>
           <ProgressBar now={this.state.progressBar} />
           <Modal.Header>
             <Modal.Title>

@@ -2,7 +2,7 @@ import React from "react";
 import gsap from "gsap";
 import "./loader.css";
 
-const { useRef, useEffect } = React;
+const { useEffect } = React;
 
 const IconLoader = () => {
   useEffect(() => {

@@ -1,3 +1,10 @@
+#target {
+  border: 3px solid #273f48;
+  margin-top: 30px;
+  width: 200px;
+  height: 200px;
+}
+
 .modal-dialog {
   width: 80%;
   background: #ffffff;
@@ -68,22 +75,22 @@
   font-size: 14px;
   line-height: 24px;
   letter-spacing: 0.15px;
-  color: #e2514c;
+  color: #e2514c !important;
   border-radius: 32px;
   width: 130px;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .modal-footer .btn-primary:hover {
   background-color: #e2514c;
   border: 2px solid #e2514c;
-  color: #ffffff;
+  color: #ffffff !important;
 }
 
 .modal-footer .btn-secondary {
   background-color: #fff;
   border: 2px solid #273f48;
-  color: #273f48;
+  color: #273f48 !important;
 }
 
 .btn:focus {
@@ -92,7 +99,7 @@
 .modal-footer .btn-secondary:hover {
   background-color: #273f48;
   border: 2px solid #273f48;
-  color: #fff;
+  color: #fff !important;
 }
 
 /* 
@@ -133,16 +140,20 @@ Album Art
   width: fit-content;
 }
 
-.login-button.cover {
+.login-button {
+  color: #fff;
+  background-color: #e2514c;
+  margin-top: 3em;
   padding: 10px 30px;
   width: fit-content;
   align-self: flex-end;
   border-radius: 32px;
   align-self: center;
   transition: all 0.2s ease-in;
+  font-weight: 700;
 }
 
-.login-button.cover:hover {
+.login-button:hover {
   background-color: #e2514c;
   color: white;
   border: none;

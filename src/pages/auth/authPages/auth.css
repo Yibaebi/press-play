@@ -40,14 +40,14 @@
   font-weight: 500;
   font-size: 1rem;
   letter-spacing: 0.15px;
-  color: rgba(255, 255, 255, 0.8);
   text-decoration: none;
   margin-right: 20px;
+  color: #ced4da;
 }
 
 .links button a {
+  color: #e2514c;
   padding: 10px 16px;
-  color: #273f48;
   font-weight: 500;
   font-size: 1rem;
   text-decoration: none;
@@ -188,14 +188,20 @@
   font-size: 0.9rem;
 }
 
-.signup-button {
-  color: white;
+.signup-button,
+.signup-button:hover {
+  padding: 10px 30px;
   outline: none;
   margin-top: 0.5em;
   width: 350px;
   background: rgb(226, 95, 90);
   box-shadow: 0px 8px 16px rgba(226, 81, 76, 0.15);
   border: none;
+  border-radius: 32px;
+}
+
+.signup-button a {
+  color: white;
 }
 
 .signup-button:disabled,
@@ -209,6 +215,7 @@
 .signup-button:disabled a,
 .signup-button:disabled:hover a {
   color: rgba(0, 0, 0, 0.6);
+  font-weight: 600;
 }
 
 .signup-button:hover a {

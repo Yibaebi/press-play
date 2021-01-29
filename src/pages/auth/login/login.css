@@ -53,11 +53,20 @@ label {
 
 .auth-signup-button {
   min-width: 100px;
-  color: #4b4747;
+  background-color: #ffffff;
   border: 2px solid #e2514c;
+  border-radius: 32px;
 }
 
-.auth-signup-button:hover {
+.auth-signup-button a {
+  color: #e2514c;
+}
+
+button.auth-signup-button {
+  color: #e2514c;
+}
+
+button.auth-signup-button:hover {
   color: white;
   background: #e2514c;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.075);
@@ -153,6 +162,8 @@ label {
   background: rgb(226, 95, 90);
   box-shadow: 0px 8px 16px rgba(226, 81, 76, 0.15);
   border: none;
+  margin-left: 0px;
+  align-self: flex-start;
 }
 
 .login-button:hover {
@@ -165,6 +176,7 @@ label {
   background-color: rgba(39, 63, 72, 0.2);
   color: rgba(0, 0, 0, 0.6);
   box-shadow: 0px 8px 16px rgba(216, 155, 153, 0.15);
+  transform: none;
 }
 
 .login-page-body p {

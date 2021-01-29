@@ -8,7 +8,12 @@ import { IconLoader } from "../../../utilities/loader";
 
 class SignUpPage extends AuthenticationPage {
   state = {
-    account: { userEmail: "", userPassword: "", userName: "" },
+    account: {
+      userEmail: "",
+      userPassword: "",
+      userFirstName: "",
+      userLastName: "",
+    },
     checked: false,
     errors: {},
     iconChange: "far fa-eye",
@@ -28,19 +33,24 @@ class SignUpPage extends AuthenticationPage {
 
     const account = { ...this.state.account };
 
-    if (account.userEmail && account.userPassword && account.userName) {
+    if (
+      account.userEmail &&
+      account.userPassword &&
+      account.userFirstName &&
+      account.userLastName
+    ) {
       const userDetails = captureUserDetails(
         account.userEmail.toLocaleLowerCase(),
         account.userPassword,
-        account.userName
+        account.userLastName,
+        account.userFirstName
       );
-      console.log("UserDetails", userDetails);
       try {
         await register(userDetails);
         this.setState({
           loading: <IconLoader />,
         });
-        this.props.history.push("/login");
+        window.location = "/login";
       } catch (ex) {
         if (ex.response && ex.response.status === 400) {
           const errors = { ...this.state.errors };
@@ -58,7 +68,7 @@ class SignUpPage extends AuthenticationPage {
     return (
       <main className="auth-page-main">
         <section className="auth-page-header">
-          <AuthNavBar />
+          <AuthNavBar buttonLabel="Login" link="/login" />
         </section>
         <section className="auth-page-body">
           <aside>
@@ -76,7 +86,7 @@ class SignUpPage extends AuthenticationPage {
                 <Input
                   onChange={this.handleInputChange}
                   value={account.userEmail}
-                  labelClassName="signup-form-label"
+                  labelClassName="login-form-label"
                   type="email"
                   label="Email address"
                   name="userEmail"
@@ -85,19 +95,29 @@ class SignUpPage extends AuthenticationPage {
                 />
                 <Input
                   onChange={this.handleInputChange}
-                  value={account.userName}
-                  labelClassName="signup-form-label"
+                  value={account.userFirstName}
+                  labelClassName="login-form-label"
                   type="text"
-                  label="Username"
-                  name="userName"
-                  placeHolder="Please enter your username"
-                  error={errors.userName}
+                  label="Firstname"
+                  name="userFirstName"
+                  placeHolder="Please enter your firstname"
+                  error={errors.userFirstName}
+                />
+                <Input
+                  onChange={this.handleInputChange}
+                  value={account.userLastName}
+                  labelClassName="login-form-label"
+                  type="text"
+                  label="Lastname"
+                  name="userLastName"
+                  placeHolder="Please enter your lastname"
+                  error={errors.userLastName}
                 />
 
                 <Input
                   onChange={this.handleInputChange}
                   value={account.userPassword}
-                  labelClassName="signup-form-label label-password"
+                  labelClassName="login-form-label label-password"
                   type={this.state.passwordType}
                   label="Password"
                   name="userPassword"
@@ -118,10 +138,7 @@ class SignUpPage extends AuthenticationPage {
           </aside>
           <aside>
             <section>
-              {/* <div>
-                <h1>Hello Friend!</h1>
-                <p>Host listen and enjoy different podcasts on the go...</p>
-              </div> */}
+              <div></div>
             </section>
           </aside>
         </section>

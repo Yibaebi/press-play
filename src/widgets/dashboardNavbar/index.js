@@ -1,10 +1,5 @@
 import React from "react";
-import {
-  hamburgerUnclicked,
-  primaryLogo,
-  settingsIcon,
-  searchIcon,
-} from "../../assets";
+import { hamburgerUnclicked, primaryLogo, searchIcon } from "../../assets";
 import profileImage from "../../assets/images/05D10002-48EC-4D1E-BA3F-8957EC3D2651L0001.jpeg";
 import { Link } from "react-router-dom";
 import "./dashboardNavbar.css";
@@ -16,7 +11,7 @@ function DashboardNavBar({ handleModalOpen, user }) {
         <Link onClick={handleModalOpen} to="/">
           <img src={hamburgerUnclicked} alt="pressplay logo" />
         </Link>
-        <Link to="/">
+        <Link to="/user/home">
           <img
             src={primaryLogo}
             className="pressplay-logo"

@@ -30,6 +30,10 @@ class LogInPage extends AuthenticationPage {
       errors.userPassword = "Password is required!";
     }
 
+    if (userPassword.length < 4) {
+      errors.userPassword = "Password is less than 7 characters";
+    }
+
     return Object.keys(errors).length === 0 ? null : errors;
   };
 
@@ -43,7 +47,7 @@ class LogInPage extends AuthenticationPage {
         const { data } = await login(account.userEmail, account.userPassword);
         const jwt = data.token;
         localStorage.setItem("token", jwt);
-        window.location = "/";
+        window.location = "/dashboard";
       } catch (error) {
         if (error.response && error.response.status === 401) {
           const errors = { ...this.state.errors };
@@ -74,7 +78,7 @@ class LogInPage extends AuthenticationPage {
         <section className="login-page-body">
           <aside>
             <h1>Welcome Back!</h1>
-            <p>Let's continue where you left off</p>
+            <p>Login to continue your amazing experience at Press Play</p>
             <div>
               <form
                 className="login-form"
@@ -129,7 +133,11 @@ class LogInPage extends AuthenticationPage {
               <Link to="/resetPassword"> Click here.</Link>
             </div>
           </aside>
-          <aside></aside>
+          <aside>
+            <section>
+              <div></div>
+            </section>
+          </aside>
         </section>
       </main>
     );

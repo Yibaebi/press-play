@@ -16,7 +16,8 @@ h6 {
   font-family: "Montserrat", sans-serif;
 }
 
-.pressplay-btn {
+.btn {
+  color: white !important;
   cursor: pointer;
   padding: 10px 16px;
   font-weight: 450;

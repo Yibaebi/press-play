@@ -1,44 +1,60 @@
 import React from "react";
-// import { SignUserUp } from "../../../api";
 import "./auth.css";
 
 class AuthenticationPage extends React.Component {
   validateDetails = () => {
     const errors = {};
 
-    const { userEmail, userPassword, userName } = { ...this.state.account };
+    const { userEmail, userPassword, userFirstName, userLastName } = {
+      ...this.state.account,
+    };
 
     if (userEmail.trim() === "") {
       errors.userEmail = "Invalid email";
     }
 
-    if (userName.trim() === "") {
-      errors.userName = "Username cannot be empty";
+    if (userLastName.trim() === "") {
+      errors.userLastName = "Lastname cannot be empty";
+    }
+    if (userFirstName.trim() === "") {
+      errors.userName = "Firstname cannot be empty";
     }
 
     if (userPassword.trim() === "") {
       errors.userPassword = "Password is required!";
     }
 
+    if (userPassword.length < 7) {
+      errors.userPassword = "Password is less than 7 characters";
+    }
+
     return Object.keys(errors).length === 0 ? null : errors;
   };
 
-  validatSignUpProperties = ({ name, value }) => {
-    if (name === "userEmail") {
+  validateSignUpProperties = ({ name, value }) => {
+    if (name === "userFirstName") {
       if (value.trim() === "") {
-        return "Email is empty";
+        return "Enter firstname";
       }
     }
-
-    if (name === "userName") {
+    if (name === "userLastName") {
       if (value.trim() === "") {
-        return "Username cannot be empty";
+        return "Lastname is empty";
+      }
+    }
+    if (name === "userEmail") {
+      if (value.trim() === "") {
+        return "Email cannot be empty";
       }
     }
 
     if (name === "userPassword") {
       if (value.trim() === "") {
         return "Password is required!";
+      }
+
+      if (value.length < 7) {
+        return "Password is too short. Must be at least 7 characters";
       }
     }
     if (name === "resetEmail") {
@@ -72,7 +88,7 @@ class AuthenticationPage extends React.Component {
 
   handleInputChange = ({ currentTarget: input }) => {
     const errors = { ...this.state.errors };
-    const errorMessage = this.validatSignUpProperties(input);
+    const errorMessage = this.validateSignUpProperties(input);
 
     if (errorMessage) errors[input.name] = errorMessage;
     else delete errors[input.name];
@@ -83,11 +99,17 @@ class AuthenticationPage extends React.Component {
   };
 }
 
-const captureUserDetails = (userEmail, userPassword, userName) => {
+const captureUserDetails = (
+  userEmail,
+  userPassword,
+  userFirstName,
+  userLastName
+) => {
   return {
     userEmail: userEmail,
     userPassword: userPassword,
-    userName: userName,
+    userFirstName: userFirstName,
+    userLastName: userLastName,
   };
 };
 

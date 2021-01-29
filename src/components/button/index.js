@@ -11,11 +11,12 @@ const Button = ({
   disabled,
   link,
 }) => {
+  const ColorClass = colorClass ? colorClass : "";
   return (
     <button
       disabled={disabled}
       type={type}
-      className={`pressplay-btn ${colorClass} ${className}`}
+      className={`btn ${ColorClass} ${className}`}
       onClick={onClick}
     >
       {link ? <Link to={link}>{label}</Link> : label}
