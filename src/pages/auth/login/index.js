@@ -45,7 +45,9 @@ class LogInPage extends AuthenticationPage {
     if (account.userEmail && account.userPassword) {
       try {
         const { data } = await login(account.userEmail, account.userPassword);
-        const jwt = data.token;
+
+        console.log(data.data.token);
+        const jwt = data.data.token;
         localStorage.setItem("token", jwt);
         window.location = "/dashboard";
       } catch (error) {
