@@ -8,10 +8,13 @@ function DashboardNavBar({ handleModalOpen, user }) {
   return (
     <React.Fragment>
       <div className="logo-container">
-        <Link onClick={handleModalOpen} to="/">
-          <img src={hamburgerUnclicked} alt="pressplay logo" />
-        </Link>
-        <Link to="/user/home">
+        <img
+          onClick={handleModalOpen}
+          src={hamburgerUnclicked}
+          alt="pressplay logo"
+        />
+
+        <Link to="/home">
           <img
             src={primaryLogo}
             className="pressplay-logo"

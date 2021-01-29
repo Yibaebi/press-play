@@ -69,7 +69,7 @@ class Dashboard extends React.Component {
           </div>
           <Switch>
             <Route path="/user/dashboard" component={UserDashboard} />
-            <Route exact path="/" component={Home} />
+            <Route exact path="/home" component={Home} />
             <Route exact path="/logout" component={Logout} />
           </Switch>
 
