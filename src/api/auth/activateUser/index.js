@@ -4,7 +4,7 @@ import { apiUrl } from "../../../config.json";
 const apiEndpoint = apiUrl + "/activate-account";
 
 const activateAccount = (token) => {
-  return http.post(apiEndpoint, token);
+  return http.get(apiEndpoint, { token: token });
 };
 
 export { activateAccount };

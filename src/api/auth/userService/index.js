@@ -5,7 +5,8 @@ export function register(user) {
   const apiEndpoint = apiUrl + "/signup";
   return http.post(apiEndpoint, {
     email: user.userEmail,
-    name: user.userName,
+    firstName: user.userFirstName,
+    lastName: user.userLastName,
     password: user.userPassword,
   });
 }

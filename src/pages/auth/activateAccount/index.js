@@ -13,7 +13,12 @@ class ActivateAccount extends React.Component {
 
     try {
       const response = await activateAccount(token);
-      console.log(response.data);
+      console.log(response);
+      if (response.status === 200) {
+        this.setState({
+          activated: true,
+        });
+      }
     } catch (error) {
       console.log(error);
     }
