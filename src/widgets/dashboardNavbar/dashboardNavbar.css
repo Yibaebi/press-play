@@ -1,0 +1,21 @@
+.sidebar-nav-wrapper {
+  background: radial-gradient(
+    817.57% 12112.48% at 0.87% 6.77%,
+    #ffffff 0%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  filter: drop-shadow(80px 120px 100px rgba(0, 0, 0, 0.05));
+  backdrop-filter: blur(80px);
+  background: radial-gradient(
+    817.57% 12112.48% at 0.87% 6.77%,
+    #ffffff 0%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  filter: drop-shadow(80px 120px 100px rgba(0, 0, 0, 0.05));
+  backdrop-filter: blur(80px);
+  background-color: crimson;
+}
+
+.dashboard-profile p {
+  margin-bottom: 0px;
+}

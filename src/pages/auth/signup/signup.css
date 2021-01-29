@@ -1,0 +1,6 @@
+.signup-intro p a {
+  text-decoration: underline;
+}
+.signup-button:hover {
+  background: rgb(226, 70, 70);
+}
