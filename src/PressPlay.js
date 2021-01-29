@@ -2,7 +2,13 @@ import React from "react";
 import { Route, Switch } from "react-router-dom";
 import jwtDecode from "jwt-decode";
 
-import { Dashboard, Home, LogInPage, SignUpPage } from "./pages";
+import {
+  ActivateAccount,
+  Dashboard,
+  Home,
+  LogInPage,
+  SignUpPage,
+} from "./pages";
 import { PasswordResetPage } from "./pages";
 import "./PressPlay.css";
 import { LandingPage } from "./pages/application/landingPage";
@@ -26,6 +32,7 @@ class PressPlay extends React.Component {
         <Switch>
           <Route path="/signup" component={SignUpPage} />
           <Route path="/login" component={LogInPage} />
+          <Route path="/activateAccount" component={ActivateAccount} />
           <Route path="/resetPassword" component={PasswordResetPage} />
           <Route
             path="/dashboard"

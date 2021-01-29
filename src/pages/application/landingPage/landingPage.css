@@ -10,6 +10,7 @@
   margin-left: 20px;
 }
 .landing-page.browse-link {
+  height: 45px;
   transition: all 0.5s ease-in-out;
   text-decoration: none;
   font-weight: 500;
@@ -24,7 +25,9 @@
   text-decoration: underline;
 }
 
-.landing-page.signup-link {
+.landing-page.signup-link,
+.landing-page.login-link {
+  height: 45px;
   transition: all 0.5s ease-in-out;
   color: #e2514c;
   text-decoration: none;
@@ -34,25 +37,11 @@
   border-radius: 32px;
   border: 3px solid #fff;
 }
-.landing-page.signup-link:hover {
+.landing-page.signup-link:hover,
+.landing-page.login-link:hover {
   background-color: #e2514c;
   color: #fff;
   border: 3px solid #fff;
-}
-.landing-page.login-link {
-  transition: all 0.5s ease-in-out;
-  text-decoration: none;
-  padding: 10px 16px;
-  color: white;
-  border: 3px solid #ffffff;
-  box-sizing: border-box;
-  filter: drop-shadow(0px 2px 4px rgba(0, 0, 0, 0.075));
-  border-radius: 32px;
-}
-
-.landing-page.login-link:hover {
-  color: #e2514c;
-  background-color: #fff;
 }
 
 .landing-navbar {
@@ -146,8 +135,6 @@
   margin-left: 4em;
 }
 
-.landing-page.mission-description {
-}
 .landing-page.mission-description p {
   color: #273f48;
   font-weight: 500;
@@ -191,7 +178,7 @@
 
 .landing-page.search-container {
   width: 100%;
-  height: 100%;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -200,7 +187,7 @@
 
 .landing-page.search-container .search-images {
   height: 50%;
-  width: 40%;
+  width: 60%;
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
@@ -281,8 +268,8 @@
 }
 .landing-cards.card1,
 .landing-cards.card2 {
-  width: 350px;
-  height: 300px;
+  width: 300px;
+  height: 250px;
   left: 70%;
 }
 .landing-cards.card1 {
