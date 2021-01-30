@@ -19,6 +19,10 @@ import {
   searchIcon,
   footerLogoIcon,
   whiteLogo,
+  pattern1SVGLanding,
+  pattern3SVGLanding,
+  pattern2SVGLanding,
+  dotSVGLanding,
 } from "../../../assets";
 import { LandingNavbar } from "../../../widgets";
 
@@ -37,6 +41,11 @@ function LandingPage() {
             <Button label="Get started" className="landing-page hero-button" />
           </aside>
           <aside className="landing-page hero-image">
+            <div className="hero-image svgs"></div>
+            {pattern1SVGLanding()}
+            {pattern2SVGLanding()}
+            {pattern3SVGLanding()}
+            {dotSVGLanding()}
             <img src={landingHero} alt="landing hero" />
           </aside>
         </section>
@@ -45,9 +54,6 @@ function LandingPage() {
             <img src={landingMission} alt="landing hero" />
           </aside>
           <aside className="landing-page mission-description">
-            <h1>
-              <span>Our Mission</span>
-            </h1>
             <p>
               Press Play gives podcast creators an opportunity to share their
               voice with their listeners.
@@ -141,7 +147,7 @@ function LandingPage() {
         </section>
         <section className="landing-page container-metal feedback">
           <aside className="landing-page feedback-description">
-            <h2>Real Stories from Real Podcasters and Listeners</h2>
+            <h2>Real Stories from Real Podcasters &#38; Listeners</h2>
             <p>Get inspired by these stories.</p>
           </aside>
 
@@ -173,44 +179,47 @@ function LandingPage() {
             <p>Back-end Developer, Genesys</p>
           </div>
         </section>
-        <section className="landing-page container-white">
-          <aside className="landing-page mission-description make-podcast">
+        <section className="landing-page container-white make-podcast">
+          <aside className="landing-page mission-description ">
             <h4>Ready to make your own podcasts?</h4>
             <p>Join the PressPlay Community</p>
-            <Button label="Get started" className="landing-page hero-button" />
+            <Button
+              label="Get started"
+              className="landing-page podcast-button "
+            />
           </aside>
           <aside className="landing-page mission-image">
             <img src={ladyPic} alt="landing hero" />
           </aside>
         </section>
-        <section className="landing-page container-metal landing-footer">
-          <div className="footer-links-container">
-            {footerLogoIcon()}
-            <aside className="footer-links">
-              <div>
-                <h4>Company</h4>
-                <NavLink to="#">About Us</NavLink>
-                <NavLink to="#">Blog</NavLink>
-                <NavLink to="#">Careers</NavLink>
-                <NavLink to="#">Contact Us</NavLink>
-              </div>
-              <div>
-                <h4>Support</h4>
-                <NavLink to="#">Help Center</NavLink>
-                <NavLink to="#">Safety Center</NavLink>
-                <NavLink to="#">Community Guidelines</NavLink>
-              </div>
-              <div>
-                <h4>Legal</h4>
-                <NavLink to="#">Cookies Policy</NavLink>
-                <NavLink to="#">Privacy Policy</NavLink>
-                <NavLink to="#">Terms and Conditios</NavLink>
-                <NavLink to="#"></NavLink>
-              </div>
-            </aside>
-          </div>
-        </section>
       </main>
+      <footer className="landing-page container-metal landing-footer">
+        <div className="footer-links-container">
+          {footerLogoIcon()}
+          <aside className="footer-links">
+            <div>
+              <h4>Company</h4>
+              <NavLink to="#">About Us</NavLink>
+              <NavLink to="#">Blog</NavLink>
+              <NavLink to="#">Careers</NavLink>
+              <NavLink to="#">Contact Us</NavLink>
+            </div>
+            <div>
+              <h4>Support</h4>
+              <NavLink to="#">Help Center</NavLink>
+              <NavLink to="#">Safety Center</NavLink>
+              <NavLink to="#">Community Guidelines</NavLink>
+            </div>
+            <div>
+              <h4>Legal</h4>
+              <NavLink to="#">Cookies Policy</NavLink>
+              <NavLink to="#">Privacy Policy</NavLink>
+              <NavLink to="#">Terms and Conditios</NavLink>
+              <NavLink to="#"></NavLink>
+            </div>
+          </aside>
+        </div>
+      </footer>
     </React.Fragment>
   );
 }
