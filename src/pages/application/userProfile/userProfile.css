@@ -376,7 +376,7 @@ Dashboard analytics
   align-items: center;
   margin: 10px;
   outline: none;
-  transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-out;
   backface-visibility: hidden;
 }
 

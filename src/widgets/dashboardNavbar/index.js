@@ -14,7 +14,7 @@ function DashboardNavBar({ handleModalOpen, user }) {
           alt="pressplay logo"
         />
 
-        <Link to="/">
+        <Link to="/dashboard/home">
           <img
             src={primaryLogo}
             className="pressplay-logo"

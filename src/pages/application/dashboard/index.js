@@ -1,13 +1,15 @@
 import React from "react";
 import { Tab, Col, Nav, Row } from "react-bootstrap";
-import "react-responsive-carousel/lib/styles/carousel.min.css";
 import "./dashboard.css";
+import { NavLink } from "react-router-dom";
 import {
   uploadIcon,
   listeningIcon,
   subscribersIcon,
   likesIcon,
   draftIcon,
+  recommendation1,
+  angleRightIcon,
 } from "../../../assets";
 
 class UserDashboard extends React.Component {
@@ -19,12 +21,12 @@ class UserDashboard extends React.Component {
             <Col sm={3}>
               <Nav variant="pills" className="flex-column">
                 <Nav.Item>
-                  <Nav.Link id="user-dashboard-nav-item" eventKey="first">
+                  <Nav.Link id="user-dashboard-nav-item" eventKey="second">
                     Overview
                   </Nav.Link>
                 </Nav.Item>
                 <Nav.Item>
-                  <Nav.Link eventKey="second">View Podcasts</Nav.Link>
+                  <Nav.Link eventKey="first">View Podcasts</Nav.Link>
                 </Nav.Item>
                 <Nav.Item>
                   <Nav.Link disabled={true} eventKey="third">
@@ -35,7 +37,7 @@ class UserDashboard extends React.Component {
             </Col>
             <Col sm={9}>
               <Tab.Content>
-                <Tab.Pane eventKey="first">
+                <Tab.Pane eventKey="second">
                   <main className="dashboard-main-container">
                     <div className="content-wrapper">
                       <h2>Welcome to your dashboard!</h2>
@@ -77,21 +79,173 @@ class UserDashboard extends React.Component {
                               {uploadIcon()}Upload podcast
                             </button>
                             <button className="draft">
-                              {draftIcon()}Draft
+                              {draftIcon()} View Library
                             </button>
                           </div>
                         </section>
                       </section>
-                      <button className="upload update-profile">
-                        Update profile
-                      </button>
                     </div>
                   </main>
                 </Tab.Pane>
-                <Tab.Pane eventKey="second">
-                  <main className="dashboard-main-container">
+                <Tab.Pane eventKey="first">
+                  <main className="dashboard-main-container view-podcasts">
                     <div className="content-wrapper">
-                      <h2>Manage all your episodes</h2>
+                      <h2>Here are all your podcasts</h2>
+                      <section>
+                        <aside
+                          id="podcast-listing-wrapper"
+                          className="podcast-listing header"
+                        >
+                          <div className="podcast-listing-container ">
+                            <label htmlFor="selectAllPodcasts">
+                              <input
+                                type="checkbox"
+                                name="selectAllPodcasts"
+                                id=""
+                              />
+                              <span className="header-select-all">
+                                Select All
+                              </span>
+                            </label>
+
+                            <p>Date added</p>
+                            <p>likes</p>
+                          </div>
+                          <div className="podcast-listing-container">
+                            <label htmlFor="selectAllPodcasts">
+                              <input
+                                type="checkbox"
+                                name="selectAllPodcasts"
+                                id=""
+                              />
+                              <div className="image-container">
+                                <img src={recommendation1} alt="" />
+                                <p>Skip the repeat</p>
+                              </div>
+                            </label>
+
+                            <p>Date added</p>
+                            <p>likes</p>
+                            <NavLink to="/dashboard/dashboard">
+                              View more {angleRightIcon()}
+                            </NavLink>
+                          </div>
+                          <div className="podcast-listing-container">
+                            <label htmlFor="selectAllPodcasts">
+                              <input
+                                type="checkbox"
+                                name="selectAllPodcasts"
+                                id=""
+                              />
+                              <div className="image-container">
+                                <img src={recommendation1} alt="" />
+                                <p>Skip the repeat</p>
+                              </div>
+                            </label>
+
+                            <p>Date added</p>
+                            <p>likes</p>
+                            <NavLink to="/dashboard/dashboard">
+                              View more {angleRightIcon()}
+                            </NavLink>
+                          </div>
+                          <div className="podcast-listing-container">
+                            <label htmlFor="selectAllPodcasts">
+                              <input
+                                type="checkbox"
+                                name="selectAllPodcasts"
+                                id=""
+                              />
+                              <div className="image-container">
+                                <img src={recommendation1} alt="" />
+                                <p>Skip the repeat</p>
+                              </div>
+                            </label>
+
+                            <p>Date added</p>
+                            <p>likes</p>
+                            <NavLink to="/dashboard/dashboard">
+                              View more {angleRightIcon()}
+                            </NavLink>
+                          </div>
+                          <div className="podcast-listing-container">
+                            <label htmlFor="selectAllPodcasts">
+                              <input
+                                type="checkbox"
+                                name="selectAllPodcasts"
+                                id=""
+                              />
+                              <div className="image-container">
+                                <img src={recommendation1} alt="" />
+                                <p>Skip the repeat</p>
+                              </div>
+                            </label>
+
+                            <p>Date added</p>
+                            <p>likes</p>
+                            <NavLink to="/dashboard/dashboard">
+                              View more {angleRightIcon()}
+                            </NavLink>
+                          </div>{" "}
+                          <div className="podcast-listing-container">
+                            <label htmlFor="selectAllPodcasts">
+                              <input
+                                type="checkbox"
+                                name="selectAllPodcasts"
+                                id=""
+                              />
+                              <div className="image-container">
+                                <img src={recommendation1} alt="" />
+                                <p>Skip the repeat</p>
+                              </div>
+                            </label>
+
+                            <p>Date added</p>
+                            <p>likes</p>
+                            <NavLink to="/dashboard/dashboard">
+                              View more {angleRightIcon()}
+                            </NavLink>
+                          </div>{" "}
+                          <div className="podcast-listing-container">
+                            <label htmlFor="selectAllPodcasts">
+                              <input
+                                type="checkbox"
+                                name="selectAllPodcasts"
+                                id=""
+                              />
+                              <div className="image-container">
+                                <img src={recommendation1} alt="" />
+                                <p>Skip the repeat</p>
+                              </div>
+                            </label>
+
+                            <p>Date added</p>
+                            <p>likes</p>
+                            <NavLink to="/dashboard/dashboard">
+                              View more {angleRightIcon()}
+                            </NavLink>
+                          </div>{" "}
+                          <div className="podcast-listing-container">
+                            <label htmlFor="selectAllPodcasts">
+                              <input
+                                type="checkbox"
+                                name="selectAllPodcasts"
+                                id=""
+                              />
+                              <div className="image-container">
+                                <img src={recommendation1} alt="" />
+                                <p>Skip the repeat</p>
+                              </div>
+                            </label>
+
+                            <p>Date added</p>
+                            <p>likes</p>
+                            <NavLink to="/dashboard/dashboard">
+                              View more {angleRightIcon()}
+                            </NavLink>
+                          </div>
+                        </aside>
+                      </section>
                     </div>
                   </main>
                 </Tab.Pane>

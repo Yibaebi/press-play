@@ -7,7 +7,6 @@ import {
   homeIcon,
   logoutIcon,
   primaryLogo,
-  settingsIcon,
 } from "../../../assets";
 
 import "./userProfile.css";
@@ -81,8 +80,9 @@ class Dashboard extends React.Component {
             />
           </div>
           <Switch>
+            <Route path="/dashboard/home" component={Home} />
             <Route
-              path="/dashboard"
+              path="/dashboard/dashboard"
               render={(props) => (
                 <UserDashboard
                   user={this.state.user}
@@ -92,12 +92,11 @@ class Dashboard extends React.Component {
               )}
             />
             <Route path="/logout" component={Logout} />
-            <Route path="/" component={Home} />
           </Switch>
 
           <UploadModal
-            uploadPodcast={this.state.showPodcastModal}
-            show={this.state.showModal}
+            uploadPodcast={false}
+            show={false}
             closeModal={this.hideUploadModal}
           />
           <ReactModal
@@ -108,14 +107,13 @@ class Dashboard extends React.Component {
           >
             <div className="sidebar-modal-wrapper">
               <div className="logo-container open-shadow">
-                <NavLink
+                <img
                   onClick={this.handleModalClose}
-                  className="hamburger"
-                  to="/"
-                >
-                  <img src={hamburgerUnclicked} alt="pressplay logo" />
-                </NavLink>
-                <NavLink to="/">
+                  src={hamburgerUnclicked}
+                  alt="pressplay logo"
+                />
+
+                <NavLink to="/dashboard/home">
                   <img
                     src={primaryLogo}
                     className="pressplay-logo"
@@ -126,7 +124,7 @@ class Dashboard extends React.Component {
               <ul className="sidebar-links">
                 <li>
                   <NavLink
-                    to="/"
+                    to="/dashboard/home"
                     activeClassName="sidebar-active"
                     onClick={(e) => this.handleIconChange(e, "home")}
                   >
@@ -147,14 +145,19 @@ class Dashboard extends React.Component {
                     </Nav.Link>
                   </li> */}
 
-                <li onClick={(e) => this.handleIconChange(e, "dashboard")}>
-                  <NavLink to="/dashboard" activeClassName="sidebar-active">
-                    {dashboardIcon(
-                      isInView === "dashboard" ? iconFocusColor : iconColor
-                    )}
-                    <span>Dashboard</span>
-                  </NavLink>
-                </li>
+                {!this.props.user && (
+                  <li onClick={(e) => this.handleIconChange(e, "dashboard")}>
+                    <NavLink
+                      to="/dashboard/dashboard"
+                      activeClassName="sidebar-active"
+                    >
+                      {dashboardIcon(
+                        isInView === "dashboard" ? iconFocusColor : iconColor
+                      )}
+                      <span>Dashboard</span>
+                    </NavLink>
+                  </li>
+                )}
 
                 {/* <li onClick={(e) => this.handleIconChange(e, "settings")}>
                   <Nav.Link
@@ -166,13 +169,22 @@ class Dashboard extends React.Component {
                     <span>Settings</span>
                   </Nav.Link>
                 </li> */}
-                {this.props.user && (
+                {this.props.user ? (
                   <li onClick={(e) => this.handleIconChange(e, "logout")}>
                     <NavLink to="/logout" activeClassName="sidebar-active">
                       {logoutIcon(
                         isInView === "logout" ? iconFocusColor : iconColor
                       )}
                       <span>Logout</span>
+                    </NavLink>
+                  </li>
+                ) : (
+                  <li onClick={(e) => this.handleIconChange(e, "login")}>
+                    <NavLink to="/login" activeClassName="sidebar-active">
+                      {logoutIcon(
+                        isInView === "login" ? iconFocusColor : iconColor
+                      )}
+                      <span>Login</span>
                     </NavLink>
                   </li>
                 )}

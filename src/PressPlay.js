@@ -29,32 +29,23 @@ class PressPlay extends React.Component {
   render() {
     return (
       <div className="press-play-main-container">
-        {this.state.user ? (
-          <Switch>
-            <Route path="/signup" component={SignUpPage} />
-            <Route path="/login" component={LogInPage} />
-            <Route path="/logout" component={Logout} />
-            <Route path="/resetPassword" component={PasswordResetPage} />
-            <Route path="/activateAccount" component={ActivateAccount} />
-            <Route
-              path="/"
-              render={(props) => (
-                <Dashboard user={this.state.user} {...props} />
-              )}
-            />
-          </Switch>
-        ) : (
-          <Switch>
-            <Route path="/activateAccount" component={ActivateAccount} />
-            <Route path="/resetPassword" component={PasswordResetPage} />
-            <Route path="/activateAccount" component={ActivateAccount} />
-            <Route path="/home" component={Home} />
-
-            <Route path="/signup" component={SignUpPage} />
-            <Route path="/login" component={LogInPage} />
-            <Route path="/" component={LandingPage} />
-          </Switch>
-        )}
+        <Switch>
+          <Route path="/signup" component={SignUpPage} />
+          <Route path="/login" component={LogInPage} />
+          <Route path="/logout" component={Logout} />
+          <Route path="/resetPassword" component={PasswordResetPage} />
+          <Route path="/activateAccount" component={ActivateAccount} />
+          <Route
+            path="/dashboard"
+            render={(props) => <Dashboard user={this.state.user} {...props} />}
+          />
+          <Route path="/activateAccount" component={ActivateAccount} />
+          <Route path="/resetPassword" component={PasswordResetPage} />
+          <Route path="/activateAccount" component={ActivateAccount} />
+          <Route path="/signup" component={SignUpPage} />
+          <Route path="/login" component={LogInPage} />
+          <Route path="/" component={LandingPage} />
+        </Switch>
       </div>
     );
   }

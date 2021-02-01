@@ -377,7 +377,7 @@ class UploadModal extends AuthenticationPage {
     // this.props.showModal
     return (
       <React.Fragment>
-        <Modal show={this.state.show}>
+        <Modal show={false}>
           <ProgressBar now={this.state.progressBar} />
           <Modal.Header>
             {this.props.uploadPodcast ? (
