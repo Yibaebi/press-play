@@ -3,9 +3,9 @@ import ReactModal from "react-modal";
 import { NavLink, Route, Switch } from "react-router-dom";
 import {
   dashboardIcon,
-  favIcon,
   hamburgerUnclicked,
   homeIcon,
+  logoutIcon,
   primaryLogo,
   settingsIcon,
 } from "../../../assets";
@@ -13,8 +13,9 @@ import {
 import "./userProfile.css";
 import { DashboardNavBar, UploadModal } from "../../../widgets";
 import { UserDashboard } from "../dashboard";
-import Home from "../home/index";
+
 import { Logout } from "../../auth/logout";
+import { Home } from "../";
 
 class Dashboard extends React.Component {
   constructor(props) {
@@ -28,8 +29,20 @@ class Dashboard extends React.Component {
     };
   }
 
+  componentDidMount() {
+    this.setState({
+      isInView: "home",
+    });
+  }
+
   handleModalOpen = () => {
     this.setState({
+      showModal: true,
+    });
+  };
+  showPodcastModal = () => {
+    this.setState({
+      showPodcastModal: true,
       showModal: true,
     });
   };
@@ -68,13 +81,23 @@ class Dashboard extends React.Component {
             />
           </div>
           <Switch>
-            <Route path="/user/dashboard" component={UserDashboard} />
-            <Route exact path="/home" component={Home} />
-            <Route exact path="/logout" component={Logout} />
+            <Route
+              path="/dashboard"
+              render={(props) => (
+                <UserDashboard
+                  user={this.state.user}
+                  uploadModal={this.showPodcastModal}
+                  {...props}
+                />
+              )}
+            />
+            <Route path="/logout" component={Logout} />
+            <Route path="/" component={Home} />
           </Switch>
 
           <UploadModal
-            showModal={this.state.showUploadModal}
+            uploadPodcast={this.state.showPodcastModal}
+            show={this.state.showModal}
             closeModal={this.hideUploadModal}
           />
           <ReactModal
@@ -123,33 +146,16 @@ class Dashboard extends React.Component {
                     <span>Subscriptions</span>
                     </Nav.Link>
                   </li> */}
-                {this.props.user && (
-                  <li onClick={(e) => this.handleIconChange(e, "dashboard")}>
-                    <NavLink
-                      to="/user/dashboard"
-                      activeClassName="sidebar-active"
-                    >
-                      {dashboardIcon(
-                        isInView === "dashboard" ? iconFocusColor : iconColor
-                      )}
-                      <span>Dashboard</span>
-                    </NavLink>
-                  </li>
-                )}
-                {!this.props.user && (
-                  <li onClick={(e) => this.handleIconChange(e, "login")}>
-                    <NavLink
-                      to="/login"
-                      disabled={true}
-                      activeClassName="sidebar-active"
-                    >
-                      {favIcon(
-                        isInView === "login" ? iconFocusColor : iconColor
-                      )}
-                      <span>Login </span>
-                    </NavLink>
-                  </li>
-                )}
+
+                <li onClick={(e) => this.handleIconChange(e, "dashboard")}>
+                  <NavLink to="/dashboard" activeClassName="sidebar-active">
+                    {dashboardIcon(
+                      isInView === "dashboard" ? iconFocusColor : iconColor
+                    )}
+                    <span>Dashboard</span>
+                  </NavLink>
+                </li>
+
                 {/* <li onClick={(e) => this.handleIconChange(e, "settings")}>
                   <Nav.Link
                     to="/settings"
@@ -163,7 +169,7 @@ class Dashboard extends React.Component {
                 {this.props.user && (
                   <li onClick={(e) => this.handleIconChange(e, "logout")}>
                     <NavLink to="/logout" activeClassName="sidebar-active">
-                      {settingsIcon(
+                      {logoutIcon(
                         isInView === "logout" ? iconFocusColor : iconColor
                       )}
                       <span>Logout</span>

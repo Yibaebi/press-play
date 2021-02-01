@@ -1,18 +1,12 @@
 import React from "react";
-import { Tab, Tabs, Col, Nav, Row } from "react-bootstrap";
-import { AuthNavBar, DashboardNavBar } from "../../../widgets";
-import { Carousel } from "react-responsive-carousel";
+import { Tab, Col, Nav, Row } from "react-bootstrap";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import "./home.css";
 import {
   recommendation1,
   recommendation2,
-  recommendation3,
-  recommendation4,
-  recommendation5,
   angleRightIcon,
 } from "../../../assets";
-// import { IconLoader } from "./../../../utilities/loader/index";
 
 class Home extends React.Component {
   render() {
@@ -158,4 +152,4 @@ class Home extends React.Component {
   }
 }
 
-export default Home;
+export { Home };

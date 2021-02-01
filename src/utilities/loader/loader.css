@@ -9,3 +9,11 @@
   justify-content: center;
   align-items: center;
 }
+
+.loader-container p {
+  font-size: 0.8rem;
+  position: absolute;
+  font-weight: 700;
+  top: 58%;
+  transform: translateY(-50%);
+}

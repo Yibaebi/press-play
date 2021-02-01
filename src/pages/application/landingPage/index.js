@@ -18,7 +18,6 @@ import {
   search9,
   searchIcon,
   footerLogoIcon,
-  whiteLogo,
   pattern1SVGLanding,
   pattern3SVGLanding,
   pattern2SVGLanding,

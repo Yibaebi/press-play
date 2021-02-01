@@ -1,0 +1,34 @@
+<svg width="64" height="68" viewBox="0 0 64 68" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g opacity="0.3" clip-path="url(#clip0)">
+<circle cy="2" r="2" fill="white"/>
+<circle cx="16" cy="2" r="2" fill="white"/>
+<circle cx="32" cy="2" r="2" fill="white"/>
+<circle cx="48" cy="2" r="2" fill="white"/>
+<circle cx="64" cy="2" r="2" fill="white"/>
+<circle cy="18" r="2" fill="white"/>
+<circle cx="16" cy="18" r="2" fill="white"/>
+<circle cx="32" cy="18" r="2" fill="white"/>
+<circle cx="48" cy="18" r="2" fill="white"/>
+<circle cx="64" cy="18" r="2" fill="white"/>
+<circle cy="34" r="2" fill="white"/>
+<circle cx="16" cy="34" r="2" fill="white"/>
+<circle cx="32" cy="34" r="2" fill="white"/>
+<circle cx="48" cy="34" r="2" fill="white"/>
+<circle cx="64" cy="34" r="2" fill="white"/>
+<circle cy="50" r="2" fill="white"/>
+<circle cx="16" cy="50" r="2" fill="white"/>
+<circle cx="32" cy="50" r="2" fill="white"/>
+<circle cx="48" cy="50" r="2" fill="white"/>
+<circle cx="64" cy="50" r="2" fill="white"/>
+<circle cy="66" r="2" fill="white"/>
+<circle cx="16" cy="66" r="2" fill="white"/>
+<circle cx="32" cy="66" r="2" fill="white"/>
+<circle cx="48" cy="66" r="2" fill="white"/>
+<circle cx="64" cy="66" r="2" fill="white"/>
+</g>
+<defs>
+<clipPath id="clip0">
+<rect width="64" height="68" fill="white"/>
+</clipPath>
+</defs>
+</svg>

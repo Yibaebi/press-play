@@ -72,7 +72,7 @@ class UserDashboard extends React.Component {
                           <div className="upload-content">
                             <button
                               className="upload"
-                              onClick={this.handleUploadModalOpen}
+                              onClick={this.props.uploadModal}
                             >
                               {uploadIcon()}Upload podcast
                             </button>

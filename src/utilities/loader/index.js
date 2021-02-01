@@ -4,7 +4,7 @@ import "./loader.css";
 
 const { useEffect } = React;
 
-const IconLoader = () => {
+const IconLoader = ({ loadingMessage }) => {
   useEffect(() => {
     const tl = gsap.timeline();
     gsap.to("#voice1", { opacity: 1, duration: 0.8 });
@@ -66,6 +66,8 @@ const IconLoader = () => {
           style={{ fill: "#e2514c", fillRule: "nonzero", opacity: "0" }}
         />
       </svg>
+
+      <p>{loadingMessage}</p>
     </div>
   );
 };

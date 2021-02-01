@@ -12,19 +12,17 @@ import {
 import { PasswordResetPage } from "./pages";
 import "./PressPlay.css";
 import { LandingPage } from "./pages/application/landingPage";
-import { LandingNavbar } from "./widgets";
+import { Logout } from "./pages/auth/logout";
 
 class PressPlay extends React.Component {
   state = { user: "" };
 
   componentDidMount() {
     try {
-      const jwt = localStorage.getItem("token");
-      const user = jwtDecode(jwt);
-
+      const user = localStorage.getItem("userDetails");
       console.log("current user ", user);
-
-      this.setState({ user: user.email });
+      const userDetails = JSON.parse(user);
+      this.setState({ user: userDetails.firstName });
     } catch (error) {}
   }
 
@@ -34,23 +32,26 @@ class PressPlay extends React.Component {
         {this.state.user ? (
           <Switch>
             <Route path="/signup" component={SignUpPage} />
-            <Route path="/activateAccount" component={ActivateAccount} />
+            <Route path="/login" component={LogInPage} />
+            <Route path="/logout" component={Logout} />
             <Route path="/resetPassword" component={PasswordResetPage} />
+            <Route path="/activateAccount" component={ActivateAccount} />
             <Route
-              path="/dashboard"
+              path="/"
               render={(props) => (
                 <Dashboard user={this.state.user} {...props} />
               )}
             />
-            <Route path="/" component={Dashboard} />
           </Switch>
         ) : (
           <Switch>
-            <Route path="/signup" component={SignUpPage} />
-            <Route path="/login" component={LogInPage} />
             <Route path="/activateAccount" component={ActivateAccount} />
             <Route path="/resetPassword" component={PasswordResetPage} />
-            <Route path="/" render={(props) => <LandingPage />} />
+            <Route path="/activateAccount" component={ActivateAccount} />
+            <Route path="/home" component={Home} />
+
+            <Route path="/signup" component={SignUpPage} />
+            <Route path="/login" component={LogInPage} />
             <Route path="/" component={LandingPage} />
           </Switch>
         )}

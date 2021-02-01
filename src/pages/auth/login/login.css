@@ -226,6 +226,7 @@ button.auth-signup-button:hover {
   content: "";
   position: absolute;
   display: none;
+  top: 3px;
 }
 
 .label-container input:checked ~ .checkmark:after {
@@ -233,9 +234,9 @@ button.auth-signup-button:hover {
 }
 
 .label-container .checkmark:after {
-  left: 4px;
+  left: 5.5px;
   width: 5px;
-  height: 10px;
+  height: 9px;
   border: solid white;
   border-width: 0 3px 3px 0;
   -webkit-transform: rotate(45deg);

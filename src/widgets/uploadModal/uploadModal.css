@@ -1,18 +1,38 @@
 #target {
+  margin-top: 20px;
+}
+
+#target img {
   border: 3px solid #273f48;
-  margin-top: 30px;
-  width: 200px;
-  height: 200px;
+  width: 150px;
+  height: 150px;
+}
+
+#audioTarget {
+  margin-top: 40px;
+  text-align: center;
+}
+
+#audioTarget p,
+#target p {
+  text-align: center;
+  color: #273f48;
+  font-weight: 700;
+  text-decoration: underline;
+  font-size: 1rem;
+}
+
+#target p {
+  margin: 0px;
 }
 
 .modal-dialog {
-  width: 80%;
+  width: 100%;
   background: #ffffff;
   box-shadow: 0px 4px 40px 5px rgba(0, 0, 0, 0.05);
   border-radius: 70px;
-  top: 20px;
   margin: 0px auto;
-  height: 90vh;
+  height: 100vh;
 }
 
 .modal-title {

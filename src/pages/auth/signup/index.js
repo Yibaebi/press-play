@@ -18,7 +18,7 @@ class SignUpPage extends AuthenticationPage {
     errors: {},
     iconChange: "far fa-eye",
     passwordType: "password",
-    loading: null,
+    loading: "",
   };
 
   handleSignUpSubmit = async (e) => {
@@ -46,15 +46,23 @@ class SignUpPage extends AuthenticationPage {
         account.userFirstName
       );
       try {
-        await register(userDetails);
+        let response = await register(userDetails);
+
+        console.log(response.data);
+
         this.setState({
-          loading: <IconLoader />,
+          loading: (
+            <IconLoader loadingMessage="Check your email for an activation link." />
+          ),
         });
-        window.location = "/login";
+
+        setTimeout(() => {
+          window.location = "/login";
+        }, 3000);
       } catch (ex) {
-        if (ex.response && ex.response.status === 400) {
+        if (ex.response) {
           const errors = { ...this.state.errors };
-          errors.userEmail = ex.response.data.error;
+          errors.userEmail = ex.response.data.message;
           this.setState({ errors: errors });
         }
       }
@@ -142,7 +150,7 @@ class SignUpPage extends AuthenticationPage {
             </section>
           </aside>
         </section>
-        {this.state.loading !== null ? <IconLoader /> : null}
+        {this.state.loading}
       </main>
     );
   }
