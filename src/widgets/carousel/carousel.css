@@ -1,0 +1,92 @@
+.carousel {
+  width: fit-content;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.carousel h2 {
+  margin: 0px;
+  background-color: aqua;
+  height: 100%;
+}
+
+.image-slide {
+  background-color: #273f48;
+  height: 100px;
+  width: 100px;
+  transition: background-image 0.3s ease-in-out;
+}
+
+.slide-arrow {
+  cursor: pointer;
+  width: 35px;
+  height: 35px;
+  border-radius: 32px;
+  font-size: 2rem;
+  position: absolute;
+  top: 40%;
+  transform: translateY(-50%);
+  background: #ffffff;
+  box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.slide-arrow.right {
+  right: -0.3rem;
+}
+
+.slide-arrow.right.hide,
+.slide-arrow.left.hide {
+  display: none;
+}
+
+.slide-arrow.left {
+  left: -0.3rem;
+}
+
+.slide-item {
+  margin: 16px;
+}
+
+.carousel-image-container {
+  display: flex;
+}
+
+.slide-item h3 {
+  margin: 0px;
+  margin-bottom: 3px;
+  padding: 0px;
+  width: 100px;
+  font-family: "Raleway";
+  font-weight: 500;
+  font-size: 0.8rem;
+
+  color: rgba(0, 0, 0, 0.8);
+}
+
+.slide-item img {
+  width: 100px;
+  height: 100px;
+  border-radius: 24px;
+  margin-bottom: 15px;
+}
+
+.slide-item p {
+  word-wrap: break-word;
+  margin: 0px;
+  padding: 0px;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+  /* identical to box height, or 200% */
+
+  color: #273f48;
+}
+
+.slide-item-desc {
+}

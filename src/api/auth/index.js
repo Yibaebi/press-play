@@ -5,3 +5,4 @@ export * from "./authService";
 export * from "./podcastService";
 export * from "./activateUser";
 export * from "./getCurrentUser";
+export * from "./episodeService";
