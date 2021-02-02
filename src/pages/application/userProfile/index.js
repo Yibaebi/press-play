@@ -80,7 +80,10 @@ class Dashboard extends React.Component {
             />
           </div>
           <Switch>
-            <Route path="/dashboard/home" component={Home} />
+            <Route
+              path="/dashboard/home"
+              render={(props) => <Home user={this.props.user} {...props} />}
+            />
             <Route
               path="/dashboard/dashboard"
               render={(props) => (

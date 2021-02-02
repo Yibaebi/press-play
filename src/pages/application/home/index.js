@@ -2,11 +2,7 @@ import React from "react";
 import { Tab, Col, Nav, Row } from "react-bootstrap";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import "./home.css";
-import {
-  recommendation1,
-  recommendation2,
-  angleRightIcon,
-} from "../../../assets";
+import { Carousel } from "../../../widgets";
 
 class Home extends React.Component {
   render() {
@@ -42,51 +38,16 @@ class Home extends React.Component {
                   <Tab.Pane eventKey="first">
                     <main className="dashboard-main-container">
                       <div className="content-wrapper">
-                        <h3>Hi Stephanie,</h3>
-                        <p>Here are some podcasts we think you might like</p>
+                        <h3 className="m-15">Hi, {this.props.user}!</h3>
+                        <p className="m-15">
+                          Here are some podcasts we think you might like
+                        </p>
 
                         <section
                           id="podcast-container"
                           className="recommendations"
                         >
-                          <div>
-                            <div className="left-arrow">{angleRightIcon()}</div>
-                            <img src={recommendation1} alt="recommendation 1" />
-
-                            <aside>
-                              <p>Skip the Repeat</p>
-                              <p>Kai Talim</p>
-                            </aside>
-                          </div>
-                          <div>
-                            <img src={recommendation2} alt="recommendation 2" />
-                            <aside>
-                              <p>Skip the Repeat</p>
-                              <p>Kai Talim</p>
-                            </aside>
-                          </div>
-                        </section>
-                        <h4>Comedy</h4>
-                        <section
-                          id="podcast-container"
-                          className="recommendations"
-                        >
-                          <div>
-                            <div className="left-arrow">{angleRightIcon()}</div>
-                            <img src={recommendation1} alt="recommendation 1" />
-
-                            <aside>
-                              <p>Skip the Repeat</p>
-                              <p>Kai Talim</p>
-                            </aside>
-                          </div>
-                          <div>
-                            <img src={recommendation2} alt="recommendation 2" />
-                            <aside>
-                              <p>Skip the Repeat</p>
-                              <p>Kai Talim</p>
-                            </aside>
-                          </div>
+                          <Carousel />
                         </section>
                       </div>
                     </main>
@@ -94,49 +55,19 @@ class Home extends React.Component {
                   <Tab.Pane eventKey="second">
                     <main className="dashboard-main-container">
                       <div className="content-wrapper">
-                        <h3>Trending Podcasts</h3>
+                        <h4 className="m-15">Trending Podcasts</h4>
                         <section
                           id="podcast-container"
                           className="recommendations"
                         >
-                          <div>
-                            <div className="left-arrow">{angleRightIcon()}</div>
-                            <img src={recommendation1} alt="recommendation 1" />
-
-                            <aside>
-                              <p>Skip the Repeat</p>
-                              <p>Kai Talim</p>
-                            </aside>
-                          </div>
-                          <div>
-                            <img src={recommendation2} alt="recommendation 2" />
-                            <aside>
-                              <p>Skip the Repeat</p>
-                              <p>Kai Talim</p>
-                            </aside>
-                          </div>
+                          <Carousel />
                         </section>
                         <h4>Most liked</h4>
                         <section
                           id="podcast-container"
                           className="recommendations"
                         >
-                          <div>
-                            <div className="left-arrow">{angleRightIcon()}</div>
-                            <img src={recommendation1} alt="recommendation 1" />
-
-                            <aside>
-                              <p>Skip the Repeat</p>
-                              <p>Kai Talim</p>
-                            </aside>
-                          </div>
-                          <div>
-                            <img src={recommendation2} alt="recommendation 2" />
-                            <aside>
-                              <p>Skip the Repeat</p>
-                              <p>Kai Talim</p>
-                            </aside>
-                          </div>
+                          <Carousel />
                         </section>
                       </div>
                     </main>

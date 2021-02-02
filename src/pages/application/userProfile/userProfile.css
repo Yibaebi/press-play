@@ -258,12 +258,16 @@ a.sidebar-active {
 
 .content-wrapper h2,
 .content-wrapper h4 {
-  margin: 5px 0px;
+  margin: 5px 15px;
   font-style: normal;
   font-weight: 600;
   font-size: 1.6rem;
   line-height: 29px;
   color: #273f48;
+}
+
+.m-15 {
+  margin: 5px 15px;
 }
 
 .content-wrapper h4 {

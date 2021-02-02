@@ -4,15 +4,13 @@ import { BrowserRouter } from "react-router-dom";
 import "./index.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 // import { UploadModal } from "./widgets";
-// import PressPlay from "./PressPlay";
-import { Carousel } from "./widgets/carousel";
+import PressPlay from "./PressPlay";
 
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
-      {/* <PressPlay /> */}
+      <PressPlay />
       {/* <UploadModal /> */}
-      <Carousel />
     </BrowserRouter>
   </React.StrictMode>,
   document.getElementById("root")

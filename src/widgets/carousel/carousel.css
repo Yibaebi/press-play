@@ -9,8 +9,9 @@
 
 .carousel h2 {
   margin: 0px;
-  background-color: aqua;
+  font-weight: 1rem;
   height: 100%;
+  font-weight: 800;
 }
 
 .image-slide {
@@ -86,7 +87,4 @@
   /* identical to box height, or 200% */
 
   color: #273f48;
-}
-
-.slide-item-desc {
 }
