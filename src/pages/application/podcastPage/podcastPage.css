@@ -1,0 +1,121 @@
+.podcast-page-container {
+  width: 500px;
+  height: 100vh;
+  overflow: auto;
+}
+
+.podcast-page-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px;
+  padding-bottom: 5px;
+}
+
+.podcast-page-title-box {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.podcast-page-title-image img {
+  width: 100px;
+  height: 100px;
+}
+
+.podcast-page-title-text p,
+.podcast-page-title-text h2,
+.episode-section-container h2 {
+  padding: 0px;
+  margin: 0px;
+}
+
+.podcast-page-title-text h2,
+.episode-section-container h2 {
+  font-size: 24px;
+  letter-spacing: 0.15px;
+  color: #273f48;
+}
+
+.podcast-page-title-text p,
+.empty-message p {
+  margin-top: 12px;
+  font-size: 14px;
+  letter-spacing: 0.15px;
+  color: #273f48;
+}
+
+.empty-message p {
+  width: 300px;
+}
+
+.empty-message p a {
+  text-decoration: none;
+  color: rgba(226, 81, 76, 1);
+  font-weight: 600;
+}
+
+.empty-message p a:hover {
+  text-decoration: underline;
+}
+
+.podcast-page-title-box button,
+.episode-item button,
+.podcast-page-title-content button {
+  background-color: white;
+  outline: none;
+  padding: 2px 20px;
+  margin-top: 12px;
+  margin-right: 10px;
+  box-sizing: border-box;
+  border-radius: 32px;
+  border: 2px solid rgba(226, 81, 76, 0.5);
+  transition: all 0.3s ease-in-out;
+  color: #273f48;
+}
+
+.episode-item button {
+  margin-top: 0px;
+  padding: 2px 15px;
+  font-size: 0.8rem;
+}
+
+.podcast-page-title-box button:hover,
+.episode-item button:hover,
+.podcast-page-title-content button:hover {
+  border: 2px solid rgba(226, 81, 76, 1);
+}
+
+.podcast-page-title-content {
+  margin-top: 15px;
+  padding: 20px;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 23px;
+  letter-spacing: 0.15px;
+  color: #273f48;
+}
+
+/* Episode Section */
+.episode-section-container {
+  padding: 20px;
+  padding-top: 0px;
+}
+.episode-section-container h2 {
+  margin-bottom: 20px;
+  font-size: 1.3rem;
+}
+
+.episode-item {
+  margin-bottom: 20px;
+}
+
+.episode-item h3 {
+  font-size: 1rem;
+  letter-spacing: 0.15px;
+}
+
+.episode-item p {
+  font-size: 0.9rem;
+  margin-bottom: 8px;
+}
