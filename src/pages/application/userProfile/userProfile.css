@@ -179,7 +179,7 @@ a.sidebar-active {
 }
 
 #sidebar-nav-wrapper .dashboard-search-profile {
-  padding-left: 6em;
+  width: 100%;
   justify-self: flex-start;
   display: flex;
   justify-content: space-between;
@@ -189,6 +189,7 @@ a.sidebar-active {
 }
 
 .dashboard-main-container {
+  overflow: auto;
   height: 88vh;
   width: 100%;
   background: rgb(232, 232, 232);
@@ -309,11 +310,13 @@ Dashboard analytics
 }
 
 .content p:first-of-type {
+  color: #fff;
   font-size: 32px;
   margin-bottom: 0px;
 }
 
 .content p:last-of-type {
+  color: #fff;
   font-size: 16px;
   font-weight: 600;
   margin-bottom: 0px;
@@ -380,8 +383,7 @@ Dashboard analytics
   align-items: center;
   margin: 10px;
   outline: none;
-  transition: all 0.3s ease-out;
-  backface-visibility: hidden;
+  transition: all 0.3s ease-in-out;
 }
 
 .upload.update-profile {

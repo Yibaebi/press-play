@@ -11,8 +11,28 @@ import {
   recommendation1,
   angleRightIcon,
 } from "../../../assets";
+import { UploadModal } from "../../../widgets";
 
 class UserDashboard extends React.Component {
+  state = {
+    showUploadEditModal: false,
+    uploadPodcast: false,
+    showEpisodePodcast: true,
+  };
+
+  handleShowUploadEditModal = () => {
+    this.setState({
+      showUploadEditModal: true,
+      uploadPodcast: true,
+    });
+  };
+
+  handleCloseModal = () => {
+    this.setState({
+      showUploadEditModal: false,
+      uploadPodcast: false,
+    });
+  };
   render() {
     return (
       <React.Fragment>
@@ -21,12 +41,12 @@ class UserDashboard extends React.Component {
             <Col sm={3}>
               <Nav variant="pills" className="flex-column">
                 <Nav.Item>
-                  <Nav.Link id="user-dashboard-nav-item" eventKey="second">
+                  <Nav.Link id="user-dashboard-nav-item" eventKey="first">
                     Overview
                   </Nav.Link>
                 </Nav.Item>
                 <Nav.Item>
-                  <Nav.Link eventKey="first">View Podcasts</Nav.Link>
+                  <Nav.Link eventKey="second">View Podcasts</Nav.Link>
                 </Nav.Item>
                 <Nav.Item>
                   <Nav.Link disabled={true} eventKey="third">
@@ -37,7 +57,7 @@ class UserDashboard extends React.Component {
             </Col>
             <Col sm={9}>
               <Tab.Content>
-                <Tab.Pane eventKey="second">
+                <Tab.Pane eventKey="first">
                   <main className="dashboard-main-container">
                     <div className="content-wrapper">
                       <h2>Welcome to your dashboard!</h2>
@@ -74,12 +94,9 @@ class UserDashboard extends React.Component {
                           <div className="upload-content">
                             <button
                               className="upload"
-                              onClick={this.props.uploadModal}
+                              onClick={this.handleShowUploadEditModal}
                             >
-                              {uploadIcon()}Upload podcast
-                            </button>
-                            <button className="draft">
-                              {draftIcon()} View Library
+                              {uploadIcon()}Create podcast
                             </button>
                           </div>
                         </section>
@@ -87,7 +104,7 @@ class UserDashboard extends React.Component {
                     </div>
                   </main>
                 </Tab.Pane>
-                <Tab.Pane eventKey="first">
+                <Tab.Pane eventKey="second">
                   <main className="dashboard-main-container view-podcasts">
                     <div className="content-wrapper">
                       <h2>Here are all your podcasts</h2>
@@ -254,6 +271,12 @@ class UserDashboard extends React.Component {
             </Col>
           </Row>
         </Tab.Container>
+        <UploadModal
+          podcastDetails={this.state.podcastDetails}
+          show={this.state.showUploadEditModal}
+          uploadPodcast={this.state.uploadPodcast}
+          closeModal={this.handleCloseModal}
+        />
       </React.Fragment>
     );
   }

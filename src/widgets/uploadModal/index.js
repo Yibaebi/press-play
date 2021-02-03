@@ -44,6 +44,22 @@ class UploadModal extends AuthenticationPage {
     };
   }
 
+  async componentDidMount() {
+    try {
+      const podcastDescription = this.state.podcastDescription;
+      podcastDescription.podcastTitle =
+        (await this.props.podcastDetails.title) || "";
+      podcastDescription.podcastDescription =
+        this.props.podcastDetails.description || "";
+
+      console.log("PodcastDetails: ", podcastDescription);
+      this.setState({
+        podcastDescription: podcastDescription,
+        coverImage: await this.props.podcastDetails.coverImageUrl,
+      });
+    } catch (error) {}
+  }
+
   handleDialogReturn = () => {
     const { progressBar, coverName, backLabel } = this.state;
     if (progressBar === 100)
@@ -52,20 +68,15 @@ class UploadModal extends AuthenticationPage {
       });
 
     if (progressBar === 50 && backLabel === "Close") {
-      this.handleModalClose();
+      console.log("Close Clicked");
       this.props.closeModal();
     }
+
     if (coverName) {
       this.setState({
         disabled: false,
       });
     }
-  };
-
-  handleModalClose = () => {
-    this.setState({
-      show: false,
-    });
   };
 
   handleUploadSubmit = async () => {
@@ -377,7 +388,7 @@ class UploadModal extends AuthenticationPage {
     // this.props.showModal
     return (
       <React.Fragment>
-        <Modal show={false}>
+        <Modal show={this.props.show}>
           <ProgressBar now={this.state.progressBar} />
           <Modal.Header>
             {this.props.uploadPodcast ? (

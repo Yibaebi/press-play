@@ -58,9 +58,11 @@ class Carousel extends React.Component {
 
           <div className="carousel-image-container">
             <ImageSlide
+              getPodcastId={this.props.getPodcastId}
               url={
                 this.state.podcasts[this.state.currentImageIndex].coverImageUrl
               }
+              podcastId={this.state.podcasts[this.state.currentImageIndex]._id}
               author={
                 this.state.podcasts[
                   this.state.currentImageIndex
@@ -76,9 +78,13 @@ class Carousel extends React.Component {
               }
             />
             <ImageSlide
+              getPodcastId={this.props.getPodcastId}
               url={
                 this.state.podcasts[this.state.currentImageIndex + 1]
                   .coverImageUrl
+              }
+              podcastId={
+                this.state.podcasts[this.state.currentImageIndex + 1]._id
               }
               author={
                 this.state.podcasts[
@@ -95,9 +101,13 @@ class Carousel extends React.Component {
               }
             />
             <ImageSlide
+              getPodcastId={this.props.getPodcastId}
               url={
                 this.state.podcasts[this.state.currentImageIndex + 2]
                   .coverImageUrl
+              }
+              podcastId={
+                this.state.podcasts[this.state.currentImageIndex + 2]._id
               }
               author={
                 this.state.podcasts[
@@ -114,9 +124,13 @@ class Carousel extends React.Component {
               }
             />
             <ImageSlide
+              getPodcastId={this.props.getPodcastId}
               url={
                 this.state.podcasts[this.state.currentImageIndex + 3]
                   .coverImageUrl
+              }
+              podcastId={
+                this.state.podcasts[this.state.currentImageIndex + 3]._id
               }
               author={
                 this.state.podcasts[
@@ -141,8 +155,8 @@ class Carousel extends React.Component {
         </div>
       </React.Fragment>
     ) : (
-      <div className="carousel">
-        <h2>Podcasts loading..</h2>
+      <div id="carousel-empty">
+        <h4>Podcasts are loading please wait...</h4>
       </div>
     );
   }

@@ -1,6 +1,31 @@
+#icon-loading-container {
+  background-color: tomato;
+  position: relative;
+}
+
+#icon-loading-container > .loader-container {
+  background-color: transparent;
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  width: 500px;
+  height: fit-content;
+}
+
+#icon-loading-container > .loader-container svg {
+  display: flex;
+
+  fill: #273f48;
+}
+
+.back-button {
+  width: fit-content;
+  cursor: pointer;
+  padding: 15px;
+}
 .podcast-page-container {
   width: 500px;
-  height: 100vh;
+  height: 88vh;
   overflow: auto;
 }
 
@@ -21,6 +46,7 @@
 .podcast-page-title-image img {
   width: 100px;
   height: 100px;
+  border-radius: 10px;
 }
 
 .podcast-page-title-text p,
@@ -59,9 +85,9 @@
   text-decoration: underline;
 }
 
-.podcast-page-title-box button,
-.episode-item button,
-.podcast-page-title-content button {
+#podcast-page .podcast-page-title-box button,
+#podcast-page .episode-item button,
+#podcast-page .podcast-page-title-content button {
   background-color: white;
   outline: none;
   padding: 2px 20px;
@@ -74,15 +100,15 @@
   color: #273f48;
 }
 
-.episode-item button {
+#podcast-page .episode-item button {
   margin-top: 0px;
   padding: 2px 15px;
   font-size: 0.8rem;
 }
 
-.podcast-page-title-box button:hover,
-.episode-item button:hover,
-.podcast-page-title-content button:hover {
+#podcast-page .podcast-page-title-box button:hover,
+#podcast-page .episode-item button:hover,
+#podcast-page .podcast-page-title-content button:hover {
   border: 2px solid rgba(226, 81, 76, 1);
 }
 

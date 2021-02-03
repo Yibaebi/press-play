@@ -3,8 +3,24 @@ import { Tab, Col, Nav, Row } from "react-bootstrap";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import "./home.css";
 import { Carousel } from "../../../widgets";
+import { PodcastPage } from "../podcastPage";
 
 class Home extends React.Component {
+  state = {
+    podcastId: "",
+    showPodcastPage: false,
+  };
+  getPodcastId = (e, podcastId) => {
+    this.setState({
+      podcastId,
+      showPodcastPage: true,
+    });
+  };
+  hidePodcastPage = () => {
+    this.setState({
+      showPodcastPage: false,
+    });
+  };
   render() {
     return (
       <React.Fragment>
@@ -37,19 +53,31 @@ class Home extends React.Component {
                 <Tab.Content>
                   <Tab.Pane eventKey="first">
                     <main className="dashboard-main-container">
-                      <div className="content-wrapper">
-                        <h3 className="m-15">Hi, {this.props.user}!</h3>
-                        <p className="m-15">
-                          Here are some podcasts we think you might like
-                        </p>
+                      {this.state.showPodcastPage ? (
+                        <PodcastPage
+                          podcastId={this.state.podcastId}
+                          hidePodcastPage={this.hidePodcastPage}
+                        />
+                      ) : (
+                        <React.Fragment>
+                          <div className="content-wrapper">
+                            <h3 className="m-15">Hi, {this.props.user}!</h3>
+                            <p className="m-15">
+                              Here are some podcasts we think you might like
+                            </p>
 
-                        <section
-                          id="podcast-container"
-                          className="recommendations"
-                        >
-                          <Carousel />
-                        </section>
-                      </div>
+                            <section
+                              id="podcast-container"
+                              className="recommendations"
+                            >
+                              <Carousel
+                                viewPodcast={this.viewPodcast}
+                                getPodcastId={this.getPodcastId}
+                              />
+                            </section>
+                          </div>
+                        </React.Fragment>
+                      )}
                     </main>
                   </Tab.Pane>
                   <Tab.Pane eventKey="second">
@@ -60,14 +88,20 @@ class Home extends React.Component {
                           id="podcast-container"
                           className="recommendations"
                         >
-                          <Carousel />
+                          <Carousel
+                            viewPodcast={this.viewPodcast}
+                            getPodcastId={this.getPodcastId}
+                          />
                         </section>
                         <h4>Most liked</h4>
                         <section
                           id="podcast-container"
                           className="recommendations"
                         >
-                          <Carousel />
+                          <Carousel
+                            viewPodcast={this.viewPodcast}
+                            getPodcastId={this.getPodcastId}
+                          />
                         </section>
                       </div>
                     </main>

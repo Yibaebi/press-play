@@ -4,27 +4,61 @@ import recommendation1 from "../../../assets/images/recommendation pictures/Rect
 import { getAllEpisodesOfAPodcast, getAPodcast } from "../../../api/auth";
 import { NavLink } from "react-router-dom";
 import { UploadModal } from "../../../widgets";
+import { goBackIcon } from "../../../assets";
+import { IconLoader } from "../../../utilities";
 
 class PodcastPage extends Component {
   state = {
     podcastDetails: {},
     episodes: [],
+    loading: null,
+    showUploadEditModal: false,
+    uploadPodcast: false,
+    episodeEditModal: false,
+    showEpisodePodcast: true,
+    uploadPodcastDetails: {},
+  };
+
+  handleEpisodeEditModal = () => {
+    this.setState({
+      episodeEditModal: true,
+      showEpisodePodcast: false,
+    });
+  };
+
+  handleShowUploadEditModal = (e, podcastDetails) => {
+    this.setState({
+      showUploadEditModal: true,
+      uploadPodcast: true,
+      uploadPodcastDetails: podcastDetails,
+    });
+  };
+
+  handleCloseModal = () => {
+    this.setState({
+      showUploadEditModal: false,
+      episodeEditModal: false,
+      uploadPodcast: false,
+    });
   };
 
   async componentDidMount() {
     try {
-      const podcastResponse = await getAPodcast("6013389326c3d60f7c6294bd");
+      const podcastResponse = await getAPodcast(this.props.podcastId);
       console.log("Podcast Details", podcastResponse.data);
-
-      const episodes = await getAllEpisodesOfAPodcast(
-        "6013389326c3d60f7c6294bd"
-      );
+      this.setState({
+        loading: false,
+      });
+      const episodes = await getAllEpisodesOfAPodcast(this.props.podcastId);
       console.log("Episodes", episodes.data);
 
-      this.setState({
-        podcastDetails: podcastResponse.data,
-        episodes: episodes.data,
-      });
+      if (podcastResponse.data && episodes.data) {
+        this.setState({
+          loading: true,
+          podcastDetails: podcastResponse.data,
+          episodes: episodes.data,
+        });
+      }
     } catch (error) {}
   }
 
@@ -39,7 +73,7 @@ class PodcastPage extends Component {
             <p>{episode.description}</p>
           </div>
           <div>
-            <button>Edit</button>
+            <button onClick={this.handleEpisodeEditModal}>Edit</button>
             <button>Delete</button>
             <button>Play</button>
           </div>
@@ -49,48 +83,81 @@ class PodcastPage extends Component {
     ));
     return (
       <React.Fragment>
-        <section className="podcast-page-container">
-          <aside className="podcast-page-wrapper">
-            <div className="podcast-page-title-box">
-              <div className="podcast-page-title-text">
-                <h2>{podcastDetails.title}</h2>
-                <p>{podcastDetails.userId}</p>
-              </div>
-              <div>
-                <button>Edit</button>
-                <button>Delete</button>
-              </div>
-            </div>
-            <div className="podcast-page-title-image">
-              <img src={recommendation1} alt="" />
-            </div>
-          </aside>
-          <aside className="podcast-page-title-content">
-            <p>
-              This is what the news should sound like. The biggest stories of
-              our time, told by the best journalists in the world. Hosted by
-              Michael Barbaro. Twenty minutes a day, five days a week, ready by
-              6 a.m.
-            </p>
-          </aside>
-          <aside className="episode-section-container">
-            <h2>Episodes</h2>
-
-            {episodeList.length ? (
-              episodeList
-            ) : (
-              <div className="empty-message">
+        {this.state.loading ? (
+          <React.Fragment>
+            <aside
+              onClick={(e) => this.props.hidePodcastPage(e)}
+              className="back-button"
+            >
+              {goBackIcon()}
+            </aside>
+            <section id="podcast-page" className="podcast-page-container">
+              <aside className="podcast-page-wrapper">
+                <div className="podcast-page-title-box">
+                  <div className="podcast-page-title-text">
+                    <h2>{podcastDetails.title}</h2>
+                    <p>{podcastDetails.userId}</p>
+                  </div>
+                  <div>
+                    <button
+                      onClick={(e) =>
+                        this.handleShowUploadEditModal(
+                          e,
+                          this.state.podcastDetails
+                        )
+                      }
+                    >
+                      Edit
+                    </button>
+                    <button>Delete</button>
+                  </div>
+                </div>
+                <div className="podcast-page-title-image">
+                  <img src={podcastDetails.coverImageUrl} alt="" />
+                </div>
+              </aside>
+              <aside className="podcast-page-title-content">
                 <p>
-                  You have no episodes on this podcast. Click on the{" "}
-                  <NavLink to="/">upload button</NavLink> to add a podcast.
+                  This is what the news should sound like. The biggest stories
+                  of our time, told by the best journalists in the world. Hosted
+                  by Michael Barbaro. Twenty minutes a day, five days a week,
+                  ready by 6 a.m.
                 </p>
-              </div>
-            )}
+              </aside>
+              <aside className="episode-section-container">
+                <h2>Episodes</h2>
 
-            <div></div>
-          </aside>
-        </section>
-        <UploadModal />
+                {episodeList.length ? (
+                  episodeList
+                ) : (
+                  <div className="empty-message">
+                    <p>
+                      You have no episodes on this podcast. Click on the{" "}
+                      <NavLink to="/">upload button</NavLink> to add a podcast.
+                    </p>
+                  </div>
+                )}
+
+                <div></div>
+              </aside>
+            </section>
+          </React.Fragment>
+        ) : (
+          <div id="icon-loading-container">
+            <IconLoader />
+          </div>
+        )}
+        <UploadModal
+          podcastDetails={this.state.podcastDetails}
+          show={this.state.showUploadEditModal}
+          uploadPodcast={this.state.uploadPodcast}
+          closeModal={this.handleCloseModal}
+        />
+        <UploadModal
+          show={this.state.episodeEditModal}
+          uploadPodcast={this.state.showEpisodePodcast}
+          closeModal={this.handleCloseModal}
+        />
       </React.Fragment>
     );
   }

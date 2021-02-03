@@ -148,7 +148,7 @@ class Dashboard extends React.Component {
                     </Nav.Link>
                   </li> */}
 
-                {!this.props.user && (
+                {this.props.user && (
                   <li onClick={(e) => this.handleIconChange(e, "dashboard")}>
                     <NavLink
                       to="/dashboard/dashboard"

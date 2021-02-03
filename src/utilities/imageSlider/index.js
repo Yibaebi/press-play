@@ -1,13 +1,19 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
 
-const ImageSlide = ({ url, title, author }) => {
+const ImageSlide = ({ url, title, author, podcastId, getPodcastId }) => {
   return (
-    <div className="slide-item">
-      <NavLink to="dashboard/home">
-        <img className="image-slide" src={url} alt="" />
-      </NavLink>
-      <div className="slide-item-desc">
+    <div id="carousel" className="slide-item">
+      <img
+        className="image-slide"
+        src={url}
+        alt=""
+        onClick={(e) => getPodcastId(e, podcastId)}
+      />
+
+      <div
+        className="slide-item-desc"
+        onClick={(e) => getPodcastId(e, podcastId)}
+      >
         <h3>{title}</h3>
         <p>{author}</p>
       </div>

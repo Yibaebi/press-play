@@ -24,7 +24,13 @@ function captureEpisodeDetails(
 
 function uploadEpisode(episodeData) {
   const apiEndpoint = episodeUrl;
-  return http.post(apiEndpoint, episodeData);
+  return fetch(apiEndpoint, {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+    },
+    body: JSON.stringify(episodeData),
+  });
 }
 
 function deleteEpisode(episodeId) {
