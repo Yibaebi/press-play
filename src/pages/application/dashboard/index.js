@@ -7,7 +7,6 @@ import {
   listeningIcon,
   subscribersIcon,
   likesIcon,
-  draftIcon,
   recommendation1,
   angleRightIcon,
 } from "../../../assets";
@@ -15,12 +14,21 @@ import { UploadModal } from "../../../widgets";
 
 class UserDashboard extends React.Component {
   state = {
+    userDetails: {},
     showUploadEditModal: false,
     uploadPodcast: false,
     showEpisodePodcast: true,
   };
 
+  async componentDidMount() {
+    console.log(this.props.userDetails);
+    this.setState({
+      userDetails: this.props.userDetails,
+    });
+  }
+
   handleShowUploadEditModal = () => {
+    console.log("User Details:", this.state.userDetails);
     this.setState({
       showUploadEditModal: true,
       uploadPodcast: true,
@@ -275,6 +283,7 @@ class UserDashboard extends React.Component {
           podcastDetails={this.state.podcastDetails}
           show={this.state.showUploadEditModal}
           uploadPodcast={this.state.uploadPodcast}
+          userId={this.state.userDetails._id}
           closeModal={this.handleCloseModal}
         />
       </React.Fragment>

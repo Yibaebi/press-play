@@ -9,14 +9,14 @@ import { LandingPage } from "./pages/application/landingPage";
 import { Logout } from "./pages/auth/logout";
 
 class PressPlay extends React.Component {
-  state = { user: "" };
+  state = { userFirstName: "", userDetails: {} };
 
   componentDidMount() {
     try {
       const user = localStorage.getItem("userDetails");
-      console.log("current user ", user);
       const userDetails = JSON.parse(user);
-      this.setState({ user: userDetails.firstName });
+      console.log("current user ", userDetails);
+      this.setState({ user: userDetails.firstName, userDetails });
     } catch (error) {}
   }
 
@@ -31,7 +31,13 @@ class PressPlay extends React.Component {
           <Route path="/activateAccount" component={ActivateAccount} />
           <Route
             path="/dashboard"
-            render={(props) => <Dashboard user={this.state.user} {...props} />}
+            render={(props) => (
+              <Dashboard
+                user={this.state.user}
+                userDetails={this.state.userDetails}
+                {...props}
+              />
+            )}
           />
           <Route path="/activateAccount" component={ActivateAccount} />
           <Route path="/resetPassword" component={PasswordResetPage} />

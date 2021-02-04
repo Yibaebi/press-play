@@ -5,7 +5,11 @@ import ModalButton from "react-bootstrap/Button";
 import "./uploadModal.css";
 import { inputFileIcon, headphoneIcon } from "../../assets";
 import { AuthenticationPage } from "../../pages/auth/authPages";
-import { capturePodcastDetails, uploadPodcastDetails } from "../../api/auth";
+import {
+  capturePodcastDetails,
+  updatePodcast,
+  uploadPodcastDetails,
+} from "../../api/auth";
 import { IconLoader } from "../../utilities/loader";
 import {
   captureEpisodeDetails,
@@ -16,6 +20,8 @@ class UploadModal extends AuthenticationPage {
   constructor(props) {
     super(props);
     this.state = {
+      podcastDetails: {},
+      userId: "",
       // Modal state
       disabled: true,
       backLabel: "Close",
@@ -45,6 +51,13 @@ class UploadModal extends AuthenticationPage {
   }
 
   async componentDidMount() {
+    const user = localStorage.getItem("userDetails");
+    const userDetails = JSON.parse(user);
+    console.log("current user ", userDetails);
+
+    this.setState({
+      userId: userDetails._id,
+    });
     try {
       const podcastDescription = this.state.podcastDescription;
       podcastDescription.podcastTitle =
@@ -52,8 +65,8 @@ class UploadModal extends AuthenticationPage {
       podcastDescription.podcastDescription =
         this.props.podcastDetails.description || "";
 
-      console.log("PodcastDetails: ", podcastDescription);
       this.setState({
+        podcastDetails: this.props.podcastDetails || {},
         podcastDescription: podcastDescription,
         coverImage: await this.props.podcastDetails.coverImageUrl,
       });
@@ -80,6 +93,8 @@ class UploadModal extends AuthenticationPage {
   };
 
   handleUploadSubmit = async () => {
+    alert(this.state.userId);
+
     this.setState({ disabled: true });
     const progressBar = this.state.progressBar;
     if (progressBar === 50)
@@ -96,13 +111,14 @@ class UploadModal extends AuthenticationPage {
       this.setState({
         disabled: false,
       });
+      this.props.closeModal();
 
       const podcastOrEpisodeDetails = this.props.uploadPodcast
         ? capturePodcastDetails(
             this.state.coverFile,
             this.state.podcastDescription.podcastTitle,
             this.state.podcastDescription.podcastDescription,
-            "6013389326c3d60f7c6294bd"
+            this.state.userId
           )
         : captureEpisodeDetails(
             this.state.audioFile,
@@ -122,20 +138,25 @@ class UploadModal extends AuthenticationPage {
           ),
         });
 
-        const response = this.props.uploadPodcast
-          ? await uploadPodcastDetails(podcastOrEpisodeDetails)
-          : await uploadEpisode(podcastOrEpisodeDetails);
+        const response =
+          this.props.podcastEditIntention && this.props.uploadPodcast
+            ? await updatePodcast(podcastOrEpisodeDetails, this.state.userId)
+            : this.props.uploadPodcast
+            ? await uploadPodcastDetails(podcastOrEpisodeDetails)
+            : await uploadEpisode(podcastOrEpisodeDetails);
         console.log("Response", response);
 
-        setTimeout(() => {
-          if (response.status) {
-            this.setState({
-              IconLoader: "",
-            });
-          }
-        }, 3000);
+        if (response.status) {
+          this.setState({
+            IconLoader: "",
+          });
+
+          // window.location = "/dashboard/dashboard";
+        }
       } catch (error) {
         console.log("Error", error);
+        alert("Failed");
+        window.location = "/dashboard/dashboard";
       }
     }
   };
@@ -385,7 +406,6 @@ class UploadModal extends AuthenticationPage {
   };
 
   render() {
-    // this.props.showModal
     return (
       <React.Fragment>
         <Modal show={this.props.show}>

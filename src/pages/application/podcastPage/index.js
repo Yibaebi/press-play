@@ -1,7 +1,10 @@
 import React, { Component } from "react";
 import "./podcastPage.css";
-import recommendation1 from "../../../assets/images/recommendation pictures/Rectangle 285.png";
-import { getAllEpisodesOfAPodcast, getAPodcast } from "../../../api/auth";
+import {
+  deletePodcast,
+  getAllEpisodesOfAPodcast,
+  getAPodcast,
+} from "../../../api/auth";
 import { NavLink } from "react-router-dom";
 import { UploadModal } from "../../../widgets";
 import { goBackIcon } from "../../../assets";
@@ -17,6 +20,10 @@ class PodcastPage extends Component {
     episodeEditModal: false,
     showEpisodePodcast: true,
     uploadPodcastDetails: {},
+    deleteStaging: false,
+    deletePodcast: false,
+    deleteLoading: false,
+    deleted: false,
   };
 
   handleEpisodeEditModal = () => {
@@ -39,6 +46,40 @@ class PodcastPage extends Component {
       showUploadEditModal: false,
       episodeEditModal: false,
       uploadPodcast: false,
+    });
+  };
+  handleDeletePodcast = async () => {
+    this.setState({
+      deleteLoading: true,
+      deletePodcast: false,
+    });
+
+    alert(this.state.podcastDetails._id);
+
+    try {
+      const deleteResponse = await deletePodcast(this.state.podcastDetails._id);
+      console.log("Delete Response", deleteResponse.data);
+      if (deleteResponse.status) {
+        this.setState({
+          deleteLoading: false,
+          deleted: true,
+        });
+      }
+      setTimeout(() => {
+        window.location = "/dashboard/home";
+      }, 3000);
+    } catch (error) {}
+  };
+
+  deletePodcast = () => {
+    this.setState({
+      deletePodcast: true,
+    });
+  };
+
+  stopDeletePodcast = () => {
+    this.setState({
+      deletePodcast: false,
     });
   };
 
@@ -96,20 +137,44 @@ class PodcastPage extends Component {
                 <div className="podcast-page-title-box">
                   <div className="podcast-page-title-text">
                     <h2>{podcastDetails.title}</h2>
-                    <p>{podcastDetails.userId}</p>
+                    <p>{podcastDetails.userId || "N/A"}</p>
                   </div>
+
                   <div>
-                    <button
-                      onClick={(e) =>
-                        this.handleShowUploadEditModal(
-                          e,
-                          this.state.podcastDetails
-                        )
-                      }
-                    >
-                      Edit
-                    </button>
-                    <button>Delete</button>
+                    {this.state.deletePodcast ? (
+                      <div id="confirm-dialog">
+                        <p>Confirm?</p>
+                        <button
+                          className="yes"
+                          onClick={this.handleDeletePodcast}
+                        >
+                          Yes
+                        </button>
+                        <button className="no" onClick={this.stopDeletePodcast}>
+                          No
+                        </button>
+                      </div>
+                    ) : this.state.deleteLoading ? (
+                      <p className="deleting-message">Deleting podcast...</p>
+                    ) : this.state.deleted ? (
+                      <p className="deleting-message deleted">
+                        Deleted. Redirecting you to your dashboard.
+                      </p>
+                    ) : (
+                      <React.Fragment>
+                        <button
+                          onClick={(e) =>
+                            this.handleShowUploadEditModal(
+                              e,
+                              this.state.podcastDetails
+                            )
+                          }
+                        >
+                          Edit
+                        </button>
+                        <button onClick={this.deletePodcast}>Delete</button>
+                      </React.Fragment>
+                    )}
                   </div>
                 </div>
                 <div className="podcast-page-title-image">
@@ -147,12 +212,15 @@ class PodcastPage extends Component {
             <IconLoader />
           </div>
         )}
-        <UploadModal
-          podcastDetails={this.state.podcastDetails}
-          show={this.state.showUploadEditModal}
-          uploadPodcast={this.state.uploadPodcast}
-          closeModal={this.handleCloseModal}
-        />
+        {Object.keys(this.state.podcastDetails).length && (
+          <UploadModal
+            podcastDetails={this.state.podcastDetails}
+            show={this.state.showUploadEditModal}
+            uploadPodcast={this.state.uploadPodcast}
+            closeModal={this.handleCloseModal}
+            podcastEditIntention={true}
+          />
+        )}
         <UploadModal
           show={this.state.episodeEditModal}
           uploadPodcast={this.state.showEpisodePodcast}

@@ -145,3 +145,63 @@
   font-size: 0.9rem;
   margin-bottom: 8px;
 }
+
+/* Confirm Dialog */
+#confirm-dialog {
+  margin-top: 20px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: fit-content;
+}
+
+#confirm-dialog p {
+  font-size: 0.9rem;
+  margin-bottom: 0px;
+  align-self: center;
+  font-weight: 700;
+}
+
+#confirm-dialog button.yes,
+#confirm-dialog button.no,
+#confirm-dialog button.yes:hover,
+#confirm-dialog button.no:hover {
+  color: white;
+  outline: none;
+  border-radius: 0px;
+  border: none;
+  font-size: 0.8rem;
+  padding: 2px 10px;
+  margin: 0px;
+  margin-left: 4px;
+  height: fit-content;
+  border-radius: 32px;
+  transition: all 0.3s ease-in-out;
+  backface-visibility: hidden;
+}
+
+#confirm-dialog button.yes {
+  background-color: #e2514c;
+}
+
+#confirm-dialog button.no {
+  background-color: #273f48;
+}
+
+#confirm-dialog button.yes:hover,
+#confirm-dialog button.no:hover {
+  transform: translateY(-1px);
+}
+
+p.deleting-message {
+  margin-top: 20px;
+  font-size: 0.9rem;
+  margin-bottom: 0px;
+  align-self: center;
+  font-weight: 700;
+}
+
+p.deleting-message.deleted {
+  color: rgba(226, 81, 76, 1);
+}

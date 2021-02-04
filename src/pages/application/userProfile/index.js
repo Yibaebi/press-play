@@ -88,7 +88,8 @@ class Dashboard extends React.Component {
               path="/dashboard/dashboard"
               render={(props) => (
                 <UserDashboard
-                  user={this.state.user}
+                  user={this.props.user}
+                  userDetails={this.props.userDetails}
                   uploadModal={this.showPodcastModal}
                   {...props}
                 />

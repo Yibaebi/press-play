@@ -22,6 +22,7 @@ function capturePodcastDetails(
 }
 
 function uploadPodcastDetails(podcastData) {
+  console.log("Uploading podcasts");
   const apiEndpoint = podcastUrl;
   return http.post(apiEndpoint, podcastData);
 }
@@ -31,8 +32,9 @@ function deletePodcast(podcastId) {
   return http.delete(apiEndpoint);
 }
 
-function updatePodcast(podcastData) {
-  const apiEndpoint = podcastUrl;
+function updatePodcast(podcastData, userId) {
+  console.log("Updating podcasts");
+  const apiEndpoint = podcastUrl + `/${userId}`;
   return http.put(apiEndpoint, podcastData);
 }
 function getAllPodcasts() {

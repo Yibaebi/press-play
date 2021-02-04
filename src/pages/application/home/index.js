@@ -75,6 +75,15 @@ class Home extends React.Component {
                                 getPodcastId={this.getPodcastId}
                               />
                             </section>
+                            <section
+                              id="podcast-container"
+                              className="recommendations"
+                            >
+                              <Carousel
+                                viewPodcast={this.viewPodcast}
+                                getPodcastId={this.getPodcastId}
+                              />
+                            </section>
                           </div>
                         </React.Fragment>
                       )}
