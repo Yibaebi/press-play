@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { AudioHeader } from "./header/index";
 import { AudioControls } from "./controls/index";
-import flydown from "../../assets/Fly Down.mp3";
 import "./audioplayer.css";
+import { getAnEpisode, getAPodcast } from "../../api";
 
 export class AudioPlayer extends Component {
   constructor(props) {
@@ -10,8 +10,29 @@ export class AudioPlayer extends Component {
     this.state = {
       episodeCurrentTime: 0,
       duration: 0,
+
+      episodeDetails: {},
+      podcastDetails: null,
+
+      playing: false,
     };
     this.audioRef = React.createRef();
+  }
+
+  async componentDidMount() {
+    try {
+      const podcastDetails = await getAPodcast("601bf9ab627d8c00043aa0da");
+      console.log(podcastDetails);
+      const episodeDetails = await getAnEpisode("601d12e0c62714000436529f");
+      console.log(episodeDetails);
+
+      if (podcastDetails.data && episodeDetails.data) {
+        this.setState({
+          podcastDetails: podcastDetails.data,
+          episodeDetails: episodeDetails.data,
+        });
+      }
+    } catch (error) {}
   }
 
   handleEpisodePlay = (playing) => {
@@ -31,6 +52,12 @@ export class AudioPlayer extends Component {
     this.setState({
       episodeCurrentTime,
     });
+
+    if (this.state.duration === episodeCurrentTime) {
+      this.setState({
+        playing: false,
+      });
+    }
 
     this.audioRef.current.currentTime = episodeCurrentTime;
   };
@@ -53,6 +80,8 @@ export class AudioPlayer extends Component {
   };
 
   render() {
+    const { episodeDetails, podcastDetails } = { ...this.state };
+    console.log(podcastDetails);
     return (
       <main id="audio-player-container">
         <audio
@@ -63,9 +92,19 @@ export class AudioPlayer extends Component {
           ref={this.audioRef}
           preload="auto"
           typeof="audio/mpeg"
-          src={flydown}
+          src={episodeDetails.episodeAudioUrl}
         />
-        <AudioHeader />
+        <AudioHeader
+          episodeTitle={episodeDetails.title}
+          podcastAuthor={
+            podcastDetails
+              ? podcastDetails.author.firstName +
+                " " +
+                podcastDetails.author.lastName
+              : "Loading..."
+          }
+          podcastCover={podcastDetails && podcastDetails.coverImageUrl}
+        />
         <AudioControls
           currentTime={this.state.episodeCurrentTime}
           volumeChange={this.handleVolumeChange}
@@ -73,6 +112,7 @@ export class AudioPlayer extends Component {
           handleEpisodeProgress={this.handleEpisodeProgress}
           duration={this.state.duration}
           audioSeek={this.handleAudioSeek}
+          playing={this.state.playing}
         />
       </main>
     );

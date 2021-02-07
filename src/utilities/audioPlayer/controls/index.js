@@ -16,11 +16,17 @@ class AudioControls extends React.Component {
   state = {
     show: true,
     liked: true,
-    playing: false,
+    playing: null,
     showAlert: false,
     showUnlikedAlert: false,
     volumeValue: 20,
   };
+
+  componentDidMount() {
+    this.setState({
+      playing: this.props.playing,
+    });
+  }
 
   handleEpisodeLike = () => {
     const liked = this.state.liked ? false : true;

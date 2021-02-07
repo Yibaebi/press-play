@@ -13,6 +13,7 @@
   height: 60px;
   border-radius: 10px;
   object-fit: cover;
+  font-size: 0.7rem;
 }
 
 .audio-header-section .podcast-description {
