@@ -70,10 +70,10 @@ class Carousel extends React.Component {
               }
               title={
                 this.state.podcasts[this.state.currentImageIndex].title.length >
-                16
+                10
                   ? this.state.podcasts[
                       this.state.currentImageIndex
-                    ].title.substring(0, 14) + "..."
+                    ].title.substring(0, 10) + "..."
                   : this.state.podcasts[this.state.currentImageIndex].title
               }
             />
@@ -93,10 +93,10 @@ class Carousel extends React.Component {
               }
               title={
                 this.state.podcasts[this.state.currentImageIndex + 1].title
-                  .length > 16
+                  .length > 10
                   ? this.state.podcasts[
                       this.state.currentImageIndex + 1
-                    ].title.substring(0, 14) + "..."
+                    ].title.substring(0, 10) + "..."
                   : this.state.podcasts[this.state.currentImageIndex + 1].title
               }
             />
@@ -116,10 +116,10 @@ class Carousel extends React.Component {
               }
               title={
                 this.state.podcasts[this.state.currentImageIndex + 2].title
-                  .length > 16
+                  .length > 10
                   ? this.state.podcasts[
                       this.state.currentImageIndex + 2
-                    ].title.substring(0, 14) + "..."
+                    ].title.substring(0, 10) + "..."
                   : this.state.podcasts[this.state.currentImageIndex + 2].title
               }
             />
@@ -139,10 +139,10 @@ class Carousel extends React.Component {
               }
               title={
                 this.state.podcasts[this.state.currentImageIndex + 3].title
-                  .length > 16
+                  .length > 10
                   ? this.state.podcasts[
                       this.state.currentImageIndex + 3
-                    ].title.substring(0, 14) + "..."
+                    ].title.substring(0, 10) + "..."
                   : this.state.podcasts[this.state.currentImageIndex + 3].title
               }
             />

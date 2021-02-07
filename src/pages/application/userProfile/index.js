@@ -72,32 +72,33 @@ class Dashboard extends React.Component {
     const { isInView, iconColor, iconFocusColor } = this.state;
     return (
       <React.Fragment>
-        <div id="sidebar-wrapper">
-          <div id="sidebar-nav-wrapper">
+        <div id="main-wrapper">
+          <nav id="sidebar-nav-wrapper">
             <DashboardNavBar
               handleModalOpen={this.handleModalOpen}
               user={this.props.user}
             />
-          </div>
-          <Switch>
-            <Route
-              path="/dashboard/home"
-              render={(props) => <Home user={this.props.user} {...props} />}
-            />
-            <Route
-              path="/dashboard/dashboard"
-              render={(props) => (
-                <UserDashboard
-                  user={this.props.user}
-                  userDetails={this.props.userDetails}
-                  uploadModal={this.showPodcastModal}
-                  {...props}
-                />
-              )}
-            />
-            <Route path="/logout" component={Logout} />
-          </Switch>
-
+          </nav>
+          <main className="main-body">
+            <Switch>
+              <Route
+                path="/dashboard/home"
+                render={(props) => <Home user={this.props.user} {...props} />}
+              />
+              <Route
+                path="/dashboard/dashboard"
+                render={(props) => (
+                  <UserDashboard
+                    user={this.props.user}
+                    userDetails={this.props.userDetails}
+                    uploadModal={this.showPodcastModal}
+                    {...props}
+                  />
+                )}
+              />
+              <Route path="/logout" component={Logout} />
+            </Switch>
+          </main>
           <UploadModal
             uploadPodcast={false}
             show={false}

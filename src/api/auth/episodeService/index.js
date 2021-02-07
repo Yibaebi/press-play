@@ -1,6 +1,6 @@
 import http from "../httpService";
 import { episodeUrl, podcastUrl } from "../../../config.json";
-import flydown from "../../../assets/Distant Moon.mp3";
+import flydown from "../../../assets/Fly Down.mp3";
 
 function captureEpisodeDetails(
   episodeAudio,
@@ -10,10 +10,10 @@ function captureEpisodeDetails(
 ) {
   console.log(episodeAudio, episodeTitle, episodeDescription, podcastId);
   const episodeData = new FormData();
+  episodeData.append("title", "episodeTitle");
+  episodeData.append("description", "episodeDescription");
+  episodeData.append("podcastId", "601bf9ab627d8c00043aa0da");
   episodeData.append("episodeAudio", flydown);
-  episodeData.append("title", episodeTitle);
-  episodeData.append("description", episodeDescription);
-  episodeData.append("podcastId", "6015ebd56c1954000446cc30");
 
   for (var key of episodeData.entries()) {
     console.log(key[0] + ", " + key[1]);
@@ -24,12 +24,9 @@ function captureEpisodeDetails(
 
 function uploadEpisode(episodeData) {
   const apiEndpoint = episodeUrl;
-  return fetch(apiEndpoint, {
-    method: "POST",
-    headers: {
-      Accept: "application/json",
-    },
-    body: JSON.stringify(episodeData),
+  return http.post(apiEndpoint, episodeData, {
+    authorization:
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MDEzZTVlNGZmODMyMDAwMDRiYzNkY2QiLCJpYXQiOjE2MTI1MzIxODIsImV4cCI6MTYxMjYxODU4Mn0.y0ImUJpCqj_he0lypMnUCsuQl1klUbfJn8cwHhdp61U",
   });
 }
 

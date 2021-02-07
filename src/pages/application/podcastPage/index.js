@@ -126,18 +126,25 @@ class PodcastPage extends Component {
       <React.Fragment>
         {this.state.loading ? (
           <React.Fragment>
-            <aside
-              onClick={(e) => this.props.hidePodcastPage(e)}
-              className="back-button"
-            >
-              {goBackIcon()}
-            </aside>
             <section id="podcast-page" className="podcast-page-container">
               <aside className="podcast-page-wrapper">
                 <div className="podcast-page-title-box">
+                  <aside
+                    onClick={(e) => this.props.hidePodcastPage(e)}
+                    className="back-button"
+                  >
+                    {goBackIcon()}
+                  </aside>
                   <div className="podcast-page-title-text">
                     <h2>{podcastDetails.title}</h2>
-                    <p>{podcastDetails.userId || "N/A"}</p>
+                    <p>
+                      {podcastDetails.author
+                        ? "By " +
+                          podcastDetails.author.firstName +
+                          " " +
+                          podcastDetails.author.lastName
+                        : "Author is not available"}
+                    </p>
                   </div>
 
                   <div>

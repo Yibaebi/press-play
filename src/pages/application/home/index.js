@@ -26,99 +26,105 @@ class Home extends React.Component {
       <React.Fragment>
         <div id="home">
           <Tab.Container id="left-tabs-example" defaultActiveKey="first">
-            <Row>
-              <Col sm={3}>
-                <Nav variant="pills" className="flex-column">
-                  <Nav.Item>
-                    <Nav.Link id="user-dashboard-nav-item" eventKey="first">
-                      Recommendations
-                    </Nav.Link>
-                  </Nav.Item>
-                  <Nav.Item>
-                    <Nav.Link eventKey="second">Trending</Nav.Link>
-                  </Nav.Item>
-                  <Nav.Item>
-                    <Nav.Link disabled={true} eventKey="third">
-                      <span>(Soon)</span> Favourites
-                    </Nav.Link>
-                  </Nav.Item>
-                  <Nav.Item>
-                    <Nav.Link disabled={true} eventKey="third">
-                      <span>(soon)</span> Most listened
-                    </Nav.Link>
-                  </Nav.Item>
-                </Nav>
-              </Col>
-              <Col sm={9}>
-                <Tab.Content>
-                  <Tab.Pane eventKey="first">
-                    <main className="dashboard-main-container">
-                      {this.state.showPodcastPage ? (
-                        <PodcastPage
-                          podcastId={this.state.podcastId}
-                          hidePodcastPage={this.hidePodcastPage}
-                        />
-                      ) : (
-                        <React.Fragment>
-                          <div className="content-wrapper">
-                            <h3 className="m-15">Hi, {this.props.user}!</h3>
-                            <p className="m-15">
-                              Here are some podcasts we think you might like
-                            </p>
-
-                            <section
-                              id="podcast-container"
-                              className="recommendations"
-                            >
-                              <Carousel
-                                viewPodcast={this.viewPodcast}
-                                getPodcastId={this.getPodcastId}
-                              />
-                            </section>
-                            <section
-                              id="podcast-container"
-                              className="recommendations"
-                            >
-                              <Carousel
-                                viewPodcast={this.viewPodcast}
-                                getPodcastId={this.getPodcastId}
-                              />
-                            </section>
-                          </div>
-                        </React.Fragment>
-                      )}
-                    </main>
-                  </Tab.Pane>
-                  <Tab.Pane eventKey="second">
-                    <main className="dashboard-main-container">
+            <Nav variant="pills" className="flex-column">
+              <Nav.Item>
+                <Nav.Link id="user-dashboard-nav-item" eventKey="first">
+                  Recommendations
+                </Nav.Link>
+              </Nav.Item>
+              <Nav.Item>
+                <Nav.Link eventKey="second">Trending</Nav.Link>
+              </Nav.Item>
+            </Nav>
+            <Tab.Content>
+              <Tab.Pane eventKey="first">
+                <main className="dashboard-main-container">
+                  {this.state.showPodcastPage ? (
+                    <PodcastPage
+                      podcastId={this.state.podcastId}
+                      hidePodcastPage={this.hidePodcastPage}
+                    />
+                  ) : (
+                    <React.Fragment>
                       <div className="content-wrapper">
-                        <h4 className="m-15">Trending Podcasts</h4>
-                        <section
-                          id="podcast-container"
-                          className="recommendations"
-                        >
-                          <Carousel
-                            viewPodcast={this.viewPodcast}
-                            getPodcastId={this.getPodcastId}
-                          />
-                        </section>
-                        <h4>Most liked</h4>
-                        <section
-                          id="podcast-container"
-                          className="recommendations"
-                        >
-                          <Carousel
-                            viewPodcast={this.viewPodcast}
-                            getPodcastId={this.getPodcastId}
-                          />
-                        </section>
+                        <div>
+                          <h3 className="m-15">Hi, {this.props.user}!</h3>
+                          <p className="m-15">
+                            Here are some podcasts we think you might like
+                          </p>
+
+                          <section
+                            id="podcast-container"
+                            className="recommendations"
+                          >
+                            <Carousel
+                              viewPodcast={this.viewPodcast}
+                              getPodcastId={this.getPodcastId}
+                            />
+                          </section>
+                          <section
+                            id="podcast-container"
+                            className="recommendations"
+                          >
+                            <Carousel
+                              viewPodcast={this.viewPodcast}
+                              getPodcastId={this.getPodcastId}
+                            />
+                          </section>
+                          <section
+                            id="podcast-container"
+                            className="recommendations"
+                          >
+                            <Carousel
+                              viewPodcast={this.viewPodcast}
+                              getPodcastId={this.getPodcastId}
+                            />
+                          </section>
+                          <section
+                            id="podcast-container"
+                            className="recommendations"
+                          >
+                            <Carousel
+                              viewPodcast={this.viewPodcast}
+                              getPodcastId={this.getPodcastId}
+                            />
+                          </section>
+                        </div>
                       </div>
-                    </main>
-                  </Tab.Pane>
-                  <Tab.Pane eventKey="third">Third</Tab.Pane>
-                </Tab.Content>
-              </Col>
-            </Row>
+                    </React.Fragment>
+                  )}
+                </main>
+              </Tab.Pane>
+              <Tab.Pane eventKey="second">
+                <main className="dashboard-main-container">
+                  <div className="content-wrapper">
+                    <div>
+                      <h4 className="m-15">Trending Podcasts</h4>
+                      <section
+                        id="podcast-container"
+                        className="recommendations"
+                      >
+                        <Carousel
+                          viewPodcast={this.viewPodcast}
+                          getPodcastId={this.getPodcastId}
+                        />
+                      </section>
+                      <h4>Most liked</h4>
+                      <section
+                        id="podcast-container"
+                        className="recommendations"
+                      >
+                        <Carousel
+                          viewPodcast={this.viewPodcast}
+                          getPodcastId={this.getPodcastId}
+                        />
+                      </section>
+                    </div>
+                  </div>
+                </main>
+              </Tab.Pane>
+              <Tab.Pane eventKey="third">Third</Tab.Pane>
+            </Tab.Content>
           </Tab.Container>
         </div>
       </React.Fragment>

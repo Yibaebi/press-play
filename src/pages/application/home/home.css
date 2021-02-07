@@ -1,3 +1,6 @@
+#home {
+  width: 100%;
+}
 #podcast-container.recommendations {
   width: fit-content;
   display: flex;

@@ -6,6 +6,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 // import { PodcastPage } from "./pages/application";
 // import { UploadModal } from "./widgets";
 import PressPlay from "./PressPlay";
+// import { EpisodeUploadModal } from "./widgets/episodeUploadModal";
+// import { AudioPlayer } from "./utilities/audioPlayer/index";
 
 ReactDOM.render(
   <React.StrictMode>
@@ -13,6 +15,8 @@ ReactDOM.render(
       <PressPlay />
       {/* <UploadModal /> */}
       {/* <PodcastPage /> */}
+      {/* <AudioPlayer /> */}
+      {/* <EpisodeUploadModal /> */}
     </BrowserRouter>
   </React.StrictMode>,
   document.getElementById("root")

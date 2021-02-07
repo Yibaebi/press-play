@@ -32,9 +32,9 @@ function deletePodcast(podcastId) {
   return http.delete(apiEndpoint);
 }
 
-function updatePodcast(podcastData, userId) {
+function updatePodcast(podcastData, podcastId) {
   console.log("Updating podcasts");
-  const apiEndpoint = podcastUrl + `/${userId}`;
+  const apiEndpoint = podcastUrl + `/${podcastId}`;
   return http.put(apiEndpoint, podcastData);
 }
 function getAllPodcasts() {

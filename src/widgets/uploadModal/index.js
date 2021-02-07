@@ -37,14 +37,6 @@ class UploadModal extends AuthenticationPage {
       coverFile: "",
       coverName: "choose cover",
 
-      // Episode state
-      episodeDescription: {
-        episodeTitle: "",
-        episodeDescription: "",
-      },
-      audioName: "choose audio",
-      audioFile: null,
-
       //IconLoader
       IconLoader: "",
     };
@@ -93,14 +85,13 @@ class UploadModal extends AuthenticationPage {
   };
 
   handleUploadSubmit = async () => {
-    alert(this.state.userId);
-
     this.setState({ disabled: true });
     const progressBar = this.state.progressBar;
     if (progressBar === 50)
       this.setState({
         progressBar: 100,
       });
+
     this.setState({
       disabled: false,
     });
@@ -111,7 +102,13 @@ class UploadModal extends AuthenticationPage {
       this.setState({
         disabled: false,
       });
+
       this.props.closeModal();
+
+      //If a user does not want to edit his podcast
+      if (!this.props.podcastEditIntention) {
+        this.props.createSuccess(true, false);
+      }
 
       const podcastOrEpisodeDetails = this.props.uploadPodcast
         ? capturePodcastDetails(
@@ -130,33 +127,29 @@ class UploadModal extends AuthenticationPage {
       console.log("The received ", podcastOrEpisodeDetails);
 
       try {
-        this.setState({
-          IconLoader: this.props.uploadPodcast ? (
-            <IconLoader loadingMessage="Your podcast channel is being created please hold on." />
-          ) : (
-            <IconLoader loadingMessage="Your episode is being created." />
-          ),
-        });
-
         const response =
           this.props.podcastEditIntention && this.props.uploadPodcast
-            ? await updatePodcast(podcastOrEpisodeDetails, this.state.userId)
+            ? await updatePodcast(
+                podcastOrEpisodeDetails,
+                this.state.podcastDetails._id
+              )
             : this.props.uploadPodcast
             ? await uploadPodcastDetails(podcastOrEpisodeDetails)
             : await uploadEpisode(podcastOrEpisodeDetails);
         console.log("Response", response);
 
         if (response.status) {
-          this.setState({
-            IconLoader: "",
-          });
-
-          // window.location = "/dashboard/dashboard";
+          if (!this.props.podcastEditIntention) {
+            this.props.createSuccess(true, true);
+          }
+          setTimeout(() => {
+            // window.location = "/dashboard/dashboard";
+          }, 2000);
         }
       } catch (error) {
         console.log("Error", error);
         alert("Failed");
-        window.location = "/dashboard/dashboard";
+        // window.location = "/dashboard/dashboard";
       }
     }
   };
@@ -331,75 +324,36 @@ class UploadModal extends AuthenticationPage {
     return (
       <section className="cover-content">
         <div className="description-input-wrapper">
-          {this.props.uploadPodcast ? (
-            <React.Fragment>
-              <label
-                for="podcastTitle"
-                className="description-content-container"
-              >
-                <p>Podcast Name</p>
-                <input
-                  value={this.state.podcastDescription.podcastTitle}
-                  onChange={this.handleInputChange}
-                  type="text"
-                  name="podcastTitle"
-                  placeholder="Title of podcast goes here"
-                  id="podcastTitle"
-                />
-              </label>
-              <label
-                for="podcastTitle"
-                className="description-content-container desc"
-              >
-                <p>Podcast Description</p>
+          <React.Fragment>
+            <label for="podcastTitle" className="description-content-container">
+              <p>Podcast Name</p>
+              <input
+                value={this.state.podcastDescription.podcastTitle}
+                onChange={this.handleInputChange}
+                type="text"
+                name="podcastTitle"
+                placeholder="Title of podcast goes here"
+                id="podcastTitle"
+              />
+            </label>
+            <label
+              for="podcastTitle"
+              className="description-content-container desc"
+            >
+              <p>Podcast Description</p>
 
-                <textarea
-                  value={this.state.podcastDescription.podcastDescription}
-                  onChange={this.handleInputChange}
-                  name="podcastDescription"
-                  id="podcastDescription"
-                  cols="30"
-                  rows="10"
-                  placeholder="Tell everyone about your podcast"
-                  required
-                ></textarea>
-              </label>
-            </React.Fragment>
-          ) : (
-            <React.Fragment>
-              <label
-                for="episodeTitle"
-                className="description-content-container"
-              >
-                <p>Episode Name</p>
-                <input
-                  value={this.state.episodeDescription.episodeTitle}
-                  onChange={this.handleInputChange}
-                  type="text"
-                  name="episodeTitle"
-                  placeholder="Title of episode goes here"
-                  id="episodeTitle"
-                />
-              </label>
-              <label
-                for="episodeTitle"
-                className="description-content-container desc"
-              >
-                <p>Episode Description</p>
-
-                <textarea
-                  value={this.state.episodeDescription.episodeDescription}
-                  onChange={this.handleInputChange}
-                  name="episodeDescription"
-                  id="episodeDescription"
-                  cols="30"
-                  rows="10"
-                  placeholder="Add an episode description"
-                  required
-                ></textarea>
-              </label>
-            </React.Fragment>
-          )}
+              <textarea
+                value={this.state.podcastDescription.podcastDescription}
+                onChange={this.handleInputChange}
+                name="podcastDescription"
+                id="podcastDescription"
+                cols="30"
+                rows="10"
+                placeholder="Tell everyone about your podcast"
+                required
+              ></textarea>
+            </label>
+          </React.Fragment>
         </div>
       </section>
     );
@@ -411,42 +365,22 @@ class UploadModal extends AuthenticationPage {
         <Modal show={this.props.show}>
           <ProgressBar now={this.state.progressBar} />
           <Modal.Header>
-            {this.props.uploadPodcast ? (
-              <Modal.Title>
-                {this.state.progressBar === 50
-                  ? "Step 1 of 2: Choose your cover art"
-                  : "Step 2 of 2: Add information for this podcast"}
-              </Modal.Title>
-            ) : (
-              <Modal.Title>
-                {this.state.progressBar === 50
-                  ? "Step 1 of 2: Add information for this episode"
-                  : "Step 2 of 2: Upload episode audio"}
-              </Modal.Title>
-            )}
+            <Modal.Title>
+              {this.state.progressBar === 50
+                ? "Step 1 of 2: Choose your cover art"
+                : "Step 2 of 2: Add information for this podcast"}
+            </Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            {this.props.uploadPodcast ? (
-              <Tabs>
-                {this.state.progressBar === 50 ? (
-                  <Tab eventKey="home">{this.coverContent()}</Tab>
-                ) : (
-                  <Tab className="active" eventKey="profile">
-                    {this.descriptionContent()}
-                  </Tab>
-                )}
-              </Tabs>
-            ) : (
-              <Tabs>
-                {this.state.progressBar === 50 ? (
-                  <Tab eventKey="home">{this.descriptionContent()}</Tab>
-                ) : (
-                  <Tab className="active" eventKey="profile">
-                    {this.audioContent()}
-                  </Tab>
-                )}
-              </Tabs>
-            )}
+            <Tabs>
+              {this.state.progressBar === 50 ? (
+                <Tab eventKey="home">{this.coverContent()}</Tab>
+              ) : (
+                <Tab className="active" eventKey="profile">
+                  {this.descriptionContent()}
+                </Tab>
+              )}
+            </Tabs>
           </Modal.Body>
           <Modal.Footer>
             <ModalButton variant="secondary" onClick={this.handleDialogReturn}>
