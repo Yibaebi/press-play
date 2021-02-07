@@ -1,0 +1,35 @@
+.audio-header-section {
+  background-color: transparent;
+  padding: 16px;
+}
+
+.audio-header-section .podcast-description,
+.audio-header-section .image-container {
+  height: 60px;
+}
+
+.audio-header-section .image-container img {
+  width: 60px;
+  height: 60px;
+  border-radius: 10px;
+  object-fit: cover;
+  font-size: 0.7rem;
+}
+
+.audio-header-section .podcast-description {
+  margin: 0px 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.audio-header-section .podcast-description p {
+  font-size: 14px;
+  margin: 0px;
+}
+.audio-header-section .podcast-description h3 {
+  font-weight: 600;
+  font-size: 14px;
+  margin: 0px;
+  margin-bottom: 4px;
+}

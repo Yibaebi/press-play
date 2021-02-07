@@ -1,16 +1,46 @@
 import React from "react";
 import { Tab, Col, Nav, Row } from "react-bootstrap";
-import "react-responsive-carousel/lib/styles/carousel.min.css";
 import "./dashboard.css";
+import { NavLink } from "react-router-dom";
 import {
   uploadIcon,
   listeningIcon,
   subscribersIcon,
   likesIcon,
-  draftIcon,
+  recommendation1,
+  angleRightIcon,
 } from "../../../assets";
+import { UploadModal } from "../../../widgets";
 
 class UserDashboard extends React.Component {
+  state = {
+    userDetails: {},
+    showUploadEditModal: false,
+    uploadPodcast: false,
+    showEpisodePodcast: true,
+  };
+
+  async componentDidMount() {
+    console.log(this.props.userDetails);
+    this.setState({
+      userDetails: this.props.userDetails,
+    });
+  }
+
+  handleShowUploadEditModal = () => {
+    console.log("User Details:", this.state.userDetails);
+    this.setState({
+      showUploadEditModal: true,
+      uploadPodcast: true,
+    });
+  };
+
+  handleCloseModal = () => {
+    this.setState({
+      showUploadEditModal: false,
+      uploadPodcast: false,
+    });
+  };
   render() {
     return (
       <React.Fragment>
@@ -72,26 +102,175 @@ class UserDashboard extends React.Component {
                           <div className="upload-content">
                             <button
                               className="upload"
-                              onClick={this.handleUploadModalOpen}
+                              onClick={this.handleShowUploadEditModal}
                             >
-                              {uploadIcon()}Upload podcast
-                            </button>
-                            <button className="draft">
-                              {draftIcon()}Draft
+                              {uploadIcon()}Create podcast
                             </button>
                           </div>
                         </section>
                       </section>
-                      <button className="upload update-profile">
-                        Update profile
-                      </button>
                     </div>
                   </main>
                 </Tab.Pane>
                 <Tab.Pane eventKey="second">
-                  <main className="dashboard-main-container">
+                  <main className="dashboard-main-container view-podcasts">
                     <div className="content-wrapper">
-                      <h2>Manage all your episodes</h2>
+                      <h2>Here are all your podcasts</h2>
+                      <section>
+                        <aside
+                          id="podcast-listing-wrapper"
+                          className="podcast-listing header"
+                        >
+                          <div className="podcast-listing-container ">
+                            <label htmlFor="selectAllPodcasts">
+                              <input
+                                type="checkbox"
+                                name="selectAllPodcasts"
+                                id=""
+                              />
+                              <span className="header-select-all">
+                                Select All
+                              </span>
+                            </label>
+
+                            <p>Date added</p>
+                            <p>likes</p>
+                          </div>
+                          <div className="podcast-listing-container">
+                            <label htmlFor="selectAllPodcasts">
+                              <input
+                                type="checkbox"
+                                name="selectAllPodcasts"
+                                id=""
+                              />
+                              <div className="image-container">
+                                <img src={recommendation1} alt="" />
+                                <p>Skip the repeat</p>
+                              </div>
+                            </label>
+
+                            <p>Date added</p>
+                            <p>likes</p>
+                            <NavLink to="/dashboard/dashboard">
+                              View more {angleRightIcon()}
+                            </NavLink>
+                          </div>
+                          <div className="podcast-listing-container">
+                            <label htmlFor="selectAllPodcasts">
+                              <input
+                                type="checkbox"
+                                name="selectAllPodcasts"
+                                id=""
+                              />
+                              <div className="image-container">
+                                <img src={recommendation1} alt="" />
+                                <p>Skip the repeat</p>
+                              </div>
+                            </label>
+
+                            <p>Date added</p>
+                            <p>likes</p>
+                            <NavLink to="/dashboard/dashboard">
+                              View more {angleRightIcon()}
+                            </NavLink>
+                          </div>
+                          <div className="podcast-listing-container">
+                            <label htmlFor="selectAllPodcasts">
+                              <input
+                                type="checkbox"
+                                name="selectAllPodcasts"
+                                id=""
+                              />
+                              <div className="image-container">
+                                <img src={recommendation1} alt="" />
+                                <p>Skip the repeat</p>
+                              </div>
+                            </label>
+
+                            <p>Date added</p>
+                            <p>likes</p>
+                            <NavLink to="/dashboard/dashboard">
+                              View more {angleRightIcon()}
+                            </NavLink>
+                          </div>
+                          <div className="podcast-listing-container">
+                            <label htmlFor="selectAllPodcasts">
+                              <input
+                                type="checkbox"
+                                name="selectAllPodcasts"
+                                id=""
+                              />
+                              <div className="image-container">
+                                <img src={recommendation1} alt="" />
+                                <p>Skip the repeat</p>
+                              </div>
+                            </label>
+
+                            <p>Date added</p>
+                            <p>likes</p>
+                            <NavLink to="/dashboard/dashboard">
+                              View more {angleRightIcon()}
+                            </NavLink>
+                          </div>{" "}
+                          <div className="podcast-listing-container">
+                            <label htmlFor="selectAllPodcasts">
+                              <input
+                                type="checkbox"
+                                name="selectAllPodcasts"
+                                id=""
+                              />
+                              <div className="image-container">
+                                <img src={recommendation1} alt="" />
+                                <p>Skip the repeat</p>
+                              </div>
+                            </label>
+
+                            <p>Date added</p>
+                            <p>likes</p>
+                            <NavLink to="/dashboard/dashboard">
+                              View more {angleRightIcon()}
+                            </NavLink>
+                          </div>{" "}
+                          <div className="podcast-listing-container">
+                            <label htmlFor="selectAllPodcasts">
+                              <input
+                                type="checkbox"
+                                name="selectAllPodcasts"
+                                id=""
+                              />
+                              <div className="image-container">
+                                <img src={recommendation1} alt="" />
+                                <p>Skip the repeat</p>
+                              </div>
+                            </label>
+
+                            <p>Date added</p>
+                            <p>likes</p>
+                            <NavLink to="/dashboard/dashboard">
+                              View more {angleRightIcon()}
+                            </NavLink>
+                          </div>{" "}
+                          <div className="podcast-listing-container">
+                            <label htmlFor="selectAllPodcasts">
+                              <input
+                                type="checkbox"
+                                name="selectAllPodcasts"
+                                id=""
+                              />
+                              <div className="image-container">
+                                <img src={recommendation1} alt="" />
+                                <p>Skip the repeat</p>
+                              </div>
+                            </label>
+
+                            <p>Date added</p>
+                            <p>likes</p>
+                            <NavLink to="/dashboard/dashboard">
+                              View more {angleRightIcon()}
+                            </NavLink>
+                          </div>
+                        </aside>
+                      </section>
                     </div>
                   </main>
                 </Tab.Pane>
@@ -100,6 +279,13 @@ class UserDashboard extends React.Component {
             </Col>
           </Row>
         </Tab.Container>
+        <UploadModal
+          podcastDetails={this.state.podcastDetails}
+          show={this.state.showUploadEditModal}
+          uploadPodcast={this.state.uploadPodcast}
+          userId={this.state.userDetails._id}
+          closeModal={this.handleCloseModal}
+        />
       </React.Fragment>
     );
   }

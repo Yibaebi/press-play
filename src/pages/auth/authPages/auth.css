@@ -188,16 +188,20 @@
   font-size: 0.9rem;
 }
 
-.signup-button,
-.signup-button:hover {
+.signup-button {
   padding: 10px 30px;
   outline: none;
-  margin-top: 0.5em;
   width: 350px;
   background: rgb(226, 95, 90);
   box-shadow: 0px 8px 16px rgba(226, 81, 76, 0.15);
   border: none;
   border-radius: 32px;
+  transition: all 0.4s ease-in-out;
+  font-weight: 500;
+}
+
+.signup-button:hover {
+  transform: translateY(-3px);
 }
 
 .signup-button a {

@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink, Route } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { whiteLogo } from "../../assets";
 
 function LandingNavbar() {
@@ -7,7 +7,7 @@ function LandingNavbar() {
     <nav className="landing-navbar">
       <NavLink to="/">{whiteLogo()}</NavLink>
       <div className="links-container">
-        <NavLink to="/home" className="landing-page browse-link">
+        <NavLink to="/dashboard/home" className="landing-page browse-link">
           Browse Podcasts
         </NavLink>
         <NavLink className="landing-page login-link" to="/login">

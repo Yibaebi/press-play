@@ -1,4 +1,5 @@
 {
   "apiUrl": "https://press-play-api.herokuapp.com/api/users",
-  "podcastUrl": "https://press-play-api.herokuapp.com/api/podcasts"
+  "podcastUrl": "https://press-play-api.herokuapp.com/api/podcasts",
+  "episodeUrl": "https://press-play-api.herokuapp.com/api/episodes"
 }

@@ -5,7 +5,14 @@ class AuthenticationPage extends React.Component {
   validateDetails = () => {
     const errors = {};
 
-    const { userEmail, userPassword, userFirstName, userLastName } = {
+    const {
+      userEmail,
+      userPassword,
+      userFirstName,
+      userLastName,
+      newPassword,
+      confirmPassword,
+    } = {
       ...this.state.account,
     };
 
@@ -48,7 +55,11 @@ class AuthenticationPage extends React.Component {
       }
     }
 
-    if (name === "userPassword") {
+    if (
+      name === "userPassword" ||
+      name === "newPassword" ||
+      name === "confirmPassword"
+    ) {
       if (value.trim() === "") {
         return "Password is required!";
       }
@@ -60,6 +71,16 @@ class AuthenticationPage extends React.Component {
     if (name === "resetEmail") {
       if (value.trim() === "") {
         return "Email can not be empty.";
+      }
+    }
+    if (name === "newPassword") {
+      if (value.trim() === "") {
+        return "Field can not be empty.";
+      }
+    }
+    if (name === "confirmPassword") {
+      if (value.trim() === "") {
+        return "Please confirm your new password";
       }
     }
   };
