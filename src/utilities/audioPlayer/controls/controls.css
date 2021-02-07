@@ -1,0 +1,124 @@
+#audio-controls-section {
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  max-height: 100%;
+}
+
+#audio-controls-section svg {
+  cursor: pointer;
+  width: fit-content;
+}
+
+#audio-controls-section .section {
+  margin: 0px 20px;
+}
+
+.favorites-alert {
+  position: absolute;
+  background-color: #e2514c;
+  color: white;
+  border-radius: 12px;
+  padding: 10px 15px;
+  font-weight: 700;
+  font-size: 0.8rem;
+  top: -40px;
+  left: 0px;
+}
+
+.favorites-alert.remove {
+  background-color: #273f48;
+}
+
+.play-controls-icons {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.play-controls-icons .item {
+  margin: 0px 15px;
+}
+
+.audio-progress-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.audio-slider {
+  height: fit-content;
+  padding: 0px;
+}
+
+.audio-progress-container .audio-slider input {
+  width: 247px;
+}
+.audio-progress-container .time-info {
+  margin: 0px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.audio-progress-container .time-info p {
+  margin: 0px;
+}
+
+.volume-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.volume-controls .audio-slider {
+  margin-left: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.volume-controls .audio-slider input {
+  width: 100px;
+}
+
+#audio-controls-section input {
+  -webkit-appearance: none;
+  height: 2px;
+  border-radius: 5px;
+  outline: none;
+  opacity: 0.7;
+  -webkit-transition: 0.2s;
+  transition: opacity 0.2s;
+  background: #d8d8d8;
+  border-radius: 31px;
+  cursor: pointer;
+}
+
+#audio-controls-section input::-webkit-slider-runnable-track {
+  -webkit-appearance: none;
+}
+
+#audio-controls-section input::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  cursor: pointer;
+  background: #d8d8d8;
+  border: 2px solid #e2514c;
+  box-sizing: border-box;
+}
+
+#audio-controls-section input::-moz-range-thumb {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  cursor: pointer;
+  color: #e2514c;
+  background-color: #e2514c;
+}
+
+#audio-controls-section input::-moz-range-progress {
+  background-color: #43e5f7;
+}
