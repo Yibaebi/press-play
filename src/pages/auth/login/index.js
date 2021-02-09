@@ -60,7 +60,7 @@ class LogInPage extends AuthenticationPage {
           ),
         });
         setTimeout(() => {
-          window.location = "/dashboard/home";
+          window.location = "/dashboard/discover";
         }, 3000);
 
         const userDetails = await getCurrentUser(jwt);

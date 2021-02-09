@@ -25,7 +25,7 @@ class Home extends React.Component {
     return (
       <React.Fragment>
         <div id="home">
-          <Tab.Container id="left-tabs-example" defaultActiveKey="first">
+          <Tab.Container id="tab-container" defaultActiveKey="first">
             <Nav variant="pills" className="flex-column">
               <Nav.Item>
                 <Nav.Link id="user-dashboard-nav-item" eventKey="first">
@@ -41,6 +41,7 @@ class Home extends React.Component {
                 <main className="dashboard-main-container">
                   {this.state.showPodcastPage ? (
                     <PodcastPage
+                      playerLaunch={this.props.playerLaunch}
                       podcastId={this.state.podcastId}
                       hidePodcastPage={this.hidePodcastPage}
                     />

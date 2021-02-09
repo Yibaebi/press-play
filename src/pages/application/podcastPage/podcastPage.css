@@ -18,11 +18,22 @@
 }
 
 .back-button {
-  width: fit-content;
+  margin: 20px auto;
+  padding: 0px 20px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.back-button svg {
   cursor: pointer;
-  margin: 30px 0px;
+}
+
+#podcast-page {
+  padding-right: 20px;
 }
 .podcast-page-container {
+  background-color: white;
   width: 500px;
   height: 88vh;
   overflow: auto;
@@ -62,6 +73,12 @@
   letter-spacing: 0.15px;
   color: #273f48;
 }
+
+.episode-section-container h2 {
+  display: flex;
+  align-items: center;
+}
+
 .podcast-page-title-text h2 {
   width: 300px;
 }
@@ -126,16 +143,20 @@
 
 /* Episode Section */
 .episode-section-container {
+  margin-top: 20px;
   padding: 20px;
   padding-top: 0px;
+  position: relative;
 }
 .episode-section-container h2 {
-  margin-bottom: 20px;
+  vertical-align: middle;
+  margin-bottom: 30px;
   font-size: 1.3rem;
 }
 
 .episode-item {
   margin-bottom: 20px;
+  position: relative;
 }
 
 .episode-item h3 {
@@ -208,4 +229,112 @@ p.deleting-message {
 
 p.deleting-message.deleted {
   color: rgba(226, 81, 76, 1);
+}
+
+#podcast-page button#episode-upload-button {
+  background-color: #e2514c;
+  color: white;
+  font-weight: 700;
+  padding: 3px 15px;
+}
+
+#podcast-page button#episode-upload-button:hover {
+  transform: translateY(-2px);
+}
+
+#podcast-page .fa-refresh {
+  font-size: 28px;
+  cursor: pointer;
+}
+
+/* Upload in progress */
+.upload-in-progress {
+  position: relative;
+  background-color: #273f48;
+  width: 100%;
+  height: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-weight: 700;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.upload-in-progress .fa-check-square {
+  margin-left: 10px;
+  color: white;
+  font-size: 1.3rem;
+}
+
+.upload-in-progress.completed {
+  background-color: #e2514c;
+  flex-direction: row;
+}
+
+/* NEW Badge */
+.new-badge {
+  color: white;
+  font-weight: 400;
+  border-radius: 20px;
+  font-size: 0.7rem;
+  margin-left: 10px;
+  padding: 5px;
+  background-color: #bbc1c4;
+}
+
+/* Delete dialog */
+.button-container {
+  position: relative;
+}
+.delete-dialog {
+  top: 0px;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background-color: #273f48;
+  color: white;
+  display: flex;
+  align-items: center;
+  padding-left: 8px;
+  border-radius: 10px;
+}
+
+.delete-dialog p,
+.delete-dialog .fa-info-circle {
+  height: 100%;
+  color: white;
+  margin: 0px;
+  display: flex;
+  align-items: center;
+  font-size: 0.9rem;
+}
+
+.delete-dialog .fa-info-circle {
+  margin-right: 10px;
+}
+#podcast-page .delete-dialog button {
+  background-color: transparent;
+  color: white;
+  padding: 0px 4px;
+  margin: 0px;
+  margin-left: 10px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  border: none;
+}
+
+#podcast-page .delete-dialog button:hover {
+  text-decoration: underline;
+  border: none;
+}
+
+.delete-episode {
+  background-color: #e2514c;
+}
+
+.podcast-buttons {
+  position: relative;
 }

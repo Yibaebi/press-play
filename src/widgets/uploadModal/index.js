@@ -50,6 +50,7 @@ class UploadModal extends AuthenticationPage {
     this.setState({
       userId: userDetails._id,
     });
+
     try {
       const podcastDescription = this.state.podcastDescription;
       podcastDescription.podcastTitle =
@@ -67,6 +68,7 @@ class UploadModal extends AuthenticationPage {
 
   handleDialogReturn = () => {
     const { progressBar, coverName, backLabel } = this.state;
+
     if (progressBar === 100)
       this.setState({
         progressBar: 50,

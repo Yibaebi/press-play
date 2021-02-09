@@ -1,7 +1,5 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
-import jwtDecode from "jwt-decode";
-
 import { ActivateAccount, Dashboard, LogInPage, SignUpPage } from "./pages";
 import { PasswordResetPage } from "./pages";
 import "./PressPlay.css";

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./podcastPage.css";
 import {
+  deleteEpisode,
   deletePodcast,
   getAllEpisodesOfAPodcast,
   getAPodcast,
@@ -9,6 +10,7 @@ import { NavLink } from "react-router-dom";
 import { UploadModal } from "../../../widgets";
 import { goBackIcon } from "../../../assets";
 import { IconLoader } from "../../../utilities";
+import { EpisodeUploadModal } from "../../../widgets/episodeUploadModal";
 
 class PodcastPage extends Component {
   state = {
@@ -16,6 +18,7 @@ class PodcastPage extends Component {
     episodes: [],
     loading: null,
     showUploadEditModal: false,
+    episodeEditIntention: false,
     uploadPodcast: false,
     episodeEditModal: false,
     showEpisodePodcast: true,
@@ -24,6 +27,7 @@ class PodcastPage extends Component {
     deletePodcast: false,
     deleteLoading: false,
     deleted: false,
+    episodeDeleting: false,
   };
 
   handleEpisodeEditModal = () => {
@@ -86,7 +90,7 @@ class PodcastPage extends Component {
   async componentDidMount() {
     try {
       const podcastResponse = await getAPodcast(this.props.podcastId);
-      console.log("Podcast Details", podcastResponse.data);
+      console.log("Podcast Details", podcastResponse);
       this.setState({
         loading: false,
       });
@@ -103,21 +107,114 @@ class PodcastPage extends Component {
     } catch (error) {}
   }
 
+  updateEpisodeDetails = (newEpisodes) => {
+    console.log("Received New Episodes", newEpisodes);
+
+    this.setState({
+      newBadge: true,
+      episodes: newEpisodes,
+    });
+
+    setTimeout(() => {
+      this.setState({
+        newBadge: false,
+      });
+    }, 20000);
+  };
+
+  handleEpisodeDelete = async (e, episodeId) => {
+    this.setState({
+      episodeDeleting: true,
+    });
+
+    try {
+      const deleteResponse = await deleteEpisode(episodeId);
+      console.log(deleteResponse);
+
+      if (deleteResponse.status) {
+        const newEpisodes = await getAllEpisodesOfAPodcast(
+          this.state.podcastDetails._id
+        );
+
+        this.setState({
+          episodeDeleting: false,
+          episodeDeleted: true,
+          episodes: newEpisodes.data,
+        });
+      }
+    } catch (error) {}
+  };
+
+  handleEpisodeDeleteDialog = (e, episodeId) => {
+    this.setState({
+      episodeDeleteDialog: true,
+      episodeId,
+    });
+
+    setTimeout(() => {
+      this.setState({
+        episodeDeleteDialog: false,
+      });
+    }, 20000);
+  };
+
   render() {
     const { episodes, podcastDetails } = this.state;
 
-    const episodeList = episodes.map((episode) => (
+    const episodeList = episodes.map((episode, i) => (
       <React.Fragment>
         <div className="episode-item" key={episode._id}>
           <div>
-            <h3>{episode.title}</h3>
+            <h3>
+              <span style={{ opacity: "0.5" }}>{i + 1}</span> - {episode.title}
+            </h3>
             <p>{episode.description}</p>
           </div>
-          <div>
+          <div className="button-container">
             <button onClick={this.handleEpisodeEditModal}>Edit</button>
-            <button>Delete</button>
-            <button>Play</button>
+            <button
+              onClick={(e) => this.handleEpisodeDeleteDialog(e, episode._id)}
+            >
+              Delete
+            </button>
+            <button
+              onClick={() => this.props.playerLaunch(episode, podcastDetails)}
+            >
+              Play
+            </button>
+            {this.state.episodeDeleteDialog &&
+              this.state.episodeId === episode._id && (
+                <div className="delete-dialog">
+                  {this.state.episodeDeleting ? (
+                    "Deleting..."
+                  ) : this.state.episodeDeleted ? (
+                    "Deleted"
+                  ) : (
+                    <React.Fragment>
+                      <span>
+                        <i class="fas fa-info-circle"></i>
+                      </span>
+                      <p>Are you sure?</p>
+                      <button
+                        onClick={(e) =>
+                          this.setState({ episodeDeleteDialog: false })
+                        }
+                      >
+                        No
+                      </button>
+                      <button
+                        onClick={(e) =>
+                          this.handleEpisodeDelete(e, episode._id)
+                        }
+                      >
+                        Delete
+                      </button>
+                    </React.Fragment>
+                  )}
+                </div>
+              )}
           </div>
+
           <hr />
         </div>
       </React.Fragment>
@@ -127,23 +224,27 @@ class PodcastPage extends Component {
         {this.state.loading ? (
           <React.Fragment>
             <section id="podcast-page" className="podcast-page-container">
+              <aside
+                onClick={(e) => this.props.hidePodcastPage(e)}
+                className="back-button"
+              >
+                {goBackIcon()}
+              </aside>
               <aside className="podcast-page-wrapper">
                 <div className="podcast-page-title-box">
-                  <aside
-                    onClick={(e) => this.props.hidePodcastPage(e)}
-                    className="back-button"
-                  >
-                    {goBackIcon()}
-                  </aside>
                   <div className="podcast-page-title-text">
                     <h2>{podcastDetails.title}</h2>
+
                     <p>
                       {podcastDetails.author
-                        ? "By " +
+                        ? "By: " +
                           podcastDetails.author.firstName +
                           " " +
                           podcastDetails.author.lastName
                         : "Author is not available"}
+                    </p>
+                    <p>
+                      <span>Created:</span> {podcastDetails.date}
                     </p>
                   </div>
 
@@ -189,15 +290,21 @@ class PodcastPage extends Component {
                 </div>
               </aside>
               <aside className="podcast-page-title-content">
-                <p>
-                  This is what the news should sound like. The biggest stories
-                  of our time, told by the best journalists in the world. Hosted
-                  by Michael Barbaro. Twenty minutes a day, five days a week,
-                  ready by 6 a.m.
-                </p>
+                <p>{podcastDetails.description}</p>
+                <button
+                  id="episode-upload-button"
+                  onClick={this.handleEpisodeEditModal}
+                >
+                  Upload Episode
+                </button>
               </aside>
               <aside className="episode-section-container">
-                <h2>Episodes</h2>
+                <h2>
+                  Episodes{" "}
+                  {this.state.newBadge && (
+                    <span className="new-badge ">NEW!</span>
+                  )}
+                </h2>
 
                 {episodeList.length ? (
                   episodeList
@@ -228,10 +335,13 @@ class PodcastPage extends Component {
             podcastEditIntention={true}
           />
         )}
-        <UploadModal
+        <EpisodeUploadModal
           show={this.state.episodeEditModal}
           uploadPodcast={this.state.showEpisodePodcast}
           closeModal={this.handleCloseModal}
+          podcastDetails={this.state.podcastDetails}
+          episodeEditIntention={this.state.episodeEditIntention}
+          updatePodcastDetails={this.updateEpisodeDetails}
         />
       </React.Fragment>
     );

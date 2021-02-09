@@ -55,7 +55,7 @@ class UserDashboard extends React.Component {
     return (
       <React.Fragment>
         <Tab.Container id="left-tabs-example" defaultActiveKey="first">
-          <Row>
+          <Row id="home">
             <Nav variant="pills" className="flex-column">
               <Nav.Item>
                 <Nav.Link id="user-dashboard-nav-item" eventKey="first">

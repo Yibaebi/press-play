@@ -1,12 +1,17 @@
 import React from "react";
-import { captureEpisodeDetails, uploadEpisode } from "../../api/auth";
-import { headphoneIcon } from "../../assets";
+import {
+  captureEpisodeDetails,
+  getAllEpisodesOfAPodcast,
+  getAPodcast,
+  uploadEpisode,
+} from "../../api/auth";
+import { headphoneIcon, primaryLogo } from "../../assets";
 import { UploadModal } from "../uploadModal";
 import { Tab } from "react-bootstrap";
 import { Modal, Tabs } from "react-bootstrap";
 import { ProgressBar } from "react-bootstrap";
 import { Button } from "react-bootstrap";
-import flydown from "../../assets/Fly Down.mp3";
+import { IconLoader, IconLoaderVariant1 } from "../../utilities";
 
 class EpisodeUploadModal extends UploadModal {
   constructor(props) {
@@ -27,34 +32,24 @@ class EpisodeUploadModal extends UploadModal {
       },
       audioName: "choose audio",
       audioFile: null,
+      audioFilePreview: null,
 
       //IconLoader
       IconLoader: "",
+
+      // Upload progress
+      uploadInProgress: false,
+      uploadCompleted: false,
     };
   }
 
-  async componentDidMount() {
+  componentDidMount() {
     const user = localStorage.getItem("userDetails");
     const userDetails = JSON.parse(user);
-    console.log("current user ", userDetails);
 
     this.setState({
       userId: userDetails._id,
     });
-
-    try {
-      const podcastDescription = this.state.podcastDescription;
-      podcastDescription.podcastTitle =
-        (await this.props.podcastDetails.title) || "";
-      podcastDescription.podcastDescription =
-        this.props.podcastDetails.description || "";
-
-      this.setState({
-        podcastDetails: this.props.podcastDetails || {},
-        podcastDescription: podcastDescription,
-        coverImage: await this.props.podcastDetails.coverImageUrl,
-      });
-    } catch (error) {}
   }
 
   handleDialogReturn = () => {
@@ -66,6 +61,7 @@ class EpisodeUploadModal extends UploadModal {
 
     if (progressBar === 50 && backLabel === "Close") {
       console.log("Close Clicked");
+      this.props.closeModal();
     }
 
     if (coverName) {
@@ -92,6 +88,7 @@ class EpisodeUploadModal extends UploadModal {
 
       this.setState({
         disabled: false,
+        uploadInProgress: true,
       });
 
       //If a user does not want to edit his podcast
@@ -100,19 +97,31 @@ class EpisodeUploadModal extends UploadModal {
       //   }
 
       const episodeDetails = captureEpisodeDetails(
-        flydown,
+        this.state.audioFile,
         this.state.episodeDescription.episodeTitle,
         this.state.episodeDescription.episodeDescription,
-        "6013389326c3d60f7c6294bd"
+        this.props.podcastDetails._id
       );
-
-      console.log("The received ", episodeDetails);
 
       try {
         const response = await uploadEpisode(episodeDetails);
-        console.log("Response", response);
 
         if (response.status) {
+          const newEpisodes = await getAllEpisodesOfAPodcast(
+            this.props.podcastDetails._id
+          );
+          console.log("New podcast details", newEpisodes);
+
+          if (newEpisodes.status) {
+            this.props.updatePodcastDetails(newEpisodes.data);
+
+            this.setState({
+              uploadCompleted: true,
+            });
+            setTimeout(() => {
+              this.props.closeModal();
+            }, 2000);
+          }
         }
       } catch (error) {
         console.log("Error", error);
@@ -136,17 +145,21 @@ class EpisodeUploadModal extends UploadModal {
 
   handleAudioUpload = (e, input) => {
     if (e.target.files && e.target.files[0]) {
-      let reader = new FileReader();
-      reader.onload = (e) => {
-        this.setState({ audioFile: e.target.result });
-      };
-      reader.readAsDataURL(e.target.files[0]);
+      this.setState({ audioFile: e.target.files[0] });
     }
     if (input === "audio") {
       this.setState({
         audioName: e.target.files[0].name.substring(0, 15) + "...",
         disabled: false,
       });
+    }
+
+    if (e.target.files && e.target.files[0]) {
+      let reader = new FileReader();
+      reader.onload = (e) => {
+        this.setState({ audioFilePreview: e.target.result });
+      };
+      reader.readAsDataURL(e.target.files[0]);
     }
   };
 
@@ -174,7 +187,7 @@ class EpisodeUploadModal extends UploadModal {
         {this.state.audioFile ? (
           <div id="audioTarget">
             <p>Audio preview</p>
-            <audio src={this.state.audioFile} controls></audio>
+            <audio src={this.state.audioFilePreview} controls></audio>
           </div>
         ) : (
           " "
@@ -225,58 +238,58 @@ class EpisodeUploadModal extends UploadModal {
   render() {
     return (
       <React.Fragment>
-        <Modal show={true}>
-          <ProgressBar now={this.state.progressBar} />
-          <Modal.Header>
-            {this.props.uploadPodcast ? (
-              <Modal.Title>
-                {this.state.progressBar === 50
-                  ? "Step 1 of 2: Choose your cover art"
-                  : "Step 2 of 2: Add information for this podcast"}
-              </Modal.Title>
+        <Modal show={this.props.show}>
+          {this.state.uploadInProgress ? (
+            this.state.uploadCompleted ? (
+              <React.Fragment>
+                <div className="upload-in-progress completed">
+                  Completed. Please wait..
+                  <i className="fa fa-check-square" aria-hidden="true"></i>
+                </div>
+              </React.Fragment>
             ) : (
-              <Modal.Title>
-                {this.state.progressBar === 50
-                  ? "Step 1 of 2: Add information for this episode"
-                  : "Step 2 of 2: Upload episode audio"}
-              </Modal.Title>
-            )}
-          </Modal.Header>
-          <Modal.Body>
-            {this.props.uploadPodcast ? (
-              <Tabs>
-                {this.state.progressBar === 50 ? (
-                  <Tab eventKey="home">{this.coverContent()}</Tab>
-                ) : (
-                  <Tab className="active" eventKey="profile">
-                    {this.descriptionContent()}
-                  </Tab>
-                )}
-              </Tabs>
-            ) : (
-              <Tabs>
-                {this.state.progressBar === 50 ? (
-                  <Tab eventKey="home">{this.descriptionContent()}</Tab>
-                ) : (
-                  <Tab className="active" eventKey="profile">
-                    {this.audioContent()}
-                  </Tab>
-                )}
-              </Tabs>
-            )}
-          </Modal.Body>
-          <Modal.Footer>
-            <Button variant="secondary" onClick={this.handleDialogReturn}>
-              {this.state.progressBar === 50 ? this.state.backLabel : "Back"}
-            </Button>
-            <Button
-              disabled={this.state.disabled}
-              onClick={this.handleUploadSubmit}
-              variant="primary"
-            >
-              {this.state.progressBar === 100 ? "Complete" : "Next"}
-            </Button>
-          </Modal.Footer>
+              <div className="upload-in-progress">
+                <IconLoaderVariant1 />
+                Episode upload in progress...
+              </div>
+            )
+          ) : (
+            <React.Fragment>
+              <Modal.Header>
+                <Modal.Title>
+                  {this.state.progressBar === 50
+                    ? "Step 1 of 2: Add information for this episode"
+                    : "Step 2 of 2: Upload episode audio"}
+                </Modal.Title>
+              </Modal.Header>
+              <ProgressBar now={this.state.progressBar} />
+              <Modal.Body>
+                <Tabs>
+                  {this.state.progressBar === 50 ? (
+                    <Tab eventKey="home">{this.descriptionContent()}</Tab>
+                  ) : (
+                    <Tab className="active" eventKey="profile">
+                      {this.audioContent()}
+                    </Tab>
+                  )}
+                </Tabs>
+              </Modal.Body>
+              <Modal.Footer>
+                <Button variant="secondary" onClick={this.handleDialogReturn}>
+                  {this.state.progressBar === 50
+                    ? this.state.backLabel
+                    : "Back"}
+                </Button>
+                <Button
+                  disabled={this.state.disabled}
+                  onClick={this.handleUploadSubmit}
+                  variant="primary"
+                >
+                  {this.state.progressBar === 100 ? "Complete" : "Next"}
+                </Button>
+              </Modal.Footer>
+            </React.Fragment>
+          )}
         </Modal>
         {this.state.IconLoader}
       </React.Fragment>
