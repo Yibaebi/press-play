@@ -158,6 +158,8 @@ class PodcastPage extends Component {
     }, 20000);
   };
 
+  // subscribeToPodcast
+
   render() {
     const { episodes, podcastDetails } = this.state;
 
@@ -169,6 +171,7 @@ class PodcastPage extends Component {
               <span style={{ opacity: "0.5" }}>{i + 1}</span> - {episode.title}
             </h3>
             <p>{episode.description}</p>
+            <p>{episode.likesCount} likes </p>
           </div>
           <div className="button-container">
             <button onClick={this.handleEpisodeEditModal}>Edit</button>
@@ -281,6 +284,9 @@ class PodcastPage extends Component {
                           Edit
                         </button>
                         <button onClick={this.deletePodcast}>Delete</button>
+                        <button onClick={this.subscribeToPodcast}>
+                          Subscribe
+                        </button>
                       </React.Fragment>
                     )}
                   </div>

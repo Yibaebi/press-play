@@ -1,4 +1,5 @@
 import React from "react";
+import { getAllUserLikes, likeAnEpisode, unlikeAnEpisode } from "../../../api";
 import {
   likedIcon,
   likeIcon,
@@ -15,43 +16,69 @@ import "./controls.css";
 class AudioControls extends React.Component {
   state = {
     show: true,
-    liked: true,
+    liked: false,
     playing: null,
     showAlert: false,
     showUnlikedAlert: false,
     volumeValue: 20,
   };
 
-  componentDidMount() {
+  async componentDidMount() {
+    // try {
+    //   const getCurrentLikes = await getAllUserLikes();
+    //   for (let episode of getCurrentLikes.data.data) {
+    //     console.log(episode);
+    //     if (episode._id === this.props.episodeId) {
+    //       console.log("liked");
+    //       this.setState({
+    //         liked: true,
+    //       });
+    //     }
+    //   }
+    // } catch (error) {}
     this.setState({
       playing: this.props.playing,
     });
   }
 
-  handleEpisodeLike = () => {
+  handleEpisodeLike = async () => {
     const liked = this.state.liked ? false : true;
     const showAlert = liked ? true : false;
 
     if (liked) {
-      this.setState({
-        liked,
-        showAlert,
-      });
-      setTimeout(() => {
-        this.setState({
-          showAlert: false,
-        });
-      }, 1000);
+      try {
+        const likeResponse = await likeAnEpisode(this.props.episodeId);
+        console.log(likeResponse.data);
+
+        if (likeResponse.status) {
+          this.setState({
+            liked,
+            showAlert,
+          });
+          setTimeout(() => {
+            this.setState({
+              showAlert: false,
+            });
+          }, 3000);
+        }
+      } catch (error) {}
     } else {
-      this.setState({
-        liked,
-        showUnlikedAlert: true,
-      });
-      setTimeout(() => {
-        this.setState({
-          showUnlikedAlert: false,
-        });
-      }, 1000);
+      try {
+        const unlikelikeResponse = await unlikeAnEpisode(this.props.episodeId);
+        console.log(unlikelikeResponse.data);
+
+        if (unlikelikeResponse.status) {
+          this.setState({
+            liked,
+            showUnlikeAlert: true,
+          });
+          setTimeout(() => {
+            this.setState({
+              showUnlikeAlert: false,
+            });
+          }, 3000);
+        }
+      } catch (error) {}
     }
   };
 

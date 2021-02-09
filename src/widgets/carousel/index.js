@@ -77,7 +77,7 @@ class Carousel extends React.Component {
                   : this.state.podcasts[this.state.currentImageIndex].title
               }
             />
-            <ImageSlide
+            {/* <ImageSlide
               getPodcastId={this.props.getPodcastId}
               url={
                 this.state.podcasts[this.state.currentImageIndex + 1]
@@ -145,7 +145,7 @@ class Carousel extends React.Component {
                     ].title.substring(0, 10) + "..."
                   : this.state.podcasts[this.state.currentImageIndex + 3].title
               }
-            />
+            /> */}
           </div>
           <Arrow
             direction="right"

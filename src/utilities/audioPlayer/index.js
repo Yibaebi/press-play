@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { AudioHeader } from "./header/index";
 import { AudioControls } from "./controls/index";
 import "./audioplayer.css";
+import { getAllUserLikes } from "../../api";
 
 export class AudioPlayer extends Component {
   constructor(props) {
@@ -14,11 +15,25 @@ export class AudioPlayer extends Component {
       podcastDetails: null,
 
       playing: true,
+      liked: null,
     };
     this.audioRef = React.createRef();
   }
 
   async componentDidMount() {
+    try {
+      const getCurrentLikes = await getAllUserLikes();
+      for (let episode of getCurrentLikes.data.data) {
+        console.log(episode);
+        if (episode._id === this.props.episodeDetails._id) {
+          console.log("liked");
+          this.setState({
+            liked: true,
+          });
+        }
+      }
+    } catch (error) {}
+
     this.audioRef.current.play();
   }
 
@@ -103,6 +118,8 @@ export class AudioPlayer extends Component {
             duration={this.state.duration}
             audioSeek={this.handleAudioSeek}
             playing={this.state.playing}
+            episodeId={episodeDetails._id}
+            liked={this.state.liked}
           />
         </main>
       )
