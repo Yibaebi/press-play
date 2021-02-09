@@ -158,7 +158,7 @@ class PodcastPage extends Component {
     }, 20000);
   };
 
-  // subscribeToPodcast
+  subscribeToPodcast = () => {};
 
   render() {
     const { episodes, podcastDetails } = this.state;

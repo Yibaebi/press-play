@@ -2,7 +2,6 @@ import http from "../httpService";
 import { episodeUrl, podcastUrl, likeAndUnlike } from "../../../config.json";
 
 const userToken = localStorage.getItem("token");
-console.log(userToken);
 
 function captureEpisodeDetails(
   episodeAudio,
@@ -27,7 +26,9 @@ function uploadEpisode(episodeData) {
   }
 
   const apiEndpoint = episodeUrl;
-  return http.post(apiEndpoint, episodeData);
+  return http.post(apiEndpoint, episodeData, {
+    headers: { authorization: `${userToken}` },
+  });
 }
 
 function deleteEpisode(episodeId) {
@@ -57,7 +58,7 @@ function getAllUserLikes() {
   const apiEndpoint = `${likeAndUnlike}/likes`;
   return http.get(apiEndpoint, {
     headers: {
-      authorization: `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MDEzZTVlNGZmODMyMDAwMDRiYzNkY2QiLCJpYXQiOjE2MTI4MTI0NzcsImV4cCI6MTYxMjg5ODg3N30.eD_9oy_yyMkhIAewJeT45-oguJs7kQWD4jhTxHFndGs`,
+      authorization: `${userToken}`,
     },
   });
 }
