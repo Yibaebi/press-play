@@ -141,6 +141,10 @@
   color: #273f48;
 }
 
+.podcast-page-title-content hr {
+  margin-top: 0.3rem;
+}
+
 /* Episode Section */
 .episode-section-container {
   margin-top: 20px;

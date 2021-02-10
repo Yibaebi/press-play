@@ -122,6 +122,46 @@ class Dashboard extends React.Component {
 
                     {this.props.user && (
                       <li
+                        onClick={(e) =>
+                          this.handleIconChange(e, "subscriptions")
+                        }
+                      >
+                        <NavLink
+                          to="/dashboard/subscriptions"
+                          activeClassName="sidebar-active"
+                        >
+                          {dashboardIcon(
+                            isInView === "subscriptions"
+                              ? iconFocusColor
+                              : iconColor
+                          )}
+                          <span>Subscriptions</span>
+                        </NavLink>
+                      </li>
+                    )}
+
+{this.props.user && (
+                      <li
+                        onClick={(e) =>
+                          this.handleIconChange(e, "favorites")
+                        }
+                      >
+                        <NavLink
+                          to="/dashboard/favorites"
+                          activeClassName="sidebar-active"
+                        >
+                          {dashboardIcon(
+                            isInView === "favorites"
+                              ? iconFocusColor
+                              : iconColor
+                          )}
+                          <span>Favorites</span>
+                        </NavLink>
+                      </li>
+                    )}
+
+                    {this.props.user && (
+                      <li
                         onClick={(e) => this.handleIconChange(e, "dashboard")}
                       >
                         <NavLink

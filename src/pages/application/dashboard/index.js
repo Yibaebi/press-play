@@ -1,13 +1,11 @@
 import React from "react";
-import { Tab, Col, Nav, Row } from "react-bootstrap";
+import { Tab, Nav, Row } from "react-bootstrap";
 import "./dashboard.css";
-import { NavLink } from "react-router-dom";
 import {
   uploadIcon,
   listeningIcon,
   subscribersIcon,
   likesIcon,
-  recommendation1,
   angleRightIcon,
 } from "../../../assets";
 import { UploadModal } from "../../../widgets";
@@ -36,7 +34,9 @@ class UserDashboard extends React.Component {
           userPodcasts: userPodcasts.data.data,
         });
       }
-    } catch (error) {}
+    } catch (error) {
+      alert("Something Failed");
+    }
 
     console.log(this.props.userDetails);
     this.setState({

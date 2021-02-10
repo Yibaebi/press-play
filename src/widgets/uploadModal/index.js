@@ -5,16 +5,8 @@ import ModalButton from "react-bootstrap/Button";
 import "./uploadModal.css";
 import { inputFileIcon, headphoneIcon } from "../../assets";
 import { AuthenticationPage } from "../../pages/auth/authPages";
-import {
-  capturePodcastDetails,
-  updatePodcast,
-  uploadPodcastDetails,
-} from "../../api/auth";
-import { IconLoader } from "../../utilities/loader";
-import {
-  captureEpisodeDetails,
-  uploadEpisode,
-} from "../../api/auth/episodeService";
+import { capturePodcastDetails, updatePodcast } from "../../api/auth";
+import { IconLoaderVariant1 } from "../../utilities/loader";
 
 class UploadModal extends AuthenticationPage {
   constructor(props) {
@@ -39,6 +31,10 @@ class UploadModal extends AuthenticationPage {
 
       //IconLoader
       IconLoader: "",
+
+      // Editing
+      editInProgress: false,
+      updateCompleted: false,
     };
   }
 
@@ -105,47 +101,45 @@ class UploadModal extends AuthenticationPage {
         disabled: false,
       });
 
-      this.props.closeModal();
+      this.setState({
+        editInProgress: true,
+      });
 
       //If a user does not want to edit his podcast
       if (!this.props.podcastEditIntention) {
         this.props.createSuccess(true, false);
       }
 
-      const podcastOrEpisodeDetails = this.props.uploadPodcast
-        ? capturePodcastDetails(
-            this.state.coverFile,
-            this.state.podcastDescription.podcastTitle,
-            this.state.podcastDescription.podcastDescription,
-            this.state.userId
-          )
-        : captureEpisodeDetails(
-            this.state.audioFile,
-            this.state.episodeDescription.episodeTitle,
-            this.state.episodeDescription.episodeDescription,
-            "6013389326c3d60f7c6294bd"
-          );
-
-      console.log("The received ", podcastOrEpisodeDetails);
+      const podcastOrEpisodeDetails = capturePodcastDetails(
+        this.props.podcastDetails.coverImageUrl,
+        this.state.podcastDescription.podcastTitle,
+        this.state.podcastDescription.podcastDescription,
+        this.state.userId
+      );
 
       try {
-        const response =
-          this.props.podcastEditIntention && this.props.uploadPodcast
-            ? await updatePodcast(
-                podcastOrEpisodeDetails,
-                this.state.podcastDetails._id
-              )
-            : this.props.uploadPodcast
-            ? await uploadPodcastDetails(podcastOrEpisodeDetails)
-            : await uploadEpisode(podcastOrEpisodeDetails);
-        console.log("Response", response);
+        console.log("Still in uploadMoadl");
+        const response = await updatePodcast(
+          podcastOrEpisodeDetails,
+          this.state.podcastDetails._id
+        );
+
+        const newPodcastDetails = response.data.data;
 
         if (response.status) {
           if (!this.props.podcastEditIntention) {
             this.props.createSuccess(true, true);
           }
+
+          this.props.updatePodcast(newPodcastDetails);
+
+          this.setState({
+            editInProgress: true,
+            updateCompleted: true,
+          });
+
           setTimeout(() => {
-            // window.location = "/dashboard/dashboard";
+            this.props.closeModal();
           }, 2000);
         }
       } catch (error) {
@@ -365,37 +359,62 @@ class UploadModal extends AuthenticationPage {
     return (
       <React.Fragment>
         <Modal show={this.props.show}>
-          <ProgressBar now={this.state.progressBar} />
-          <Modal.Header>
-            <Modal.Title>
-              {this.state.progressBar === 50
-                ? "Step 1 of 2: Choose your cover art"
-                : "Step 2 of 2: Add information for this podcast"}
-            </Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <Tabs>
-              {this.state.progressBar === 50 ? (
-                <Tab eventKey="home">{this.coverContent()}</Tab>
+          {this.state.editInProgress ? (
+            <React.Fragment>
+              {this.state.updateCompleted ? (
+                <React.Fragment>
+                  <div className="upload-in-progress completed">
+                    Completed. Please wait..
+                    <i className="fa fa-check-square" aria-hidden="true"></i>
+                  </div>
+                </React.Fragment>
               ) : (
-                <Tab className="active" eventKey="profile">
-                  {this.descriptionContent()}
-                </Tab>
+                <div className="upload-in-progress">
+                  <IconLoaderVariant1 />
+                  Updating podcast please wait...
+                </div>
               )}
-            </Tabs>
-          </Modal.Body>
-          <Modal.Footer>
-            <ModalButton variant="secondary" onClick={this.handleDialogReturn}>
-              {this.state.progressBar === 50 ? this.state.backLabel : "Back"}
-            </ModalButton>
-            <ModalButton
-              disabled={this.state.disabled}
-              onClick={this.handleUploadSubmit}
-              variant="primary"
-            >
-              {this.state.progressBar === 100 ? "Complete" : "Next"}
-            </ModalButton>
-          </Modal.Footer>
+            </React.Fragment>
+          ) : (
+            <React.Fragment>
+              <ProgressBar now={this.state.progressBar} />
+              <Modal.Header>
+                <Modal.Title>
+                  {this.state.progressBar === 50
+                    ? "Step 1 of 2: Choose your cover art"
+                    : "Step 2 of 2: Add information for this podcast"}
+                </Modal.Title>
+              </Modal.Header>
+              <Modal.Body>
+                <Tabs>
+                  {this.state.progressBar === 50 ? (
+                    <Tab eventKey="home">{this.coverContent()}</Tab>
+                  ) : (
+                    <Tab className="active" eventKey="profile">
+                      {this.descriptionContent()}
+                    </Tab>
+                  )}
+                </Tabs>
+              </Modal.Body>
+              <Modal.Footer>
+                <ModalButton
+                  variant="secondary"
+                  onClick={this.handleDialogReturn}
+                >
+                  {this.state.progressBar === 50
+                    ? this.state.backLabel
+                    : "Back"}
+                </ModalButton>
+                <ModalButton
+                  disabled={this.state.disabled}
+                  onClick={this.handleUploadSubmit}
+                  variant="primary"
+                >
+                  {this.state.progressBar === 100 ? "Complete" : "Next"}
+                </ModalButton>
+              </Modal.Footer>
+            </React.Fragment>
+          )}
         </Modal>
         {this.state.IconLoader}
       </React.Fragment>

@@ -10,8 +10,6 @@ class AuthenticationPage extends React.Component {
       userPassword,
       userFirstName,
       userLastName,
-      newPassword,
-      confirmPassword,
     } = {
       ...this.state.account,
     };

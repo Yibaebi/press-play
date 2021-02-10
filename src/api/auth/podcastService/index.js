@@ -3,6 +3,8 @@ import { podcastUrl, apiUrl } from "../../../config.json";
 
 const userToken = localStorage.getItem("token");
 console.log(userToken);
+const userDetails = JSON.parse(localStorage.getItem("userDetails"));
+console.log(userDetails);
 
 function capturePodcastDetails(
   coverImage,
@@ -80,6 +82,23 @@ function subscribeToAPodcast(podcastId) {
     }
   );
 }
+function unsubscribeToAPodcast(podcastId) {
+  const apiEndpoint = `${apiUrl}/unsubscribe/${podcastId}`;
+  return http.put(
+    apiEndpoint,
+    {},
+    {
+      headers: { authorization: `${userToken}` },
+    }
+  );
+}
+
+function getAllUserSubscriptions(podcastId) {
+  const apiEndpoint = `${apiUrl}/subscriptions`;
+  return http.get(apiEndpoint, {
+    headers: { authorization: `${userToken}` },
+  });
+}
 
 export {
   capturePodcastDetails,
@@ -89,5 +108,7 @@ export {
   getAllPodcasts,
   getAPodcast,
   subscribeToAPodcast,
+  unsubscribeToAPodcast,
   getAllPodcastsOfUser,
+  getAllUserSubscriptions,
 };

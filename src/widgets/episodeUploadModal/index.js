@@ -1,17 +1,18 @@
 import React from "react";
 import {
   captureEpisodeDetails,
+  captureEpisodeUpdateDetails,
   getAllEpisodesOfAPodcast,
-  getAPodcast,
+  updateEpisode,
   uploadEpisode,
 } from "../../api/auth";
-import { headphoneIcon, primaryLogo } from "../../assets";
+import { headphoneIcon } from "../../assets";
 import { UploadModal } from "../uploadModal";
 import { Tab } from "react-bootstrap";
 import { Modal, Tabs } from "react-bootstrap";
 import { ProgressBar } from "react-bootstrap";
 import { Button } from "react-bootstrap";
-import { IconLoader, IconLoaderVariant1 } from "../../utilities";
+import { IconLoaderVariant1 } from "../../utilities";
 
 class EpisodeUploadModal extends UploadModal {
   constructor(props) {
@@ -20,7 +21,7 @@ class EpisodeUploadModal extends UploadModal {
       podcastDetails: {},
       userId: "",
       // Modal state
-      disabled: true,
+      disabled: false,
       backLabel: "Close",
       show: true,
       progressBar: 50,
@@ -43,13 +44,28 @@ class EpisodeUploadModal extends UploadModal {
     };
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     const user = localStorage.getItem("userDetails");
     const userDetails = JSON.parse(user);
 
     this.setState({
       userId: userDetails._id,
     });
+
+    try {
+      if (this.props.episodeEditIntention) {
+        console.log(this.props.episodeDetails);
+        const episodeDescription = this.state.episodeDescription;
+        episodeDescription.episodeTitle = this.props.episodeDetails.title || "";
+        episodeDescription.episodeDescription =
+          this.props.episodeDetails.description || "";
+
+        this.setState({
+          episodeDetails: this.props.episodeDetails || {},
+          episodeDescription: episodeDescription,
+        });
+      }
+    } catch (error) {}
   }
 
   handleDialogReturn = () => {
@@ -60,7 +76,6 @@ class EpisodeUploadModal extends UploadModal {
       });
 
     if (progressBar === 50 && backLabel === "Close") {
-      console.log("Close Clicked");
       this.props.closeModal();
     }
 
@@ -96,15 +111,24 @@ class EpisodeUploadModal extends UploadModal {
       //     this.props.createSuccess(true, false);
       //   }
 
-      const episodeDetails = captureEpisodeDetails(
-        this.state.audioFile,
-        this.state.episodeDescription.episodeTitle,
-        this.state.episodeDescription.episodeDescription,
-        this.props.podcastDetails._id
-      );
-
+      const episodeDetails = this.props.episodeEditIntention
+        ? captureEpisodeUpdateDetails(
+            this.state.audioFile,
+            this.state.episodeDescription.episodeTitle,
+            this.state.episodeDescription.episodeDescription
+          )
+        : captureEpisodeDetails(
+            this.state.audioFile,
+            this.state.episodeDescription.episodeTitle,
+            this.state.episodeDescription.episodeDescription,
+            this.props.podcastDetails._id
+          );
       try {
-        const response = await uploadEpisode(episodeDetails);
+        console.log(this.props.episodeId);
+
+        const response = this.props.episodeEditIntention
+          ? await updateEpisode(episodeDetails, this.props.episodeId)
+          : await uploadEpisode(episodeDetails);
 
         if (response.status) {
           const newEpisodes = await getAllEpisodesOfAPodcast(
@@ -114,18 +138,19 @@ class EpisodeUploadModal extends UploadModal {
 
           if (newEpisodes.status) {
             this.props.updatePodcastDetails(newEpisodes.data);
-
-            this.setState({
-              uploadCompleted: true,
-            });
-            setTimeout(() => {
-              this.props.closeModal();
-            }, 2000);
+            this.props.closeModal();
           }
         }
       } catch (error) {
-        console.log("Error", error);
+        this.setState({
+          uploadCompleted: true,
+          uploadInProgress: false,
+        });
+        console.log("Error", error.response.data);
         alert("Failed");
+        setTimeout(() => {
+          this.props.closeModal();
+        }, 2000);
         // window.location = "/dashboard/dashboard";
       }
     }
@@ -250,7 +275,9 @@ class EpisodeUploadModal extends UploadModal {
             ) : (
               <div className="upload-in-progress">
                 <IconLoaderVariant1 />
-                Episode upload in progress...
+                {this.props.episodeEditIntention
+                  ? "Editing in progress"
+                  : "Episode upload in progress..."}
               </div>
             )
           ) : (
