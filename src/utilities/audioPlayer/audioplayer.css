@@ -1,11 +1,11 @@
 #audio-player-container {
   color: #273f48;
   position: fixed;
-  bottom: 40px;
+  bottom: 0px;
   padding: 3px;
   margin-left: 300px;
   width: calc(100vw - 300px);
-  z-index: 11000;
+  z-index: 1039;
   background: #ffffff;
   box-shadow: 4px 8px 20px 10px rgba(0, 0, 0, 0.05);
   display: grid;

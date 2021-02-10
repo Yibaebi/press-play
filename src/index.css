@@ -1,3 +1,6 @@
+html {
+  height: 100vh;
+}
 * {
   margin: 0;
   padding: 0;
@@ -7,6 +10,7 @@
 }
 body {
   position: relative;
+  height: 100vh;
 }
 h1,
 h2,
@@ -36,8 +40,8 @@ h6 {
 
 /* width */
 ::-webkit-scrollbar {
-  display: none;
   width: 10px;
+  display: none;
 }
 
 /* Track */
@@ -55,4 +59,8 @@ h6 {
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
   background: rgba(226, 81, 76, 1);
+}
+
+.modal {
+  z-index: 1000000;
 }

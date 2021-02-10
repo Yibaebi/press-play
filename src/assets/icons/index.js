@@ -1071,6 +1071,92 @@ function volumeLowIcon() {
   );
 }
 
+function episodePlayIcon() {
+  return (
+    <svg
+      width="15"
+      height="15"
+      viewBox="0 0 15 15"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M6 11C8.76142 11 11 8.76142 11 6C11 3.23858 8.76142 1 6 1C3.23858 1 1 3.23858 1 6C1 8.76142 3.23858 11 6 11Z"
+        stroke="#E2605B"
+        stroke-width="0.8"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+      <path
+        d="M5 4L8 6L5 8V4Z"
+        stroke="#E2605B"
+        stroke-width="0.8"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+    </svg>
+  );
+}
+function episodeDeleteIcon() {
+  return (
+    <svg
+      width="15"
+      height="15"
+      viewBox="0 0 15 15"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M6 11C8.76142 11 11 8.76142 11 6C11 3.23858 8.76142 1 6 1C3.23858 1 1 3.23858 1 6C1 8.76142 3.23858 11 6 11Z"
+        stroke="#E2605B"
+        stroke-width="0.8"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+      <path
+        d="M7.5 4.5L4.5 7.5"
+        stroke="#E2605B"
+        stroke-width="0.8"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+      <path
+        d="M4.5 4.5L7.5 7.5"
+        stroke="#E2605B"
+        stroke-width="0.8"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+    </svg>
+  );
+}
+function episodeEditIcon() {
+  return (
+    <svg
+      width="15"
+      height="15"
+      viewBox="0 0 15 15"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M8.5649 1.4178C8.69736 1.28534 8.85461 1.18027 9.02767 1.10858C9.20074 1.0369 9.38623 1 9.57355 1C9.76087 1 9.94636 1.0369 10.1194 1.10858C10.2925 1.18027 10.4497 1.28534 10.5822 1.4178C10.7147 1.55026 10.8197 1.70751 10.8914 1.88057C10.9631 2.05364 11 2.23913 11 2.42645C11 2.61377 10.9631 2.79926 10.8914 2.97233C10.8197 3.14539 10.7147 3.30265 10.5822 3.4351L3.7738 10.2435L1 11L1.75649 8.22621L8.5649 1.4178Z"
+        stroke="#E2605B"
+        stroke-width="0.8"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+      <path
+        d="M6.04327 9.99121H10.5822"
+        stroke="#E2605B"
+        stroke-width="0.8"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+    </svg>
+  );
+}
+
 export {
   dashboardIcon,
   favIcon,
@@ -1106,4 +1192,7 @@ export {
   volumeFullIcon,
   volumeMuteIcon,
   volumeLowIcon,
+  episodePlayIcon,
+  episodeDeleteIcon,
+  episodeEditIcon,
 };
