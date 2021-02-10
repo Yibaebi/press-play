@@ -81,13 +81,13 @@
 
 .logo-container {
   width: 300px;
-  height: 12vh;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
+  background-color: #fdfdfd;
 }
 .sidebar-modal .logo-container {
-  background-color: #fff;
   position: relative;
   height: 12vh;
 }
@@ -101,7 +101,7 @@
 }
 
 #sidebar-nav-links {
-  background-color: #fff;
+  background-color: #fdfdfd;
   position: relative;
 }
 
@@ -116,7 +116,7 @@
 .sidebar-modal-wrapper {
   height: 100%;
   width: 300px;
-  background-color: #fff;
+  background-color: #fdfdfd;
 }
 
 .sidebar-links {

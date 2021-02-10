@@ -12,21 +12,24 @@ function dashboardIcon(color) {
       >
         <path
           d="M12 13.3333V6.66666"
-          stroke={color}
+          stroke="black"
+          stroke-opacity="0.6"
           stroke-width="2"
           stroke-linecap="round"
           stroke-linejoin="round"
         />
         <path
           d="M8 13.3333V2.66666"
-          stroke={color}
+          stroke="black"
+          stroke-opacity="0.6"
           stroke-width="2"
           stroke-linecap="round"
           stroke-linejoin="round"
         />
         <path
           d="M4 13.3333V9.33334"
-          stroke={color}
+          stroke="black"
+          stroke-opacity="0.6"
           stroke-width="2"
           stroke-linecap="round"
           stroke-linejoin="round"
@@ -76,22 +79,22 @@ function homeIcon(color) {
   return (
     <React.Fragment>
       <svg
-        width="16"
-        height="16"
-        viewBox="0 0 16 16"
+        width="18"
+        height="18"
+        viewBox="0 0 18 18"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
         <path
-          d="M2 6L8 1.33333L14 6V13.3333C14 13.687 13.8595 14.0261 13.6095 14.2761C13.3594 14.5262 13.0203 14.6667 12.6667 14.6667H3.33333C2.97971 14.6667 2.64057 14.5262 2.39052 14.2761C2.14048 14.0261 2 13.687 2 13.3333V6Z"
-          stroke={color}
+          d="M9 17C13.4183 17 17 13.4183 17 9C17 4.58172 13.4183 1 9 1C4.58172 1 1 4.58172 1 9C1 13.4183 4.58172 17 9 17Z"
+          stroke="#656565"
           stroke-width="2"
           stroke-linecap="round"
           stroke-linejoin="round"
         />
         <path
-          d="M6 14.6667V8H10V14.6667"
-          stroke={color}
+          d="M9.0001 11.4C10.3256 11.4 11.4001 10.3255 11.4001 9.00001C11.4001 7.67452 10.3256 6.60001 9.0001 6.60001C7.67461 6.60001 6.6001 7.67452 6.6001 9.00001C6.6001 10.3255 7.67461 11.4 9.0001 11.4Z"
+          stroke="#656565"
           stroke-width="2"
           stroke-linecap="round"
           stroke-linejoin="round"
@@ -143,9 +146,9 @@ function favIcon(color) {
   return (
     <React.Fragment>
       <svg
-        width="19"
+        width="18"
         height="18"
-        viewBox="0 0 19 18"
+        viewBox="0 0 18 18"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
@@ -1156,6 +1159,46 @@ function episodeEditIcon() {
     </svg>
   );
 }
+function noSubIcon() {
+  return (
+    <svg
+      width="65"
+      height="65"
+      viewBox="0 0 65 65"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M32.25 63.5C49.5089 63.5 63.5 49.5089 63.5 32.25C63.5 14.9911 49.5089 1 32.25 1C14.9911 1 1 14.9911 1 32.25C1 49.5089 14.9911 63.5 32.25 63.5Z"
+        stroke="#4D4D4D"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+      <path
+        d="M44.75 44.75C44.75 44.75 40.0625 38.5 32.25 38.5C24.4375 38.5 19.75 44.75 19.75 44.75"
+        stroke="#4D4D4D"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+      <path
+        d="M22.875 22.875H22.9062"
+        stroke="#4D4D4D"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+      <path
+        d="M41.625 22.875H41.6563"
+        stroke="#4D4D4D"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+    </svg>
+  );
+}
 
 export {
   dashboardIcon,
@@ -1195,4 +1238,5 @@ export {
   episodePlayIcon,
   episodeDeleteIcon,
   episodeEditIcon,
+  noSubIcon,
 };

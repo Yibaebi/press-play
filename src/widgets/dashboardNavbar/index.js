@@ -8,7 +8,7 @@ function DashboardNavBar({ handleModalOpen, user }) {
   return (
     <React.Fragment>
       <div className="logo-container">
-        <Link to="/dashboard/home">
+        <Link to="/dashboard/discover">
           <img
             src={primaryLogo}
             className="pressplay-logo"

@@ -93,7 +93,7 @@ function unsubscribeToAPodcast(podcastId) {
   );
 }
 
-function getAllUserSubscriptions(podcastId) {
+function getAllUserSubscriptions() {
   const apiEndpoint = `${apiUrl}/subscriptions`;
   return http.get(apiEndpoint, {
     headers: { authorization: `${userToken}` },

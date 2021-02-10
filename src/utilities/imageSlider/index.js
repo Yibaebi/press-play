@@ -1,6 +1,14 @@
 import React from "react";
 
-const ImageSlide = ({ url, title, author, podcastId, getPodcastId }) => {
+const ImageSlide = ({
+  url,
+  title,
+  author,
+  podcastId,
+  getPodcastId,
+  subscribed,
+  unsubscribe,
+}) => {
   return (
     <div id="carousel" className="slide-item">
       <img
@@ -17,6 +25,10 @@ const ImageSlide = ({ url, title, author, podcastId, getPodcastId }) => {
         <h3>{title}</h3>
         <p>{author}</p>
       </div>
+
+      {subscribed && (
+        <button onClick={(e) => unsubscribe(e, podcastId)}>Unsubscribe</button>
+      )}
     </div>
   );
 };

@@ -202,10 +202,17 @@ class PodcastPage extends Component {
     if (e.target.innerText === "Subscribe") {
       try {
         const subscribeResponse = await subscribeToAPodcast(podcastDetails._id);
-        console.log(subscribeResponse.data);
-        this.setState({
-          subscribed: true,
-        });
+
+        const podcastResponse = await getAPodcast(this.props.podcastId);
+
+        if (subscribeResponse.status && podcastResponse.status) {
+          console.log("Podcast updated!", podcastResponse.data);
+
+          this.setState({
+            podcastDetails: podcastResponse.data,
+            subscribed: true,
+          });
+        }
       } catch (error) {
         console.log(error.response);
         alert("Something Failed. Check your network and try again.");
@@ -215,10 +222,16 @@ class PodcastPage extends Component {
         const subscribeResponse = await unsubscribeToAPodcast(
           podcastDetails._id
         );
-        console.log(subscribeResponse.data);
-        this.setState({
-          subscribed: false,
-        });
+        const podcastResponse = await getAPodcast(this.props.podcastId);
+
+        if (subscribeResponse.status && podcastResponse.status) {
+          console.log("Podcast updated!", podcastResponse.data);
+
+          this.setState({
+            podcastDetails: podcastResponse.data,
+            subscribed: false,
+          });
+        }
       } catch (error) {
         console.log(error.response);
         alert("Something Failed. Check your network and try again.");

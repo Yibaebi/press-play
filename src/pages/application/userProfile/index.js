@@ -1,6 +1,12 @@
 import React from "react";
 import { NavLink, Route, Switch } from "react-router-dom";
-import { dashboardIcon, homeIcon, logoutIcon } from "../../../assets";
+import {
+  dashboardIcon,
+  favIcon,
+  homeIcon,
+  logoutIcon,
+  rssIcon,
+} from "../../../assets";
 
 import "./userProfile.css";
 import { DashboardNavBar, UploadModal } from "../../../widgets";
@@ -9,6 +15,7 @@ import { UserDashboard } from "../dashboard";
 import { Logout } from "../../auth/logout";
 import { Home } from "../";
 import { AudioPlayer } from "./../../../utilities/audioPlayer/index";
+import { SubscriptionsPage } from "../Subscription";
 
 class Dashboard extends React.Component {
   constructor(props) {
@@ -107,19 +114,6 @@ class Dashboard extends React.Component {
                         <span>Discover</span>
                       </NavLink>
                     </li>
-                    {/* <li onClick={(e) => this.handleIconChange(e, "subscription")}>
-                  <Nav.Link
-                    to="/subscription"
-                    disabled={true}
-                    activeClassName="sidebar-active"
-                    >
-                    {rssIcon(
-                      isInView === "subscription" ? iconFocusColor : iconColor
-                      )}
-                    <span>Subscriptions</span>
-                    </Nav.Link>
-                  </li> */}
-
                     {this.props.user && (
                       <li
                         onClick={(e) =>
@@ -130,7 +124,7 @@ class Dashboard extends React.Component {
                           to="/dashboard/subscriptions"
                           activeClassName="sidebar-active"
                         >
-                          {dashboardIcon(
+                          {rssIcon(
                             isInView === "subscriptions"
                               ? iconFocusColor
                               : iconColor
@@ -140,17 +134,15 @@ class Dashboard extends React.Component {
                       </li>
                     )}
 
-{this.props.user && (
+                    {this.props.user && (
                       <li
-                        onClick={(e) =>
-                          this.handleIconChange(e, "favorites")
-                        }
+                        onClick={(e) => this.handleIconChange(e, "favorites")}
                       >
                         <NavLink
                           to="/dashboard/favorites"
                           activeClassName="sidebar-active"
                         >
-                          {dashboardIcon(
+                          {favIcon(
                             isInView === "favorites"
                               ? iconFocusColor
                               : iconColor
@@ -178,16 +170,6 @@ class Dashboard extends React.Component {
                       </li>
                     )}
 
-                    {/* <li onClick={(e) => this.handleIconChange(e, "settings")}>
-                  <Nav.Link
-                    to="/settings"
-                    disabled={true}
-                    activeClassName="sidebar-active diasbled"
-                  >
-                    {settingsIcon(iconColor)}
-                    <span>Settings</span>
-                  </Nav.Link>
-                </li> */}
                     {this.props.user ? (
                       <li onClick={(e) => this.handleIconChange(e, "logout")}>
                         <NavLink to="/logout" activeClassName="sidebar-active">
@@ -216,6 +198,16 @@ class Dashboard extends React.Component {
                 path="/dashboard/discover"
                 render={(props) => (
                   <Home
+                    user={this.props.user}
+                    playerLaunch={this.handlePlayerLaunch}
+                    {...props}
+                  />
+                )}
+              />
+              <Route
+                path="/dashboard/subscriptions"
+                render={(props) => (
+                  <SubscriptionsPage
                     user={this.props.user}
                     playerLaunch={this.handlePlayerLaunch}
                     {...props}
