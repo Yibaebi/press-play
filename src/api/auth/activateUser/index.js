@@ -1,10 +1,9 @@
 import http from "../httpService";
-import { apiUrl } from "../../../config.json";
-
-const apiEndpoint = apiUrl + "/user";
+import { activationUrl } from "../../../config.json";
 
 const activateAccount = (token) => {
-  return http.get(apiEndpoint, { token: token });
+  const apiEndpoint = activationUrl + `?token=${token}`;
+  return http.get(apiEndpoint);
 };
 
 export { activateAccount };

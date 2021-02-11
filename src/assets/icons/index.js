@@ -198,6 +198,63 @@ function subscribeIcon() {
     </React.Fragment>
   );
 }
+function unsubscribeIcon() {
+  return (
+    <React.Fragment>
+      <svg
+        width="15"
+        height="15"
+        viewBox="0 0 15 15"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M6 11C8.76142 11 11 8.76142 11 6C11 3.23858 8.76142 1 6 1C3.23858 1 1 3.23858 1 6C1 8.76142 3.23858 11 6 11Z"
+          stroke="#E2605B"
+          stroke-width="0.8"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+        <path
+          d="M4 6H8"
+          stroke="#E2605B"
+          stroke-width="0.8"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </svg>
+    </React.Fragment>
+  );
+}
+function searchResultsIcon() {
+  return (
+    <React.Fragment>
+      <svg
+        width="75"
+        height="75"
+        viewBox="0 0 75 75"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <circle cx="37.5" cy="37.5" r="37.5" fill="#656565" />
+        <path
+          d="M36.1111 47.2222C42.2476 47.2222 47.2222 42.2476 47.2222 36.1111C47.2222 29.9746 42.2476 25 36.1111 25C29.9746 25 25 29.9746 25 36.1111C25 42.2476 29.9746 47.2222 36.1111 47.2222Z"
+          stroke="white"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+        <path
+          d="M50 50L43.9583 43.9583"
+          stroke="white"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </svg>
+    </React.Fragment>
+  );
+}
 
 function bellIcon() {
   return (
@@ -1275,4 +1332,6 @@ export {
   episodeEditIcon,
   noSubIcon,
   subscribeIcon,
+  unsubscribeIcon,
+  searchResultsIcon,
 };

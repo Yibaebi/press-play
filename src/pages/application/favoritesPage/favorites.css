@@ -1,5 +1,6 @@
 #home.favorites-page {
   padding-bottom: 1em;
+  padding-left: 20px;
 }
 
 #home.favorites-page .episode-item .button-container button {
@@ -13,6 +14,11 @@
   border: 2px solid rgba(226, 81, 76, 0.5);
   transition: all 0.3s ease-in-out;
   color: #273f48;
+}
+
+#home.favorites-page .episode-item .button-container button:hover {
+  background-color: white;
+  border: 2px solid rgba(226, 81, 76, 1);
 }
 
 #home.favorites-page h4 {

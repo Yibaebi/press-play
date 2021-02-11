@@ -38,7 +38,7 @@ class Carousel extends React.Component {
   nextSlide = () => {
     const lastIndex = this.state.podcasts.length - 1;
     const { currentImageIndex } = this.state;
-    const shouldResetIndex = currentImageIndex + 3 === lastIndex;
+    const shouldResetIndex = currentImageIndex + 2 === lastIndex;
     const index = shouldResetIndex ? 0 : currentImageIndex + 1;
 
     this.setState({
@@ -77,7 +77,7 @@ class Carousel extends React.Component {
                   : this.state.podcasts[this.state.currentImageIndex].title
               }
             />
-            {/* <ImageSlide
+            <ImageSlide
               getPodcastId={this.props.getPodcastId}
               url={
                 this.state.podcasts[this.state.currentImageIndex + 1]
@@ -123,7 +123,7 @@ class Carousel extends React.Component {
                   : this.state.podcasts[this.state.currentImageIndex + 2].title
               }
             />
-            <ImageSlide
+            {/* <ImageSlide
               getPodcastId={this.props.getPodcastId}
               url={
                 this.state.podcasts[this.state.currentImageIndex + 3]

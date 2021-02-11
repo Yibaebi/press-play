@@ -72,8 +72,7 @@ class SubscriptionsPage extends React.Component {
       <ImageSlide
         key={subscription._id}
         url={subscription.coverImageUrl}
-        title={subscription.title.substring(0, 10) + "..."}
-        author={"Chidiebere"}
+        title={subscription.title.substring(0, 11) + "..."}
         podcastId={subscription._id}
         subscribed={true}
         unsubscribe={this.handleUnsubscribe}

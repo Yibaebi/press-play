@@ -1,6 +1,7 @@
 {
-  "apiUrl": "https://press-play-api-v2.herokuapp.com/api/users",
-  "podcastUrl": "https://press-play-api-v2.herokuapp.com/api/podcasts",
-  "episodeUrl": "https://press-play-api-v2.herokuapp.com/api/episodes",
-  "likeAndUnlike": "https://press-play-api-v2.herokuapp.com/api/users"
+  "apiUrl": "https://press-play-api.herokuapp.com/api/users",
+  "activationUrl": "https://press-play-api.herokuapp.com/api/users/activate-account",
+  "podcastUrl": "https://press-play-api.herokuapp.com/api/podcasts",
+  "episodeUrl": "https://press-play-api.herokuapp.com/api/episodes",
+  "likeAndUnlike": "https://press-play-api.herokuapp.com/api/users"
 }

@@ -5,7 +5,11 @@ import ModalButton from "react-bootstrap/Button";
 import "./uploadModal.css";
 import { inputFileIcon, headphoneIcon } from "../../assets";
 import { AuthenticationPage } from "../../pages/auth/authPages";
-import { capturePodcastDetails, updatePodcast } from "../../api/auth";
+import {
+  capturePodcastDetails,
+  updatePodcast,
+  uploadPodcastDetails,
+} from "../../api/auth";
 import { IconLoaderVariant1 } from "../../utilities/loader";
 
 class UploadModal extends AuthenticationPage {
@@ -110,44 +114,74 @@ class UploadModal extends AuthenticationPage {
       //If a user does not want to edit his podcast
       if (!this.props.podcastEditIntention) {
         this.props.createSuccess(true, false);
-      }
 
-      const podcastOrEpisodeDetails = capturePodcastDetails(
-        this.props.podcastDetails.coverImageUrl,
-        this.state.podcastDescription.podcastTitle,
-        this.state.podcastDescription.podcastDescription,
-        this.state.userId
-      );
-
-      try {
-        console.log("Still in uploadMoadl");
-        const response = await updatePodcast(
-          podcastOrEpisodeDetails,
-          this.state.podcastDetails._id
+        const podcastOrEpisodeDetails = capturePodcastDetails(
+          this.state.coverFile,
+          this.state.podcastDescription.podcastTitle,
+          this.state.podcastDescription.podcastDescription,
+          this.state.userId
         );
 
-        const newPodcastDetails = response.data.data;
+        try {
+          console.log("Still in podcast create modal");
+          const response = await uploadPodcastDetails(podcastOrEpisodeDetails);
 
-        if (response.status) {
-          if (!this.props.podcastEditIntention) {
-            this.props.createSuccess(true, true);
-          }
+          const newPodcastDetails = response.data.data;
 
-          this.props.updatePodcast(newPodcastDetails);
+          console.log("Created podcast", newPodcastDetails);
 
-          this.setState({
-            editInProgress: true,
-            updateCompleted: true,
-          });
+          // if (response.status) {
+          //     this.props.createSuccess(true, true);
+          //   }
+
+          //   this.props.updatePodcast(newPodcastDetails);
 
           setTimeout(() => {
             this.props.closeModal();
           }, 2000);
+        } catch (error) {
+          console.log("Error", error);
+          alert("Failed");
+          // window.location = "/dashboard/dashboard";
         }
-      } catch (error) {
-        console.log("Error", error);
-        alert("Failed");
-        // window.location = "/dashboard/dashboard";
+      } else {
+        const podcastOrEpisodeDetails = capturePodcastDetails(
+          this.props.podcastDetails.coverImageUrl,
+          this.state.podcastDescription.podcastTitle,
+          this.state.podcastDescription.podcastDescription,
+          this.state.userId
+        );
+
+        try {
+          console.log("Still in uploadMoadl");
+          const response = await updatePodcast(
+            podcastOrEpisodeDetails,
+            this.state.podcastDetails._id
+          );
+
+          const newPodcastDetails = response.data.data;
+
+          if (response.status) {
+            if (!this.props.podcastEditIntention) {
+              this.props.createSuccess(true, true);
+            }
+
+            this.props.updatePodcast(newPodcastDetails);
+
+            this.setState({
+              editInProgress: true,
+              updateCompleted: true,
+            });
+
+            setTimeout(() => {
+              this.props.closeModal();
+            }, 2000);
+          }
+        } catch (error) {
+          console.log("Error", error);
+          alert("Failed");
+          // window.location = "/dashboard/dashboard";
+        }
       }
     }
   };

@@ -39,7 +39,10 @@ class PressPlay extends React.Component {
           />
           <Route path="/activateAccount" component={ActivateAccount} />
           <Route path="/resetPassword" component={PasswordResetPage} />
-          <Route path="/activateAccount" component={ActivateAccount} />
+          <Route
+            path="/api/users/activate-account"
+            component={ActivateAccount}
+          />
           <Route path="/signup" component={SignUpPage} />
           <Route path="/login" component={LogInPage} />
           <Route path="/" component={LandingPage} />

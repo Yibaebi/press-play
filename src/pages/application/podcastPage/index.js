@@ -17,6 +17,7 @@ import {
   episodeDeleteIcon,
   episodeEditIcon,
   subscribeIcon,
+  unsubscribeIcon,
 } from "../../../assets";
 import { IconLoader } from "../../../utilities";
 import { EpisodeUploadModal } from "../../../widgets/episodeUploadModal";
@@ -216,9 +217,8 @@ class PodcastPage extends Component {
     });
   };
 
-  subscribeToPodcast = async (e, podcastDetails) => {
-    console.log("Can subscribe to", podcastDetails);
-    if (e.target.innerText === "Subscribe") {
+  subscribeToPodcast = async (e, podcastDetails, action) => {
+    if (action === "subscribe") {
       try {
         const subscribeResponse = await subscribeToAPodcast(podcastDetails._id);
 
@@ -236,7 +236,7 @@ class PodcastPage extends Component {
         console.log(error.response);
         alert("Something Failed. Check your network and try again.");
       }
-    } else if (e.target.innerText === "Unsubscribe") {
+    } else if (action === "unsubscribe") {
       try {
         const subscribeResponse = await unsubscribeToAPodcast(
           podcastDetails._id
@@ -430,10 +430,33 @@ class PodcastPage extends Component {
                               onClick={(e) =>
                                 this.subscribeToPodcast(e, podcastDetails)
                               }
+                              className="subscribe-button"
                             >
-                              {this.state.subscribed
-                                ? "Unsubscribe"
-                                : "Subscribe"}
+                              {this.state.subscribed ? (
+                                <div
+                                  onClick={(e) =>
+                                    this.subscribeToPodcast(
+                                      e,
+                                      podcastDetails,
+                                      "unsubscribe"
+                                    )
+                                  }
+                                >
+                                  {unsubscribeIcon()} Unsubscribe
+                                </div>
+                              ) : (
+                                <div
+                                  onClick={(e) =>
+                                    this.subscribeToPodcast(
+                                      e,
+                                      podcastDetails,
+                                      "subscribe"
+                                    )
+                                  }
+                                >
+                                  {subscribeIcon()} Subscribe
+                                </div>
+                              )}
                             </button>
                           )}
                       </React.Fragment>
