@@ -43,9 +43,11 @@ class UploadModal extends AuthenticationPage {
     const userDetails = JSON.parse(user);
     console.log("current user ", userDetails);
 
-    this.setState({
-      userId: userDetails._id,
-    });
+    if (userDetails) {
+      this.setState({
+        userId: userDetails._id,
+      });
+    }
 
     try {
       const podcastDescription = this.state.podcastDescription;

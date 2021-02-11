@@ -93,12 +93,14 @@ class DashboardNavBar extends React.Component {
             </form>
           </div>
 
-          <div className="dashboard-profile">
-            <p>{this.props.user}</p>
-            <div className="profile-avatar">
-              <img src={profileImage} alt="profile" />
+          {this.props.user && (
+            <div className="dashboard-profile">
+              <p>{this.props.user}</p>
+              <div className="profile-avatar">
+                <img src={profileImage} alt="profile" />
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </React.Fragment>
     );

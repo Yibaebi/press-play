@@ -163,6 +163,41 @@ function favIcon(color) {
     </React.Fragment>
   );
 }
+function subscribeIcon() {
+  return (
+    <React.Fragment>
+      <svg
+        width="15"
+        height="15"
+        viewBox="0 0 15 15"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M6 11C8.76142 11 11 8.76142 11 6C11 3.23858 8.76142 1 6 1C3.23858 1 1 3.23858 1 6C1 8.76142 3.23858 11 6 11Z"
+          stroke="#E2605B"
+          stroke-width="0.8"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+        <path
+          d="M6 4V8"
+          stroke="#E2605B"
+          stroke-width="0.8"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+        <path
+          d="M4 6H8"
+          stroke="#E2605B"
+          stroke-width="0.8"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </svg>
+    </React.Fragment>
+  );
+}
 
 function bellIcon() {
   return (
@@ -1239,4 +1274,5 @@ export {
   episodeDeleteIcon,
   episodeEditIcon,
   noSubIcon,
+  subscribeIcon,
 };

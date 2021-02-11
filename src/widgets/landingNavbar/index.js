@@ -7,7 +7,7 @@ function LandingNavbar() {
     <nav className="landing-navbar">
       <NavLink to="/">{whiteLogo()}</NavLink>
       <div className="links-container">
-        <NavLink to="/dashboard/home" className="landing-page browse-link">
+        <NavLink to="/dashboard/discover" className="landing-page browse-link">
           Browse Podcasts
         </NavLink>
         <NavLink className="landing-page login-link" to="/login">

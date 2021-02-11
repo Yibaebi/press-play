@@ -16,6 +16,7 @@ import {
   goBackIcon,
   episodeDeleteIcon,
   episodeEditIcon,
+  subscribeIcon,
 } from "../../../assets";
 import { IconLoader } from "../../../utilities";
 import { EpisodeUploadModal } from "../../../widgets/episodeUploadModal";
@@ -124,29 +125,47 @@ class PodcastPage extends Component {
 
   async componentDidMount() {
     try {
-      const userSubscriptions = await getAllUserSubscriptions();
-      console.log("Here are your subscriptions", userSubscriptions.data.data);
+      if (userDetails !== null) {
+        const userSubscriptions = await getAllUserSubscriptions();
+        console.log("Here are your subscriptions", userSubscriptions.data.data);
 
-      const subscribeStatus = checkIfPodcastIsSubscribedTo(
-        this.props.podcastId,
-        userSubscriptions.data.data
-      );
+        const subscribeStatus = checkIfPodcastIsSubscribedTo(
+          this.props.podcastId,
+          userSubscriptions.data.data
+        );
 
-      const podcastResponse = await getAPodcast(this.props.podcastId);
-      console.log("Podcast Details", podcastResponse);
-      this.setState({
-        loading: false,
-      });
-      const episodes = await getAllEpisodesOfAPodcast(this.props.podcastId);
-      console.log("Episodes", episodes.data);
-
-      if (podcastResponse.data && episodes.data) {
+        const podcastResponse = await getAPodcast(this.props.podcastId);
+        console.log("Podcast Details", podcastResponse);
         this.setState({
-          subscribed: subscribeStatus,
-          loading: true,
-          podcastDetails: podcastResponse.data,
-          episodes: episodes.data,
+          loading: false,
         });
+        const episodes = await getAllEpisodesOfAPodcast(this.props.podcastId);
+        console.log("Episodes", episodes.data);
+
+        if (podcastResponse.data && episodes.data) {
+          this.setState({
+            subscribed: subscribeStatus,
+            loading: true,
+            podcastDetails: podcastResponse.data,
+            episodes: episodes.data,
+          });
+        }
+      } else {
+        const podcastResponse = await getAPodcast(this.props.podcastId);
+        console.log("Podcast Details", podcastResponse);
+        this.setState({
+          loading: false,
+        });
+        const episodes = await getAllEpisodesOfAPodcast(this.props.podcastId);
+        console.log("Episodes", episodes.data);
+
+        if (podcastResponse.data && episodes.data) {
+          this.setState({
+            loading: true,
+            podcastDetails: podcastResponse.data,
+            episodes: episodes.data,
+          });
+        }
       }
     } catch (error) {}
   }
@@ -248,6 +267,10 @@ class PodcastPage extends Component {
     });
   };
 
+  redirectToLogin = () => {
+    window.location = "/login";
+  };
+
   render() {
     const { episodes, podcastDetails } = this.state;
 
@@ -262,7 +285,7 @@ class PodcastPage extends Component {
             <p>{episode.likesCount} likes </p>
           </div>
           <div className="button-container">
-            {podcastDetails.userId === userDetails._id && (
+            {userDetails !== null && podcastDetails.userId === userDetails._id && (
               <React.Fragment>
                 <button
                   onClick={(e) => this.handleEpisodeEditModal(e, episode)}
@@ -375,35 +398,44 @@ class PodcastPage extends Component {
                       </p>
                     ) : (
                       <React.Fragment>
-                        {podcastDetails.userId === userDetails._id && (
+                        {userDetails !== null &&
+                          podcastDetails.userId === userDetails._id && (
+                            <React.Fragment>
+                              <button
+                                onClick={(e) =>
+                                  this.handleShowUploadEditModal(
+                                    e,
+                                    this.state.podcastDetails
+                                  )
+                                }
+                              >
+                                {episodeEditIcon()} Update
+                              </button>
+                              <button onClick={this.deletePodcast}>
+                                {" "}
+                                {episodeDeleteIcon()}Delete
+                              </button>
+                            </React.Fragment>
+                          )}
+                        {userDetails === null && (
                           <React.Fragment>
-                            <button
-                              onClick={(e) =>
-                                this.handleShowUploadEditModal(
-                                  e,
-                                  this.state.podcastDetails
-                                )
-                              }
-                            >
-                              {episodeEditIcon()} Update
-                            </button>
-                            <button onClick={this.deletePodcast}>
-                              {" "}
-                              {episodeDeleteIcon()}Delete
+                            <button onClick={(e) => this.redirectToLogin()}>
+                              {subscribeIcon()} Subscribe
                             </button>
                           </React.Fragment>
                         )}
-                        {podcastDetails.userId !== userDetails._id && (
-                          <button
-                            onClick={(e) =>
-                              this.subscribeToPodcast(e, podcastDetails)
-                            }
-                          >
-                            {this.state.subscribed
-                              ? "Unsubscribe"
-                              : "Subscribe"}
-                          </button>
-                        )}
+                        {userDetails !== null &&
+                          podcastDetails.userId !== userDetails._id && (
+                            <button
+                              onClick={(e) =>
+                                this.subscribeToPodcast(e, podcastDetails)
+                              }
+                            >
+                              {this.state.subscribed
+                                ? "Unsubscribe"
+                                : "Subscribe"}
+                            </button>
+                          )}
                       </React.Fragment>
                     )}
                   </div>
@@ -419,14 +451,15 @@ class PodcastPage extends Component {
                 </h6>
 
                 <p>{podcastDetails.description}</p>
-                {podcastDetails.userId === userDetails._id && (
-                  <button
-                    id="episode-upload-button"
-                    onClick={() => this.handleEpisodeUploadModal()}
-                  >
-                    Upload Episode
-                  </button>
-                )}
+                {userDetails !== null &&
+                  podcastDetails.userId === userDetails._id && (
+                    <button
+                      id="episode-upload-button"
+                      onClick={() => this.handleEpisodeUploadModal()}
+                    >
+                      Upload Episode
+                    </button>
+                  )}
               </aside>
               <aside className="episode-section-container">
                 <h2>
