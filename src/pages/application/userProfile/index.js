@@ -16,6 +16,8 @@ import { Logout } from "../../auth/logout";
 import { Home } from "../";
 import { AudioPlayer } from "./../../../utilities/audioPlayer/index";
 import { SubscriptionsPage } from "../Subscription";
+import { FavoritesPage } from "../favoritesPage";
+import { getAPodcast } from "../../../api";
 
 class Dashboard extends React.Component {
   constructor(props) {
@@ -79,9 +81,32 @@ class Dashboard extends React.Component {
     const episodeDetails = episode;
     this.setState({
       launchPlayer: true,
+      favoritesLaunch: false,
       episodeDetails,
       podcastDetails,
     });
+  };
+
+  handleFavoritesPlayerLaunch = async (episode, podcastId) => {
+    console.log("Received podcastId", podcastId);
+    this.setState({
+      favoritesLaunch: false,
+    });
+
+    try {
+      const episodeDetails = episode;
+      const podcastResponse = await getAPodcast(podcastId);
+      console.log("Podcast to be played", podcastResponse.data);
+
+      if (podcastResponse.status) {
+        this.setState({
+          launchPlayer: false,
+          favoritesLaunch: true,
+          episodeDetails,
+          favoritesPodcastDetails: podcastResponse.data,
+        });
+      }
+    } catch (error) {}
   };
 
   render() {
@@ -215,6 +240,15 @@ class Dashboard extends React.Component {
                 )}
               />
               <Route
+                path="/dashboard/favorites"
+                render={(props) => (
+                  <FavoritesPage
+                    playerLaunch={this.handleFavoritesPlayerLaunch}
+                    {...props}
+                  />
+                )}
+              />
+              <Route
                 path="/dashboard/dashboard"
                 render={(props) => (
                   <UserDashboard
@@ -240,6 +274,15 @@ class Dashboard extends React.Component {
             launchPlayer={this.state.launchPlayer}
             episodeDetails={this.state.episodeDetails}
             podcastDetails={this.state.podcastDetails}
+          />
+        )}
+        {this.state.favoritesLaunch && (
+          <AudioPlayer
+            launchPlayer={this.state.favoritesLaunch}
+            favoritesPlayer={true}
+            episodeDetails={this.state.episodeDetails}
+            podcastDetails={this.state.favoritesPodcastDetails}
+            playingEpisoe={true}
           />
         )}
       </React.Fragment>

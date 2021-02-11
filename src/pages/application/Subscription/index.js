@@ -81,26 +81,28 @@ class SubscriptionsPage extends React.Component {
       />
     ));
     return (
-      <section id="subscriptions-main-container">
-        {this.state.showPodcastPage ? (
-          <PodcastPage
-            playerLaunch={this.props.playerLaunch}
-            podcastId={this.state.podcastId}
-            hidePodcastPage={this.hidePodcastPage}
-          />
-        ) : this.state.loading ? (
-          <div className="loading-container">
-            <IconLoaderVariant1 />
-          </div>
-        ) : subscriptionsList.length ? (
-          subscriptionsList
-        ) : (
-          <div className="error-container">
-            {noSubIcon()}
-            <p>You dont have any subscriptions yet.</p>
-          </div>
-        )}
-      </section>
+      <React.Fragment>
+        <div id="home">
+          <section id="subscriptions-main-container">
+            {this.state.showPodcastPage ? (
+              <PodcastPage
+                playerLaunch={this.props.playerLaunch}
+                podcastId={this.state.podcastId}
+                hidePodcastPage={this.hidePodcastPage}
+              />
+            ) : this.state.loading ? (
+              <IconLoaderVariant1 />
+            ) : subscriptionsList.length ? (
+              subscriptionsList
+            ) : (
+              <div className="error-container">
+                {noSubIcon()}
+                <p>You dont have any subscriptions yet.</p>
+              </div>
+            )}
+          </section>
+        </div>
+      </React.Fragment>
     );
   }
 }

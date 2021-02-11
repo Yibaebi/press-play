@@ -1,0 +1,21 @@
+#home.favorites-page {
+  padding-bottom: 1em;
+}
+
+#home.favorites-page .episode-item .button-container button {
+  background-color: white;
+  outline: none;
+  padding: 2px 20px;
+  margin-top: 12px;
+  margin-right: 10px;
+  box-sizing: border-box;
+  border-radius: 32px;
+  border: 2px solid rgba(226, 81, 76, 0.5);
+  transition: all 0.3s ease-in-out;
+  color: #273f48;
+}
+
+#home.favorites-page h4 {
+  margin: 0.9em;
+  margin-left: 0em;
+}

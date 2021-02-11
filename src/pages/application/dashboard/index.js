@@ -99,7 +99,7 @@ class UserDashboard extends React.Component {
           </div>
         </label>
 
-        <p>{podcast.createdAt}</p>
+        <p>{podcast.date}</p>
         <p className="subscribe-count">{podcast.subscriptionsCount || "0"}</p>
         <button onClick={(e) => this.viewPodcastDetails(e, podcast)}>
           View more {angleRightIcon()}
@@ -216,7 +216,7 @@ class UserDashboard extends React.Component {
                               </label>
 
                               <p>Date added</p>
-                              <p>likes</p>
+                              <p>Subscriptions</p>
                             </div>
 
                             {podcastList.length && podcastList}

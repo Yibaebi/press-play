@@ -5,16 +5,14 @@ import "./index.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 // import { PodcastPage } from "./pages/application";
 // import { UploadModal } from "./widgets";
-// import PressPlay from "./PressPlay";
-import { FavoritesPage } from "./pages/application/favoritesPage";
+import PressPlay from "./PressPlay";
 // import { EpisodeUploadModal } from "./widgets/episodeUploadModal";
 // import { AudioPlayer } from "./utilities/audioPlayer/index";
 
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
-      {/* <PressPlay /> */}
-      <FavoritesPage />
+      <PressPlay />
       {/* <UploadModal /> */}
       {/* <PodcastPage /> */}
       {/* <AudioPlayer /> */}
