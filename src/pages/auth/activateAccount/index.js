@@ -14,10 +14,14 @@ class ActivateAccount extends React.Component {
     try {
       const response = await activateAccount(token);
       console.log(response);
-      if (response.status === 200) {
+      if (response.status) {
         this.setState({
           activated: true,
         });
+
+        setTimeout(() => {
+          window.location = "/login";
+        }, 3000);
       }
     } catch (error) {
       console.log(error);
@@ -28,8 +32,8 @@ class ActivateAccount extends React.Component {
     return (
       <div>
         {this.state.activated
-          ? "You have been successfully activated!"
-          : "Something went wrong. Try again"}
+          ? "You have been successfully activated! You're being redirected to your login page."
+          : "Please wait..."}
       </div>
     );
   }

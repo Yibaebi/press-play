@@ -13,9 +13,8 @@ export class AudioPlayer extends Component {
 
       episodeDetails: this.props.episodeDetails,
       podcastDetails: null,
-
       playing: true,
-      liked: null,
+      liked: false,
     };
     this.audioRef = React.createRef();
   }
@@ -34,13 +33,27 @@ export class AudioPlayer extends Component {
       }
     } catch (error) {}
 
-    this.audioRef.current.play();
+    this.setState({
+      playing: true,
+    });
+
+    if (this.props.favoritesPlayer) {
+      this.audioRef.current.play();
+    }
   }
 
-  handleEpisodePlay = (playing) => {
+  handleEpisodePlay = () => {
+    const playing = this.state.playing ? false : true;
+
     if (playing) {
+      this.setState({
+        playing,
+      });
       this.audioRef.current.play();
     } else {
+      this.setState({
+        playing,
+      });
       this.audioRef.current.pause();
     }
   };
@@ -117,7 +130,7 @@ export class AudioPlayer extends Component {
             handleEpisodeProgress={this.handleEpisodeProgress}
             duration={this.state.duration}
             audioSeek={this.handleAudioSeek}
-            playing={this.state.playing}
+            playing={this.state.playing || false}
             episodeId={episodeDetails._id}
             liked={this.state.liked}
           />

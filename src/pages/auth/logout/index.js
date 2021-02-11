@@ -8,6 +8,7 @@ class Logout extends React.Component {
 
   componentDidMount() {
     localStorage.removeItem("userDetails");
+    localStorage.removeItem("token");
     this.setState({
       iconLoader: <IconLoader loadingMessage="We hope to have you back" />,
     });

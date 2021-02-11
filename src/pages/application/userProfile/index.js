@@ -1,6 +1,12 @@
 import React from "react";
 import { NavLink, Route, Switch } from "react-router-dom";
-import { dashboardIcon, homeIcon, logoutIcon } from "../../../assets";
+import {
+  dashboardIcon,
+  favIcon,
+  homeIcon,
+  logoutIcon,
+  rssIcon,
+} from "../../../assets";
 
 import "./userProfile.css";
 import { DashboardNavBar, UploadModal } from "../../../widgets";
@@ -9,6 +15,9 @@ import { UserDashboard } from "../dashboard";
 import { Logout } from "../../auth/logout";
 import { Home } from "../";
 import { AudioPlayer } from "./../../../utilities/audioPlayer/index";
+import { SubscriptionsPage } from "../Subscription";
+import { FavoritesPage } from "../favoritesPage";
+import { getAPodcast } from "../../../api";
 
 class Dashboard extends React.Component {
   constructor(props) {
@@ -72,9 +81,32 @@ class Dashboard extends React.Component {
     const episodeDetails = episode;
     this.setState({
       launchPlayer: true,
+      favoritesLaunch: false,
       episodeDetails,
       podcastDetails,
     });
+  };
+
+  handleFavoritesPlayerLaunch = async (episode, podcastId) => {
+    console.log("Received podcastId", podcastId);
+    this.setState({
+      favoritesLaunch: false,
+    });
+
+    try {
+      const episodeDetails = episode;
+      const podcastResponse = await getAPodcast(podcastId);
+      console.log("Podcast to be played", podcastResponse.data);
+
+      if (podcastResponse.status) {
+        this.setState({
+          launchPlayer: false,
+          favoritesLaunch: true,
+          episodeDetails,
+          favoritesPodcastDetails: podcastResponse.data,
+        });
+      }
+    } catch (error) {}
   };
 
   render() {
@@ -107,19 +139,6 @@ class Dashboard extends React.Component {
                         <span>Discover</span>
                       </NavLink>
                     </li>
-                    {/* <li onClick={(e) => this.handleIconChange(e, "subscription")}>
-                  <Nav.Link
-                    to="/subscription"
-                    disabled={true}
-                    activeClassName="sidebar-active"
-                    >
-                    {rssIcon(
-                      isInView === "subscription" ? iconFocusColor : iconColor
-                      )}
-                    <span>Subscriptions</span>
-                    </Nav.Link>
-                  </li> */}
-
                     {this.props.user && (
                       <li
                         onClick={(e) =>
@@ -130,7 +149,7 @@ class Dashboard extends React.Component {
                           to="/dashboard/subscriptions"
                           activeClassName="sidebar-active"
                         >
-                          {dashboardIcon(
+                          {rssIcon(
                             isInView === "subscriptions"
                               ? iconFocusColor
                               : iconColor
@@ -140,17 +159,15 @@ class Dashboard extends React.Component {
                       </li>
                     )}
 
-{this.props.user && (
+                    {this.props.user && (
                       <li
-                        onClick={(e) =>
-                          this.handleIconChange(e, "favorites")
-                        }
+                        onClick={(e) => this.handleIconChange(e, "favorites")}
                       >
                         <NavLink
                           to="/dashboard/favorites"
                           activeClassName="sidebar-active"
                         >
-                          {dashboardIcon(
+                          {favIcon(
                             isInView === "favorites"
                               ? iconFocusColor
                               : iconColor
@@ -178,16 +195,6 @@ class Dashboard extends React.Component {
                       </li>
                     )}
 
-                    {/* <li onClick={(e) => this.handleIconChange(e, "settings")}>
-                  <Nav.Link
-                    to="/settings"
-                    disabled={true}
-                    activeClassName="sidebar-active diasbled"
-                  >
-                    {settingsIcon(iconColor)}
-                    <span>Settings</span>
-                  </Nav.Link>
-                </li> */}
                     {this.props.user ? (
                       <li onClick={(e) => this.handleIconChange(e, "logout")}>
                         <NavLink to="/logout" activeClassName="sidebar-active">
@@ -223,6 +230,25 @@ class Dashboard extends React.Component {
                 )}
               />
               <Route
+                path="/dashboard/subscriptions"
+                render={(props) => (
+                  <SubscriptionsPage
+                    user={this.props.user}
+                    playerLaunch={this.handlePlayerLaunch}
+                    {...props}
+                  />
+                )}
+              />
+              <Route
+                path="/dashboard/favorites"
+                render={(props) => (
+                  <FavoritesPage
+                    playerLaunch={this.handleFavoritesPlayerLaunch}
+                    {...props}
+                  />
+                )}
+              />
+              <Route
                 path="/dashboard/dashboard"
                 render={(props) => (
                   <UserDashboard
@@ -248,6 +274,15 @@ class Dashboard extends React.Component {
             launchPlayer={this.state.launchPlayer}
             episodeDetails={this.state.episodeDetails}
             podcastDetails={this.state.podcastDetails}
+          />
+        )}
+        {this.state.favoritesLaunch && (
+          <AudioPlayer
+            launchPlayer={this.state.favoritesLaunch}
+            favoritesPlayer={true}
+            episodeDetails={this.state.episodeDetails}
+            podcastDetails={this.state.favoritesPodcastDetails}
+            playingEpisoe={true}
           />
         )}
       </React.Fragment>

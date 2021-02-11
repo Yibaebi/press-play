@@ -59,6 +59,7 @@ class Home extends React.Component {
                             className="recommendations"
                           >
                             <Carousel
+                              podcastId={this.state.podcastId}
                               viewPodcast={this.viewPodcast}
                               getPodcastId={this.getPodcastId}
                             />
@@ -68,6 +69,7 @@ class Home extends React.Component {
                             className="recommendations"
                           >
                             <Carousel
+                              podcastId={this.state.podcastId}
                               viewPodcast={this.viewPodcast}
                               getPodcastId={this.getPodcastId}
                             />
@@ -77,6 +79,7 @@ class Home extends React.Component {
                             className="recommendations"
                           >
                             <Carousel
+                              podcastId={this.state.podcastId}
                               viewPodcast={this.viewPodcast}
                               getPodcastId={this.getPodcastId}
                             />
@@ -86,6 +89,7 @@ class Home extends React.Component {
                             className="recommendations"
                           >
                             <Carousel
+                              podcastId={this.state.podcastId}
                               viewPodcast={this.viewPodcast}
                               getPodcastId={this.getPodcastId}
                             />

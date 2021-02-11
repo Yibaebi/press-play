@@ -17,7 +17,6 @@ class AudioControls extends React.Component {
   state = {
     show: true,
     liked: false,
-    playing: null,
     showAlert: false,
     showUnlikedAlert: false,
     volumeValue: 20,
@@ -97,13 +96,9 @@ class AudioControls extends React.Component {
     this.props.volumeChange(currentVolume);
   };
 
-  handleEpisodePlay = () => {
-    const playing = this.state.playing ? false : true;
-    this.props.handleEpisodePlay(playing);
-    this.setState({
-      playing,
-    });
-  };
+  // handleEpisodePlay = () => {
+  //   this.props.handleEpisodePlay();
+  // };
 
   handleAudioSeek = (e, action) => {
     this.props.audioSeek(e, action);
@@ -135,8 +130,8 @@ class AudioControls extends React.Component {
           >
             {seekBackwardsIcon()}
           </div>
-          <div className="item" onClick={this.handleEpisodePlay}>
-            {this.state.playing ? pauseIcon() : playIcon()}
+          <div className="item" onClick={() => this.props.handleEpisodePlay()}>
+            {this.props.playing ? pauseIcon() : playIcon()}
           </div>
           <div
             className="item"

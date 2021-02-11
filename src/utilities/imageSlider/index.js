@@ -1,24 +1,51 @@
 import React from "react";
+import { getAPodcast } from "../../api";
+import { unsubscribeIcon } from "../../assets";
 
-const ImageSlide = ({ url, title, author, podcastId, getPodcastId }) => {
-  return (
-    <div id="carousel" className="slide-item">
-      <img
-        className="image-slide"
-        src={url}
-        alt=""
-        onClick={(e) => getPodcastId(e, podcastId)}
-      />
+class ImageSlide extends React.Component {
+  state = {
+    author: {},
+  };
+  async componentDidMount() {
+    try {
+      const getCurrentPodcast = await getAPodcast(this.props.podcastId);
+      console.log(getCurrentPodcast.data);
 
-      <div
-        className="slide-item-desc"
-        onClick={(e) => getPodcastId(e, podcastId)}
-      >
-        <h3>{title}</h3>
-        <p>{author}</p>
+      this.setState({
+        author: getCurrentPodcast.data.author,
+      });
+    } catch (error) {}
+  }
+
+  render() {
+    const { author } = { ...this.state };
+    return (
+      <div id="carousel" className="slide-item">
+        <img
+          className="image-slide"
+          src={this.props.url}
+          alt=""
+          onClick={(e) => this.props.getPodcastId(e, this.props.podcastId)}
+        />
+
+        <div
+          className="slide-item-desc"
+          onClick={(e) => this.props.getPodcastId(e, this.props.podcastId)}
+        >
+          <h3>{this.props.title}</h3>
+          <p>{author.firstName + " " + author.lastName}</p>
+        </div>
+
+        {this.props.subscribed && (
+          <button
+            onClick={(e) => this.props.unsubscribe(e, this.props.podcastId)}
+          >
+            {unsubscribeIcon()} Unsubscribe
+          </button>
+        )}
       </div>
-    </div>
-  );
-};
+    );
+  }
+}
 
 export { ImageSlide };

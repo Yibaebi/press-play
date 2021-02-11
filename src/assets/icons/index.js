@@ -12,21 +12,24 @@ function dashboardIcon(color) {
       >
         <path
           d="M12 13.3333V6.66666"
-          stroke={color}
+          stroke="black"
+          stroke-opacity="0.6"
           stroke-width="2"
           stroke-linecap="round"
           stroke-linejoin="round"
         />
         <path
           d="M8 13.3333V2.66666"
-          stroke={color}
+          stroke="black"
+          stroke-opacity="0.6"
           stroke-width="2"
           stroke-linecap="round"
           stroke-linejoin="round"
         />
         <path
           d="M4 13.3333V9.33334"
-          stroke={color}
+          stroke="black"
+          stroke-opacity="0.6"
           stroke-width="2"
           stroke-linecap="round"
           stroke-linejoin="round"
@@ -76,22 +79,22 @@ function homeIcon(color) {
   return (
     <React.Fragment>
       <svg
-        width="16"
-        height="16"
-        viewBox="0 0 16 16"
+        width="18"
+        height="18"
+        viewBox="0 0 18 18"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
         <path
-          d="M2 6L8 1.33333L14 6V13.3333C14 13.687 13.8595 14.0261 13.6095 14.2761C13.3594 14.5262 13.0203 14.6667 12.6667 14.6667H3.33333C2.97971 14.6667 2.64057 14.5262 2.39052 14.2761C2.14048 14.0261 2 13.687 2 13.3333V6Z"
-          stroke={color}
+          d="M9 17C13.4183 17 17 13.4183 17 9C17 4.58172 13.4183 1 9 1C4.58172 1 1 4.58172 1 9C1 13.4183 4.58172 17 9 17Z"
+          stroke="#656565"
           stroke-width="2"
           stroke-linecap="round"
           stroke-linejoin="round"
         />
         <path
-          d="M6 14.6667V8H10V14.6667"
-          stroke={color}
+          d="M9.0001 11.4C10.3256 11.4 11.4001 10.3255 11.4001 9.00001C11.4001 7.67452 10.3256 6.60001 9.0001 6.60001C7.67461 6.60001 6.6001 7.67452 6.6001 9.00001C6.6001 10.3255 7.67461 11.4 9.0001 11.4Z"
+          stroke="#656565"
           stroke-width="2"
           stroke-linecap="round"
           stroke-linejoin="round"
@@ -143,15 +146,107 @@ function favIcon(color) {
   return (
     <React.Fragment>
       <svg
-        width="19"
+        width="18"
         height="18"
-        viewBox="0 0 19 18"
+        viewBox="0 0 18 18"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
         <path
           d="M15.7863 2.41452C15.3953 1.96607 14.9311 1.61034 14.4202 1.36763C13.9093 1.12492 13.3617 1 12.8087 1C12.2557 1 11.7081 1.12492 11.1972 1.36763C10.6863 1.61034 10.2221 1.96607 9.83118 2.41452L9.01981 3.34476L8.20845 2.41452C7.41876 1.50912 6.3477 1.00047 5.23091 1.00047C4.11411 1.00047 3.04305 1.50912 2.25336 2.41452C1.46367 3.31992 1.02002 4.5479 1.02002 5.82833C1.02002 7.10875 1.46367 8.33674 2.25336 9.24214L3.06472 10.1724L9.01981 17L14.9749 10.1724L15.7863 9.24214C16.1774 8.79391 16.4877 8.26171 16.6994 7.67596C16.9111 7.0902 17.02 6.46237 17.02 5.82833C17.02 5.19428 16.9111 4.56645 16.6994 3.9807C16.4877 3.39494 16.1774 2.86275 15.7863 2.41452Z"
           stroke={color}
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </svg>
+    </React.Fragment>
+  );
+}
+function subscribeIcon() {
+  return (
+    <React.Fragment>
+      <svg
+        width="15"
+        height="15"
+        viewBox="0 0 15 15"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M6 11C8.76142 11 11 8.76142 11 6C11 3.23858 8.76142 1 6 1C3.23858 1 1 3.23858 1 6C1 8.76142 3.23858 11 6 11Z"
+          stroke="#E2605B"
+          stroke-width="0.8"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+        <path
+          d="M6 4V8"
+          stroke="#E2605B"
+          stroke-width="0.8"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+        <path
+          d="M4 6H8"
+          stroke="#E2605B"
+          stroke-width="0.8"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </svg>
+    </React.Fragment>
+  );
+}
+function unsubscribeIcon() {
+  return (
+    <React.Fragment>
+      <svg
+        width="15"
+        height="15"
+        viewBox="0 0 15 15"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M6 11C8.76142 11 11 8.76142 11 6C11 3.23858 8.76142 1 6 1C3.23858 1 1 3.23858 1 6C1 8.76142 3.23858 11 6 11Z"
+          stroke="#E2605B"
+          stroke-width="0.8"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+        <path
+          d="M4 6H8"
+          stroke="#E2605B"
+          stroke-width="0.8"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </svg>
+    </React.Fragment>
+  );
+}
+function searchResultsIcon() {
+  return (
+    <React.Fragment>
+      <svg
+        width="75"
+        height="75"
+        viewBox="0 0 75 75"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <circle cx="37.5" cy="37.5" r="37.5" fill="#656565" />
+        <path
+          d="M36.1111 47.2222C42.2476 47.2222 47.2222 42.2476 47.2222 36.1111C47.2222 29.9746 42.2476 25 36.1111 25C29.9746 25 25 29.9746 25 36.1111C25 42.2476 29.9746 47.2222 36.1111 47.2222Z"
+          stroke="white"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+        <path
+          d="M50 50L43.9583 43.9583"
+          stroke="white"
           stroke-width="2"
           stroke-linecap="round"
           stroke-linejoin="round"
@@ -1156,6 +1251,46 @@ function episodeEditIcon() {
     </svg>
   );
 }
+function noSubIcon() {
+  return (
+    <svg
+      width="65"
+      height="65"
+      viewBox="0 0 65 65"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M32.25 63.5C49.5089 63.5 63.5 49.5089 63.5 32.25C63.5 14.9911 49.5089 1 32.25 1C14.9911 1 1 14.9911 1 32.25C1 49.5089 14.9911 63.5 32.25 63.5Z"
+        stroke="#4D4D4D"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+      <path
+        d="M44.75 44.75C44.75 44.75 40.0625 38.5 32.25 38.5C24.4375 38.5 19.75 44.75 19.75 44.75"
+        stroke="#4D4D4D"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+      <path
+        d="M22.875 22.875H22.9062"
+        stroke="#4D4D4D"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+      <path
+        d="M41.625 22.875H41.6563"
+        stroke="#4D4D4D"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+    </svg>
+  );
+}
 
 export {
   dashboardIcon,
@@ -1195,4 +1330,8 @@ export {
   episodePlayIcon,
   episodeDeleteIcon,
   episodeEditIcon,
+  noSubIcon,
+  subscribeIcon,
+  unsubscribeIcon,
+  searchResultsIcon,
 };

@@ -13,9 +13,22 @@
   );
   filter: drop-shadow(80px 120px 100px rgba(0, 0, 0, 0.05));
   backdrop-filter: blur(80px);
-  background-color: crimson;
 }
 
 .dashboard-profile p {
   margin-bottom: 0px;
+}
+
+.dashboard-nav-search form {
+  position: relative;
+}
+
+p.search-error {
+  position: absolute;
+  color: #e2514c;
+  font-size: 0.8rem;
+}
+
+p.search-error .fa-exclamation-circle {
+  color: #e2514c;
 }
