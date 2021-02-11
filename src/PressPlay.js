@@ -1,20 +1,31 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
+import { getUserAvatar } from "./api";
 import { ActivateAccount, Dashboard, LogInPage, SignUpPage } from "./pages";
 import { PasswordResetPage } from "./pages";
-import "./PressPlay.css";
 import { LandingPage } from "./pages/application/landingPage";
 import { Logout } from "./pages/auth/logout";
+import "./PressPlay.css";
 
 class PressPlay extends React.Component {
-  state = { userFirstName: "", userDetails: {} };
+  state = {
+    userFirstName: "",
+    userDetails: {},
+    userAvatar: " https://www.w3schools.com/howto/img_avatar.png",
+  };
 
-  componentDidMount() {
+  async componentDidMount() {
     try {
+      const userAvatar = await getUserAvatar();
+      console.log(userAvatar);
+
       const user = localStorage.getItem("userDetails");
       const userDetails = JSON.parse(user);
       console.log("current user ", userDetails);
-      this.setState({ user: userDetails.firstName, userDetails });
+      this.setState({
+        user: userDetails.lastName,
+        userDetails,
+      });
     } catch (error) {}
   }
 
@@ -33,6 +44,7 @@ class PressPlay extends React.Component {
               <Dashboard
                 user={this.state.user}
                 userDetails={this.state.userDetails}
+                userAvatar={this.state.userAvatar}
                 {...props}
               />
             )}

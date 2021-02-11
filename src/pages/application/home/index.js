@@ -1,5 +1,5 @@
 import React from "react";
-import { Tab, Col, Nav, Row } from "react-bootstrap";
+import { Tab, Nav } from "react-bootstrap";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import "./home.css";
 import { Carousel } from "../../../widgets";

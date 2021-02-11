@@ -7,3 +7,4 @@ export * from "./activateUser";
 export * from "./getCurrentUser";
 export * from "./episodeService";
 export * from "./searchService";
+export * from "./getUserAvatar";

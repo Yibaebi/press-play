@@ -219,7 +219,7 @@
   font-size: 16px;
   line-height: 24px;
   color: #ffffff;
-  width: 341px;
+  width: 300px;
 }
 
 .service-1 h2,
@@ -227,6 +227,7 @@
 .service-3 h2 {
   height: 123px;
   width: 216px;
+  color: white;
 }
 
 #search {
@@ -247,6 +248,8 @@
   text-align: center;
   font-size: 34px;
   color: #273f48;
+  margin-bottom: 32px;
+  max-width: 80%;
 }
 
 .landing-page.search-container .search-images {
@@ -268,6 +271,8 @@
   margin-top: 20px;
   position: relative;
   width: 50%;
+  height: fit-content;
+  margin-bottom: 32px;
 }
 
 .landing-nav-search svg {
@@ -283,7 +288,6 @@
   padding-left: 40px;
   background: #e8e8e8;
   opacity: 0.5;
-  height: 40px;
   height: 36px;
   border: none;
   border-bottom: 1px solid #ced4da;

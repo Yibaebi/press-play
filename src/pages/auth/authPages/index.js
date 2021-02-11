@@ -5,12 +5,7 @@ class AuthenticationPage extends React.Component {
   validateDetails = () => {
     const errors = {};
 
-    const {
-      userEmail,
-      userPassword,
-      userFirstName,
-      userLastName,
-    } = {
+    const { userEmail, userPassword, userFirstName, userLastName } = {
       ...this.state.account,
     };
 
@@ -29,8 +24,8 @@ class AuthenticationPage extends React.Component {
       errors.userPassword = "Password is required!";
     }
 
-    if (userPassword.length < 7) {
-      errors.userPassword = "Password is less than 7 characters";
+    if (userPassword.length < 8) {
+      errors.userPassword = "Password is less than 8 characters";
     }
 
     return Object.keys(errors).length === 0 ? null : errors;
@@ -62,8 +57,8 @@ class AuthenticationPage extends React.Component {
         return "Password is required!";
       }
 
-      if (value.length < 7) {
-        return "Password is too short. Must be at least 7 characters";
+      if (value.length < 8) {
+        return "Password is too short. Must be at least 8 characters";
       }
     }
     if (name === "resetEmail") {
@@ -92,9 +87,9 @@ class AuthenticationPage extends React.Component {
 
   handleHidePassword = () => {
     const iconChange =
-      this.state.iconChange === "far fa-eye"
-        ? "far fa-eye-slash"
-        : "far fa-eye";
+      this.state.iconChange === "far fa-eye-slash"
+        ? "far fa-eye"
+        : "far fa-eye-slash";
 
     const passwordType =
       this.state.passwordType === "password" ? "text" : "password";

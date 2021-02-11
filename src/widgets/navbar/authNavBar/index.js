@@ -7,12 +7,12 @@ function AuthNavBar({ buttonLabel, link }) {
   return (
     <React.Fragment>
       <div className="header-container">
-        <Link to="/dashboard/home">
+        <Link to="/">
           <img src={primaryLogo} alt="pressplay logo" />
         </Link>
         {buttonLabel && (
           <div className="links">
-            <Link to="/home">Browse Podcasts</Link>
+            <Link to="/dashboard/discover">Browse Podcasts</Link>
             <Button
               label={buttonLabel}
               colorClass="white"

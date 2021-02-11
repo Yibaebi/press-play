@@ -5,3 +5,4 @@ export * from "./landingPage";
 export * from "./podcastPage";
 export * from "./Subscription";
 export * from "./favoritesPage";
+export * from "./searchPage";

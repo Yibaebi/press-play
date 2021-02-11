@@ -17,3 +17,11 @@ export function resetPassword(resetEmail) {
     email: resetEmail,
   });
 }
+
+export function confirmPasswordReset(newPassword, token) {
+  const apiEndpoint = apiUrl + "/reset-password";
+  return http.put(apiEndpoint, {
+    newPassword: newPassword,
+    token: token,
+  });
+}

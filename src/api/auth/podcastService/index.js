@@ -2,9 +2,6 @@ import http from "../httpService";
 import { podcastUrl, apiUrl } from "../../../config.json";
 
 const userToken = localStorage.getItem("token");
-console.log(userToken);
-const userDetails = JSON.parse(localStorage.getItem("userDetails"));
-console.log(userDetails);
 
 function capturePodcastDetails(
   coverImage,

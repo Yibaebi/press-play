@@ -35,7 +35,7 @@ class UserDashboard extends React.Component {
         });
       }
     } catch (error) {
-      alert("Something Failed");
+      alert("Something Failed. Try again.");
     }
 
     console.log(this.props.userDetails);
@@ -59,11 +59,23 @@ class UserDashboard extends React.Component {
     });
   };
 
-  handlePodcastCreation = (inProgress, completed) => {
+  handlePodcastCreation = async (inProgress, completed) => {
     this.setState({
       createInProgress: inProgress,
       createSuccess: completed,
     });
+
+    try {
+      const userPodcasts = await getAllPodcastsOfUser();
+      console.log("User's podcasts", userPodcasts.data.data);
+      if (userPodcasts.status && userPodcasts.data.data) {
+        this.setState({
+          userPodcasts: userPodcasts.data.data,
+        });
+      }
+    } catch (error) {
+      alert("Something Failed. Try again.");
+    }
   };
 
   getPodcastId = (e, podcastId) => {
@@ -169,7 +181,8 @@ class UserDashboard extends React.Component {
                               {this.state.createSuccess ? (
                                 <h4>
                                   <i className="fas fa-check-square"></i>{" "}
-                                  Podcast created successfully
+                                  Podcast created successfully. Click on view
+                                  podcast to view new podcast.
                                 </h4>
                               ) : (
                                 <div id="podcast-creation-loader">

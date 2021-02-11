@@ -25,10 +25,12 @@ import {
 } from "../../../assets";
 import { LandingNavbar } from "../../../widgets";
 
+const userDetails = JSON.parse(localStorage.getItem("userDetails"));
+
 function LandingPage() {
   return (
     <React.Fragment>
-      <LandingNavbar />
+      <LandingNavbar user={userDetails && userDetails.firstName} />
       <main>
         <section className="landing-page container-red">
           <aside className="landing-page hero-description">
