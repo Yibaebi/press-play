@@ -15,7 +15,7 @@ class LogInPage extends AuthenticationPage {
     account: { userEmail: "", userPassword: "" },
     checked: false,
     errors: {},
-    iconChange: "far fa-eye",
+    iconChange: "far fa-eye-slash",
     passwordType: "password",
     showModal: false,
     IconLoader: "",
@@ -34,8 +34,8 @@ class LogInPage extends AuthenticationPage {
       errors.userPassword = "Password is required!";
     }
 
-    if (userPassword.length < 7) {
-      errors.userPassword = "Password is less than 7 characters";
+    if (userPassword.length < 8) {
+      errors.userPassword = "Password is less than 8 characters";
     }
 
     return Object.keys(errors).length === 0 ? null : errors;

@@ -99,8 +99,6 @@ class EpisodeUploadModal extends UploadModal {
     });
 
     if (this.state.progressBar === 100) {
-      alert("Yes!");
-
       this.setState({
         disabled: false,
         uploadInProgress: true,

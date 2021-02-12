@@ -95,8 +95,6 @@ class PodcastPage extends Component {
       deletePodcast: false,
     });
 
-    alert(this.state.podcastDetails._id);
-
     try {
       const deleteResponse = await deletePodcast(this.state.podcastDetails._id);
       console.log("Delete Response", deleteResponse.data);
@@ -107,7 +105,7 @@ class PodcastPage extends Component {
         });
       }
       setTimeout(() => {
-        window.location = "/dashboard/home";
+        window.location = "/dashboard/dashboard";
       }, 3000);
     } catch (error) {}
   };
@@ -183,7 +181,7 @@ class PodcastPage extends Component {
       this.setState({
         newBadge: false,
       });
-    }, 20000);
+    }, 2000000);
   };
 
   handleEpisodeDelete = async (e, episodeId) => {
@@ -261,6 +259,7 @@ class PodcastPage extends Component {
   handlePodcastUpdate = (podcast) => {
     const newPodcastDetails = podcast;
     newPodcastDetails.author = this.state.podcastDetails.author;
+    newPodcastDetails.date = this.state.podcastDetails.date;
 
     this.setState({
       podcastDetails: newPodcastDetails,
@@ -331,7 +330,7 @@ class PodcastPage extends Component {
                           this.handleEpisodeDelete(e, episode._id)
                         }
                       >
-                        Delete
+                        Yes
                       </button>
                     </React.Fragment>
                   )}

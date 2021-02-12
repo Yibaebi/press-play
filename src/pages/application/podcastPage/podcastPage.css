@@ -255,14 +255,14 @@ p.deleting-message.deleted {
 /* Upload in progress */
 .upload-in-progress {
   position: relative;
-  background-color: #273f48;
+  background-color: white;
   width: 100%;
   height: 50%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  color: white;
+  color: #273f48;
   font-weight: 700;
   top: 50%;
   transform: translateY(-50%);
@@ -270,12 +270,12 @@ p.deleting-message.deleted {
 
 .upload-in-progress .fa-check-square {
   margin-left: 10px;
-  color: white;
+  color: #273f48;
   font-size: 1.3rem;
 }
 
 .upload-in-progress.completed {
-  background-color: #e2514c;
+  background-color: #fff;
   flex-direction: row;
 }
 
@@ -283,7 +283,7 @@ p.deleting-message.deleted {
 .new-badge {
   color: white;
   font-weight: 400;
-  border-radius: 20px;
+  border-radius: 10px;
   font-size: 0.7rem;
   margin-left: 10px;
   padding: 5px;

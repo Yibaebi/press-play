@@ -18,6 +18,7 @@ import { AudioPlayer } from "./../../../utilities/audioPlayer/index";
 import { SubscriptionsPage } from "../Subscription";
 import { FavoritesPage } from "../favoritesPage";
 import { getAPodcast } from "../../../api";
+import { SearchPage } from "../searchPage";
 
 class Dashboard extends React.Component {
   constructor(props) {
@@ -33,6 +34,9 @@ class Dashboard extends React.Component {
       launchPlayer: false,
       episodeDetails: {},
       podcastDetails: {},
+
+      // Search page
+      searchPage: false,
     };
   }
 
@@ -109,13 +113,34 @@ class Dashboard extends React.Component {
     } catch (error) {}
   };
 
+  showSearchResults = (searchQuery) => {
+    if (searchQuery) {
+      console.log("This ran");
+      this.setState({
+        searchPage: false,
+      });
+    }
+
+    setTimeout(() => {
+      console.log("This also ran");
+      this.setState({
+        searchPage: true,
+        searchQuery,
+      });
+    }, 2000);
+  };
+
   render() {
     const { isInView, iconColor, iconFocusColor } = this.state;
     return (
       <React.Fragment>
         <div id="main-wrapper">
           <nav id="sidebar-nav-wrapper">
-            <DashboardNavBar user={this.props.user} />
+            <DashboardNavBar
+              user={this.props.user}
+              userAvatar={this.props.userAvatar}
+              showSearchResults={this.showSearchResults}
+            />
           </nav>
           <main className="main-body">
             <section id="sidebar-nav-links">
@@ -218,50 +243,56 @@ class Dashboard extends React.Component {
                 </div>
               </div>
             </section>
-            <Switch>
-              <Route
-                path="/dashboard/discover"
-                render={(props) => (
-                  <Home
-                    user={this.props.user}
-                    playerLaunch={this.handlePlayerLaunch}
-                    {...props}
-                  />
-                )}
-              />
-              <Route
-                path="/dashboard/subscriptions"
-                render={(props) => (
-                  <SubscriptionsPage
-                    user={this.props.user}
-                    playerLaunch={this.handlePlayerLaunch}
-                    {...props}
-                  />
-                )}
-              />
-              <Route
-                path="/dashboard/favorites"
-                render={(props) => (
-                  <FavoritesPage
-                    playerLaunch={this.handleFavoritesPlayerLaunch}
-                    {...props}
-                  />
-                )}
-              />
-              <Route
-                path="/dashboard/dashboard"
-                render={(props) => (
-                  <UserDashboard
-                    user={this.props.user}
-                    userDetails={this.props.userDetails}
-                    uploadModal={this.showPodcastModal}
-                    playerLaunch={this.handlePlayerLaunch}
-                    {...props}
-                  />
-                )}
-              />
-              <Route path="/logout" component={Logout} />
-            </Switch>
+            {this.state.searchQuery ? (
+              <React.Fragment>
+                <SearchPage searchQuery={this.state.searchQuery} />
+              </React.Fragment>
+            ) : (
+              <Switch>
+                <Route
+                  path="/dashboard/discover"
+                  render={(props) => (
+                    <Home
+                      user={this.props.user}
+                      playerLaunch={this.handlePlayerLaunch}
+                      {...props}
+                    />
+                  )}
+                />
+                <Route
+                  path="/dashboard/subscriptions"
+                  render={(props) => (
+                    <SubscriptionsPage
+                      user={this.props.user}
+                      playerLaunch={this.handlePlayerLaunch}
+                      {...props}
+                    />
+                  )}
+                />
+                <Route
+                  path="/dashboard/favorites"
+                  render={(props) => (
+                    <FavoritesPage
+                      playerLaunch={this.handleFavoritesPlayerLaunch}
+                      {...props}
+                    />
+                  )}
+                />
+                <Route
+                  path="/dashboard/dashboard"
+                  render={(props) => (
+                    <UserDashboard
+                      user={this.props.user}
+                      userDetails={this.props.userDetails}
+                      uploadModal={this.showPodcastModal}
+                      playerLaunch={this.handlePlayerLaunch}
+                      {...props}
+                    />
+                  )}
+                />
+                <Route path="/logout" component={Logout} />
+              </Switch>
+            )}
           </main>
           <UploadModal
             uploadPodcast={false}

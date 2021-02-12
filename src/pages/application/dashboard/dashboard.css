@@ -134,6 +134,7 @@
 
 .podcast-success-message h4 {
   color: #273f48;
+  font-size: 1rem;
 }
 
 #podcast-creation-loader {
@@ -155,4 +156,16 @@
 
 #dashboard-podcast-page h2 {
   margin-left: 0px;
+}
+
+.podcast-badge {
+  margin-left: 5px;
+  background-color: #273f48;
+  color: white;
+  padding: 5px 8px;
+  border-radius: 10px;
+}
+
+.nav-link.active span {
+  background-color: #e2514c;
 }

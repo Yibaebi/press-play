@@ -1,0 +1,26 @@
+.activate-account-container {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 500;
+  font-size: 1rem;
+  text-align: center;
+}
+
+.activate-account-container .fa-check-square,
+.activate-account-container .fa-exclamation-circle {
+  margin-right: 8px;
+}
+
+.activate-account-container span,
+.activate-account-container p,
+.activate-account-container .fa-exclamation-circle {
+  color: #e2514c;
+  font-weight: 600;
+}
+
+.activate-account-container p {
+  max-width: 300px;
+}

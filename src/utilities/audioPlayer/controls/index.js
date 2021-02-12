@@ -23,18 +23,18 @@ class AudioControls extends React.Component {
   };
 
   async componentDidMount() {
-    // try {
-    //   const getCurrentLikes = await getAllUserLikes();
-    //   for (let episode of getCurrentLikes.data.data) {
-    //     console.log(episode);
-    //     if (episode._id === this.props.episodeId) {
-    //       console.log("liked");
-    //       this.setState({
-    //         liked: true,
-    //       });
-    //     }
-    //   }
-    // } catch (error) {}
+    try {
+      const getCurrentLikes = await getAllUserLikes();
+      for (let episode of getCurrentLikes.data.data) {
+        console.log(episode);
+        if (episode._id === this.props.episodeId) {
+          console.log("liked");
+          this.setState({
+            liked: true,
+          });
+        }
+      }
+    } catch (error) {}
     this.setState({
       playing: this.props.playing,
     });
@@ -63,10 +63,10 @@ class AudioControls extends React.Component {
       } catch (error) {}
     } else {
       try {
-        const unlikelikeResponse = await unlikeAnEpisode(this.props.episodeId);
-        console.log(unlikelikeResponse.data);
+        const unlikeResponse = await unlikeAnEpisode(this.props.episodeId);
+        console.log(unlikeResponse.data);
 
-        if (unlikelikeResponse.status) {
+        if (unlikeResponse.status) {
           this.setState({
             liked,
             showUnlikeAlert: true,

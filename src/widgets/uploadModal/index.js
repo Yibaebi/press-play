@@ -101,18 +101,13 @@ class UploadModal extends AuthenticationPage {
     });
 
     if (this.state.progressBar === 100) {
-      alert("Yes!");
-
       this.setState({
         disabled: false,
       });
 
-      this.setState({
-        editInProgress: true,
-      });
-
       //If a user does not want to edit his podcast
       if (!this.props.podcastEditIntention) {
+        this.props.closeModal();
         this.props.createSuccess(true, false);
 
         const podcastOrEpisodeDetails = capturePodcastDetails(
@@ -130,21 +125,23 @@ class UploadModal extends AuthenticationPage {
 
           console.log("Created podcast", newPodcastDetails);
 
-          // if (response.status) {
-          //     this.props.createSuccess(true, true);
-          //   }
-
-          //   this.props.updatePodcast(newPodcastDetails);
+          if (response.status) {
+            this.props.createSuccess(true, true);
+          }
 
           setTimeout(() => {
-            this.props.closeModal();
-          }, 2000);
+            this.props.createSuccess(false, false);
+          }, 3000);
         } catch (error) {
           console.log("Error", error);
           alert("Failed");
-          // window.location = "/dashboard/dashboard";
+          window.location = "/dashboard/dashboard";
         }
       } else {
+        this.setState({
+          editInProgress: true,
+        });
+
         const podcastOrEpisodeDetails = capturePodcastDetails(
           this.props.podcastDetails.coverImageUrl,
           this.state.podcastDescription.podcastTitle,
@@ -160,14 +157,10 @@ class UploadModal extends AuthenticationPage {
           );
 
           const newPodcastDetails = response.data.data;
+          console.log("New podcast details", newPodcastDetails);
 
           if (response.status) {
-            if (!this.props.podcastEditIntention) {
-              this.props.createSuccess(true, true);
-            }
-
             this.props.updatePodcast(newPodcastDetails);
-
             this.setState({
               editInProgress: true,
               updateCompleted: true,
@@ -175,7 +168,7 @@ class UploadModal extends AuthenticationPage {
 
             setTimeout(() => {
               this.props.closeModal();
-            }, 2000);
+            }, 3000);
           }
         } catch (error) {
           console.log("Error", error);

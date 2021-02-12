@@ -5,7 +5,7 @@ import { Input } from "../../../components";
 import { AuthenticationPage } from "../authPages";
 import { AuthNavBar } from "../../../widgets";
 import "./passwordReset.css";
-import { resetPassword } from "../../../api";
+import { confirmPasswordReset, resetPassword } from "../../../api";
 
 class PasswordResetPage extends AuthenticationPage {
   state = {
@@ -85,7 +85,7 @@ class PasswordResetPage extends AuthenticationPage {
       ...this.state.account,
     };
 
-    if (resetEmail) {
+    if (resetEmail && !this.state.token) {
       this.setState({
         showModal: true,
       });
@@ -106,8 +106,15 @@ class PasswordResetPage extends AuthenticationPage {
           });
         }
       }
-    } else if (newPassword === confirmPassword) {
-      console.log(newPassword, confirmPassword);
+    } else if (newPassword === confirmPassword && this.state.token) {
+      console.log(newPassword, confirmPassword, this.state.token);
+      e.preventDefault();
+      try {
+        const resetResponse = await confirmPasswordReset(
+          this.state.account.newPassword
+        );
+        console.log(resetResponse.data);
+      } catch (error) {}
 
       this.setState({
         showModal: true,

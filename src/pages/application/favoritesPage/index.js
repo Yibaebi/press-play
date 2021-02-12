@@ -45,10 +45,10 @@ class FavoritesPage extends PodcastPage {
       });
     }
 
-    // try {
-    //   const likedEpisodeResponse = await getAllUserLikes();
-    //   console.log(likedEpisodeResponse.data);
-    // } catch (error) {}
+    try {
+      const likedEpisodeResponse = await getAllUserLikes();
+      console.log("Liked episodes", likedEpisodeResponse.data.data);
+    } catch (error) {}
   }
 
   render() {

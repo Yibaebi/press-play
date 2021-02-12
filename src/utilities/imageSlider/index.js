@@ -19,6 +19,10 @@ class ImageSlide extends React.Component {
 
   render() {
     const { author } = { ...this.state };
+    function capitalizeFirstLetter(string) {
+      return string.charAt(0).toUpperCase() + string.slice(1);
+    }
+
     return (
       <div id="carousel" className="slide-item">
         <img
@@ -33,7 +37,14 @@ class ImageSlide extends React.Component {
           onClick={(e) => this.props.getPodcastId(e, this.props.podcastId)}
         >
           <h3>{this.props.title}</h3>
-          <p>{author.firstName + " " + author.lastName}</p>
+          {author.firstName ? (
+            <p>
+              {capitalizeFirstLetter(author.firstName)}{" "}
+              {capitalizeFirstLetter(author.lastName)}
+            </p>
+          ) : (
+            <p>Loading...</p>
+          )}
         </div>
 
         {this.props.subscribed && (
