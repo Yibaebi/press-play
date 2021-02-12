@@ -26,37 +26,7 @@ class DashboardNavBar extends React.Component {
 
   handleFormSubmit = async (e) => {
     e.preventDefault();
-    console.log("Current Query:", this.state.searchQuery);
-
-    if (this.state.searchQuery) {
-      try {
-        const searchResponse = await searchService(this.state.searchQuery);
-        if (searchResponse.data.length === 0) {
-          this.setState({
-            searchError: true,
-            emptyResults: true,
-          });
-
-          setTimeout(() => {
-            this.setState({
-              searchError: false,
-              emptyResults: false,
-            });
-          }, 3000);
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    } else {
-      this.setState({
-        searchError: true,
-      });
-      setTimeout(() => {
-        this.setState({
-          searchError: false,
-        });
-      }, 4000);
-    }
+    this.props.showSearchResults(this.state.searchQuery);
   };
 
   render() {
@@ -79,7 +49,7 @@ class DashboardNavBar extends React.Component {
                 type="search"
                 value={this.state.searchQuery}
                 onChange={this.handleInputChange}
-                placeholder="Find a podcast"
+                placeholder="find your favourite podcasts"
               />
               {this.state.searchError && (
                 <p className="search-error">

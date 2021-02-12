@@ -157,14 +157,10 @@ class UploadModal extends AuthenticationPage {
           );
 
           const newPodcastDetails = response.data.data;
+          console.log("New podcast details", newPodcastDetails);
 
           if (response.status) {
-            if (!this.props.podcastEditIntention) {
-              this.props.createSuccess(true, true);
-            }
-
             this.props.updatePodcast(newPodcastDetails);
-
             this.setState({
               editInProgress: true,
               updateCompleted: true,
@@ -172,7 +168,7 @@ class UploadModal extends AuthenticationPage {
 
             setTimeout(() => {
               this.props.closeModal();
-            }, 2000);
+            }, 3000);
           }
         } catch (error) {
           console.log("Error", error);

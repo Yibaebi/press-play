@@ -130,7 +130,10 @@ class UserDashboard extends React.Component {
                 </Nav.Link>
               </Nav.Item>
               <Nav.Item>
-                <Nav.Link eventKey="second">View Podcasts</Nav.Link>
+                <Nav.Link eventKey="second">
+                  Podcasts{" "}
+                  <span className="podcast-badge">{podcastList.length}</span>
+                </Nav.Link>
               </Nav.Item>
             </Nav>
             <Tab.Content>

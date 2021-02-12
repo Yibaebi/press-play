@@ -113,6 +113,23 @@ class Dashboard extends React.Component {
     } catch (error) {}
   };
 
+  showSearchResults = (searchQuery) => {
+    if (searchQuery) {
+      console.log("This ran");
+      this.setState({
+        searchPage: false,
+      });
+    }
+
+    setTimeout(() => {
+      console.log("This also ran");
+      this.setState({
+        searchPage: true,
+        searchQuery,
+      });
+    }, 2000);
+  };
+
   render() {
     const { isInView, iconColor, iconFocusColor } = this.state;
     return (
@@ -122,6 +139,7 @@ class Dashboard extends React.Component {
             <DashboardNavBar
               user={this.props.user}
               userAvatar={this.props.userAvatar}
+              showSearchResults={this.showSearchResults}
             />
           </nav>
           <main className="main-body">
@@ -225,9 +243,9 @@ class Dashboard extends React.Component {
                 </div>
               </div>
             </section>
-            {this.state.searchPage ? (
+            {this.state.searchQuery ? (
               <React.Fragment>
-                <SearchPage />
+                <SearchPage searchQuery={this.state.searchQuery} />
               </React.Fragment>
             ) : (
               <Switch>
