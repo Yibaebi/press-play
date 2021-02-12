@@ -4,7 +4,7 @@ import {
   unsubscribeToAPodcast,
 } from "../../../api/auth/podcastService";
 import { noSubIcon } from "../../../assets/icons";
-import { IconLoaderVariant1 } from "../../../utilities";
+import { IconLoader, IconLoaderVariant1 } from "../../../utilities";
 import { ImageSlide } from "../../../utilities/imageSlider";
 import { PodcastPage } from "../podcastPage";
 import "./subscription.css";
@@ -90,9 +90,17 @@ class SubscriptionsPage extends React.Component {
                 hidePodcastPage={this.hidePodcastPage}
               />
             ) : this.state.loading ? (
-              <IconLoaderVariant1 />
+              <div id="icon-loading-container">
+                <IconLoader />
+              </div>
             ) : subscriptionsList.length ? (
-              subscriptionsList
+              <React.Fragment>
+                <h6>These are podcasts you are currently subscribed to</h6>
+                <div className="subscription-list-container">
+                  {" "}
+                  {subscriptionsList}
+                </div>
+              </React.Fragment>
             ) : (
               <div className="error-container">
                 {noSubIcon()}

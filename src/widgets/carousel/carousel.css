@@ -54,8 +54,7 @@
 
 .slide-item {
   transition: all 0.5s ease-in-out;
-  margin: 10px;
-  box-shadow: 0px 4px rgba(196, 196, 196, 0.3);
+  margin: 16px;
 }
 
 .slide-item:hover {
@@ -78,7 +77,6 @@
 .slide-item {
   background: #ffffff;
   border-radius: 0px 0px 12px 12px;
-  padding: 15px;
   text-decoration: none;
   border-radius: 12px;
 }

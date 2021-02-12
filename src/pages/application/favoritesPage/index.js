@@ -1,7 +1,7 @@
-import React, { Component } from "react";
-import { getAllUserLikes, getAnEpisode } from "../../../api";
+import React from "react";
+import { getAllUserLikes } from "../../../api";
 import { episodePlayIcon, noSubIcon } from "../../../assets";
-import { IconLoaderVariant1 } from "../../../utilities";
+import { IconLoader } from "../../../utilities";
 import { PodcastPage } from "../podcastPage";
 import "./favorites.css";
 
@@ -18,36 +18,22 @@ class FavoritesPage extends PodcastPage {
     this.setState({
       loading: true,
     });
-    const currentUser = JSON.parse(localStorage.getItem("userDetails"));
-    const { likedEpisodes } = { ...currentUser };
-    console.log("Favorites page: ", likedEpisodes);
-    let likedEpisodesList = [];
-
-    for (let episode of likedEpisodes) {
-      try {
-        const listItem = await getAnEpisode(episode);
-        console.log("Current episode", listItem);
-        likedEpisodesList.push(listItem.data);
-      } catch (error) {
-        continue;
-      }
-    }
-
-    console.log("Episode list", likedEpisodesList);
-
-    if (likedEpisodesList.length) {
-      this.setState({ loading: false, episodes: likedEpisodesList });
-    }
-
-    if (likedEpisodesList.length === 0) {
-      this.setState({
-        emptyList: true,
-      });
-    }
 
     try {
       const likedEpisodeResponse = await getAllUserLikes();
       console.log("Liked episodes", likedEpisodeResponse.data.data);
+      if (likedEpisodeResponse.data.data.length) {
+        this.setState({
+          loading: false,
+          episodes: likedEpisodeResponse.data.data,
+        });
+      }
+
+      if (likedEpisodeResponse.data.data.length === 0) {
+        this.setState({
+          emptyList: true,
+        });
+      }
     } catch (error) {}
   }
 
@@ -115,7 +101,13 @@ class FavoritesPage extends PodcastPage {
           ) : (
             <React.Fragment>
               <h4>Here are your liked episodes</h4>
-              {this.state.loading ? <IconLoaderVariant1 /> : episodesList}
+              {this.state.loading ? (
+                <div id="icon-loading-container">
+                  <IconLoader />
+                </div>
+              ) : (
+                episodesList
+              )}
             </React.Fragment>
           )}
         </div>

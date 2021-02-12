@@ -7,13 +7,12 @@
   margin-top: 20px;
   display: flex;
   flex-direction: column;
-  width: 500px;
-  height: fit-content;
+  width: 100%;
+  height: 400px;
 }
 
 #icon-loading-container > .loader-container svg {
   display: flex;
-
   fill: #273f48;
 }
 
