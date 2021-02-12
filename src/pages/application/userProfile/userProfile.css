@@ -19,8 +19,8 @@
   width: 100%;
   height: fit-content;
   padding: 0px;
-  padding-top: 10px;
-  border-top: 1px solid rgb(0, 0, 0, 0.03);
+  margin-top: 20px;
+  margin-bottom: 20px;
   text-align: center;
   z-index: 10000;
 }
@@ -40,7 +40,7 @@
 }
 
 .nav-item a {
-  color: #273f48;
+  color: #b3b3b3;
   font-weight: 600;
   text-align: center;
   width: 100%;
@@ -86,7 +86,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #fdfdfd;
+  background: #fcfcfc;
 }
 .sidebar-modal .logo-container {
   position: relative;
@@ -102,7 +102,7 @@
 }
 
 #sidebar-nav-links {
-  background-color: #fdfdfd;
+  background-color: #fcfcfc;
   position: relative;
 }
 
@@ -117,7 +117,7 @@
 .sidebar-modal-wrapper {
   height: 100%;
   width: 300px;
-  background-color: #fdfdfd;
+  background-color: #fcfcfc;
 }
 
 .sidebar-links {
@@ -184,20 +184,7 @@
 }
 
 #sidebar-nav-wrapper {
-  background: radial-gradient(
-    817.57% 12112.48% at 0.87% 6.77%,
-    #ffffff 0%,
-    rgba(255, 255, 255, 0) 100%
-  );
-  filter: drop-shadow(80px 120px 100px rgba(0, 0, 0, 0.05));
-  backdrop-filter: blur(80px);
-  background: radial-gradient(
-    817.57% 12112.48% at 0.87% 6.77%,
-    #ffffff 0%,
-    rgba(255, 255, 255, 0) 100%
-  );
-  filter: drop-shadow(80px 120px 100px rgba(0, 0, 0, 0.05));
-  backdrop-filter: blur(80px);
+  background-color: #fff;
   display: grid;
   grid-template-columns: 300px 1fr;
 }
@@ -217,12 +204,7 @@
   overflow: auto;
   height: 88vh;
   width: 100%;
-  background: rgb(232, 232, 232);
-  background: radial-gradient(
-    circle,
-    rgba(232, 232, 232, 0.7651435574229692) 0%,
-    rgba(255, 255, 255, 1) 100%
-  );
+  background-color: #fff;
   position: relative;
 }
 
@@ -278,7 +260,7 @@
 /* Styles for main body */
 .main-body {
   display: grid;
-  grid-template-columns: 300px 1fr;
+  grid-template-columns: 300px 1fr 200px;
   height: 100%;
 }
 .content-wrapper {

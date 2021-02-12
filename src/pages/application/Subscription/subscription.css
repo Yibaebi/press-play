@@ -1,6 +1,7 @@
 #subscriptions-main-container {
   height: 100%;
   position: relative;
+  padding: 20px;
 }
 
 #subscriptions-main-container .loading-container svg {
@@ -78,4 +79,11 @@
   color: #273f48;
   margin-bottom: 0px;
   margin-top: 6px;
+}
+
+#subscriptions-main-container h6 {
+  margin: 20px 0px;
+}
+#subscriptions-main-container .subscription-list-container {
+  display: flex;
 }

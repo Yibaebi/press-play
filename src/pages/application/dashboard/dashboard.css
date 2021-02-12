@@ -17,7 +17,7 @@
 }
 
 .podcast-listing-container {
-  width: 80%;
+  width: 100%;
   height: fit-content;
   display: grid;
   grid-template-columns: 40% 20% 20% 20%;
@@ -27,6 +27,19 @@
   text-align: center;
   padding: 15px;
   align-content: center;
+}
+
+.podcast-listing-container button {
+  background-color: transparent;
+  width: 120px;
+  padding: 5px 8px;
+  border: none;
+  transition: all 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.podcast-listing-container button:hover {
+  border-radius: 32px;
+  padding: 2px 8px;
 }
 .podcast-listing.header {
   width: 80%;
