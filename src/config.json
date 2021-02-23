@@ -1,0 +1,7 @@
+{
+  "apiUrl": "https://press-play-api.herokuapp.com/api/users",
+  "activationUrl": "https://press-play-api.herokuapp.com/api/users/activate-account",
+  "podcastUrl": "https://press-play-api.herokuapp.com/api/podcasts",
+  "episodeUrl": "https://press-play-api.herokuapp.com/api/episodes",
+  "likeAndUnlike": "https://press-play-api.herokuapp.com/api/users"
+}

@@ -1,0 +1,36 @@
+#search-page {
+  height: 80%;
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#search-page + p {
+  margin-top: 15px;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 18px;
+  color: #656565;
+}
+
+.search-results {
+  height: 100%;
+}
+
+.search-results h3 {
+  margin: 20px;
+}
+
+#search-page .search-results p {
+  font-weight: 14px;
+}
+
+#search-page #podcast-page .podcast-page-title-box button {
+  font-size: 0.7rem;
+}
+
+#search-page h4 {
+  width: 80%;
+}

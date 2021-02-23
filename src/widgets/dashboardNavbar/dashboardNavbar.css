@@ -1,0 +1,34 @@
+.sidebar-nav-wrapper {
+  background: radial-gradient(
+    817.57% 12112.48% at 0.87% 6.77%,
+    #ffffff 0%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  filter: drop-shadow(80px 120px 100px rgba(0, 0, 0, 0.05));
+  backdrop-filter: blur(80px);
+  background: radial-gradient(
+    817.57% 12112.48% at 0.87% 6.77%,
+    #ffffff 0%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  filter: drop-shadow(80px 120px 100px rgba(0, 0, 0, 0.05));
+  backdrop-filter: blur(80px);
+}
+
+.dashboard-profile p {
+  margin-bottom: 0px;
+}
+
+.dashboard-nav-search form {
+  position: relative;
+}
+
+p.search-error {
+  position: absolute;
+  color: #e2514c;
+  font-size: 0.8rem;
+}
+
+p.search-error .fa-exclamation-circle {
+  color: #e2514c;
+}

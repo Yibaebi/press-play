@@ -1,0 +1,21 @@
+#home {
+  width: 100%;
+}
+
+#home #tab-container {
+  background-color: tomato;
+}
+
+#podcast-container.recommendations {
+  width: fit-content;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  position: relative;
+}
+
+#podcast-container.recommendations img {
+  border-radius: 15px;
+  width: 100px;
+  height: 100px;
+}
